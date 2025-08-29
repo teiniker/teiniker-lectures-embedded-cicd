@@ -2,4 +2,4 @@
 
 
 
-*Egon Teiniker, 2020-2025, GPL v3.0*
+*Egon Teiniker, 2025, GPL v3.0*
