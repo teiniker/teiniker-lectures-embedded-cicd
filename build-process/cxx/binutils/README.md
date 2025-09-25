@@ -110,5 +110,7 @@ Here are the most important tools we will encounter:
 
 * [GNU Binutils Documentation](https://sourceware.org/binutils/docs/binutils.html)
 
+* [YouTube (Jacob Sorber): How to Inspect Compiled Binaries (binutils, objdump)](https://youtu.be/bWMIpHVRFUo?si=a39rPSsaZV-F2-yc)
+* [YouTube (LinuxConf): Binutils for fun and profit: understanding Linux binaries](https://youtu.be/htepUJY8nH8?si=E9IzhniADTLLq1aD)
 
 *Egon Teiniker, 2025, GPL v3.0*
