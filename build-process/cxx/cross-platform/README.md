@@ -82,8 +82,7 @@ There is NO WARRANTY, to the extent permitted by law.
 ```bash
 $ mkdir -p Downloads/raspi5-toolchain
 $ cd Downloads/raspi5-toolchain
-$ code .config   
-    => copy settings from https://github.com/ffg-coin-endless/ENDLESS-Embedded-Linux/blob/main/Crosstool-NG/configs/raspi5.config
+$ code .config                          // see: config-examples 
 $ ct-ng build
 $ sudo mv x-tools/ /opt/
 
