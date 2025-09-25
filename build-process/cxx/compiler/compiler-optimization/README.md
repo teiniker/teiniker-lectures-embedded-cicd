@@ -1,6 +1,6 @@
 # C Compiler Optimization
 
-## gcc Optimization Levels
+## Optimization Levels
 
 In order to control compilation-time and compiler memory usage, and the **trade-offs between speed and space** for the resulting executable, GCC provides a range of general optimization levels, numbered from 0--3, as well as individual options for specific types of optimization.
 
@@ -126,4 +126,4 @@ main:
 * [Optimization Levels](https://www.linuxtopia.org/online_books/an_introduction_to_gcc/gccintro_49.html)
 * [GCC Optimization](https://wiki.gentoo.org/wiki/GCC_optimization#-O)
 
-*Egon Teiniker, 2023, GPL v3.0* 
+*Egon Teiniker, 2025, GPL v3.0* 
