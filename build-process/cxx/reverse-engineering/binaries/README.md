@@ -1,7 +1,7 @@
 # Reverse Engineering C
 
  * Setup
-    * [Ghidra](setup/Ghidra.md)
+    * [Ghidra](Ghidra/README.md)
 
   * Analyzing C Binaries
     * [Static Analysis](analysis-static/)
