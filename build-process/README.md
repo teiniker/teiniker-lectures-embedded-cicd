@@ -5,7 +5,7 @@ techniques used in embedded systems development. Given the wide variety
 of concepts and tools available, this section aims to introduce key 
 approaches and best practices rather than cover every detail.
 
-* [Python Packaging](python/README.md)
+* [Python Build and Packaging](python/README.md)
 
 * [C/C++ Build Process for Embedded Systems](cxx/README.md)
 
