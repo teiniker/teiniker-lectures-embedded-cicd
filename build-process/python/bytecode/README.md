@@ -18,7 +18,7 @@ can also **precompile them explicitly**.
 
 _Example:_ Precompile a single file
 ```bash
-    $ python3 -m py_compile fibonacci.py 
+    $ python -m py_compile fibonacci.py 
 
     $ file __pycache__/fibonacci.cpython-313.pyc
     __pycache__/fibonacci.cpython-313.pyc: Byte-compiled Python module for CPython 3.13 (magic: 3571), 
