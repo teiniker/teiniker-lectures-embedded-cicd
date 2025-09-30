@@ -94,7 +94,7 @@ where = ["src"]
 
 ### Build Artifacts
 
-Before building your package, ensure the necessary tools are installed:
+Before building your package, ensure the necessary tools are installed (use a virtual environment):
 
 ```bash
 $ pip install --upgrade build twine
@@ -134,7 +134,7 @@ to installing the source distribution.
 The build package knows how to invoke your build tool to create one of these:
 
 ```bash
-$ python3 -m build --wheel source-tree-directory
+$ python -m build --wheel source-tree-directory
 ```
 
 
@@ -145,19 +145,11 @@ $ python -m build
 ├── dist
 │   ├── simple_lib-0.1.0-py3-none-any.whl
 │   └── simple_lib-0.1.0.tar.gz
-
-$ python -m twine check dist/*
 ```
 
 ### Upload to the Package Distribution Service
-The **twine** tool can upload build artifacts to `PyPI` for distribution, using a command like:
-
-```bash
-$ twine upload dist/package-name-version.tar.gz dist/package-name-version-py3-none-any.whl
-```
 
 For our initial experiments, it is sufficient to store the package files locally.
-
 
 ## Install and Use a Python Package 
 
@@ -179,6 +171,10 @@ $ source .venv/bin/activate
 ```bash 
 $ pip install ../dist/simple_lib-0.1.0-py3-none-any.whl
 $ pip list
+Package    Version
+---------- -------
+pip        25.1.1
+simple_lib 0.1.0
 ```
 
 3. Run the application:
