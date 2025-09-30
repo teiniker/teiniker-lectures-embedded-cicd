@@ -46,6 +46,7 @@ be a checkout from git based on a tag associated with the version.
 
 _Example:_ Simple algorithm implementation.
 ```bash
+algorithm
 ├── README.md
 ├── pyproject.toml
 └── src
@@ -92,6 +93,26 @@ package-dir = {"" = "src"}
 where = ["src"]
 ```
 
+* `[build-system]`
+    - `requires`: install setuptools ≥ 69 and wheel into the isolated env before building.
+    - `build-backend`: use setuptools’ backend (setuptools.build_meta) to create 
+        the sdist (source tarball) and wheel (built distribution).
+
+* `[project]`
+    - `name`: the package’s distribution name on PyPI (`simple_lib`). This is what users will `pip install`.
+    - `version`: static version string (you can later switch to dynamic versioning, e.g. `setuptools_scm`).
+    - `description`: short summary 
+    - `readme`: points to `README.md` and declares its content type for PyPI’s project page rendering.
+    - `authors`: metadata for packaging indexes and tools.
+    - `requires-python`: declares interpreter compatibility; installers can skip incompatible environments.
+    - `dependencies`: runtime requirements (empty here). If you needed, say, NumPy: ["numpy>=2"].
+
+* `[tool.setuptools]`
+    - `package-dir = { "" = "src" }`: tells setuptools that the root package directory is `src/`.
+    
+*  `[tool.setuptools.packages.find]`
+    - where = ["src"]: asks setuptools to discover packages by scanning `src/` for directories containing 
+        `__init__.py`.
 
 
 ### Build Package
@@ -141,8 +162,10 @@ $ python -m build --wheel source-tree-directory
 
 
 _Example:_ Build a source and wheel package and check the distributions 
-```bash 
-$ python -m build
+```bash
+$ cd algorithm 
+$ python -m build --sdist .
+$ python -m build --wheel .
 
 ├── dist
 │   ├── simple_lib-0.1.0-py3-none-any.whl
@@ -163,7 +186,7 @@ $ pip install pyc-wheel
 We can convert a regular wheel file to bytecode with the following command:
 
 ```bash
-$ python -m pyc_wheel simple_lib-0.1.0-py3-none-any.whl 
+$ python -m pyc_wheel dist/simple_lib-0.1.0-py3-none-any.whl 
 Listing '/tmp/tmpkhaigb9_'...
 Listing '/tmp/tmpkhaigb9_/algorithm'...
 Compiling '/tmp/tmpkhaigb9_/algorithm/__init__.py'...
@@ -230,7 +253,6 @@ simple_lib 0.1.0
 3. Run the application:
 
 ```bash
-$ cd app 
 $ python demo.py
 ```
 
