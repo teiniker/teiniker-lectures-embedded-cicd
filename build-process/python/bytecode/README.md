@@ -1,6 +1,15 @@
 # Python Bytecode and Decompiler
 
+## CPython
 
+CPython is the default and **reference implementation** of the Python specification - it is written in C.
+
+CPython does the work of:
+* **Compiling** `.py` source into bytecode (`.pyc` files).
+* Running that bytecode in the **Python Virtual Machine (PVM)** - (the interpreter loop in C).
+* Providing the **standard library** (implemented in Python and C).
+
+There are also other Python implementatios available like **MicroPython** and **CircuitPython** - lightweight versions for microcontrollers.
 
 ## Bytecode
 
