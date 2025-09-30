@@ -136,7 +136,7 @@ a C extension).
 
 The build package knows how to invoke your build tool to create one of these:
 ```bash
-$ python3 -m build --sdist source-tree-directory
+$ python -m build --sdist source-tree-directory
 ```
 
 * **The built distributions (wheels)**:
