@@ -92,12 +92,12 @@ package-dir = {"" = "src"}
 where = ["src"]
 ```
 
-### Build Artifacts
+### Build Package
 
 Before building your package, ensure the necessary tools are installed (use a virtual environment):
 
 ```bash
-$ pip install --upgrade build twine
+$ pip install build twine
 ```
 
 - `build` is used to create source and wheel distributions.
@@ -147,6 +147,54 @@ $ python -m build
 │   └── simple_lib-0.1.0.tar.gz
 ```
 
+### Build Bytecode Package
+
+If you do not want to distribute the Python source code together with the package, 
+you can **compile it to bytecode** beforehand.  
+
+Note that this bytecode can only be used with a **specific Python version**!
+
+```bash
+$ pip install pyc-wheel
+```
+
+We can convert a regular wheel file to bytecode with the following command:
+
+```bash
+$ python -m pyc_wheel simple_lib-0.1.0-py3-none-any.whl 
+Listing '/tmp/tmpkhaigb9_'...
+Listing '/tmp/tmpkhaigb9_/algorithm'...
+Compiling '/tmp/tmpkhaigb9_/algorithm/__init__.py'...
+Compiling '/tmp/tmpkhaigb9_/algorithm/fibonacci.py'...
+Listing '/tmp/tmpkhaigb9_/simple_lib-0.1.0.dist-info'...
+Deleting py file: /tmp/tmpkhaigb9_/algorithm/fibonacci.py
+Deleting py file: /tmp/tmpkhaigb9_/algorithm/__init__.py
+```
+
+To verify the result of this transformation, unzip the wheel file in a 
+temporary directory:
+
+```bash
+$ mkdir tmp
+$ cd tmp/
+$ unzip ../simple_lib-0.1.0-py3-none-any.whl
+Archive:  ../simple_lib-0.1.0-py3-none-any.whl
+   creating: algorithm/
+   creating: simple_lib-0.1.0.dist-info/
+  inflating: simple_lib-0.1.0.dist-info/RECORD  
+  inflating: simple_lib-0.1.0.dist-info/top_level.txt  
+  inflating: simple_lib-0.1.0.dist-info/WHEEL  
+  inflating: simple_lib-0.1.0.dist-info/METADATA  
+  inflating: algorithm/fibonacci.pyc  
+  inflating: algorithm/__init__.pyc  
+```
+As we can see, the original `.py` source files have been removed from the wheel 
+and replaced with `.pyc` bytecode files. This ensures that only compiled bytecode 
+is distributed, protecting the source code while still allowing the package to 
+be installed and used with the compatible Python version.
+
+
+
 ### Upload to the Package Distribution Service
 
 For our initial experiments, it is sufficient to store the package files locally.
@@ -188,6 +236,8 @@ $ python demo.py
 ```bash
 $ deactivate
 ```
+
+
 
 
 ## References
