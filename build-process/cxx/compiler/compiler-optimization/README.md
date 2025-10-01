@@ -122,7 +122,6 @@ main:
 ## References:
 * [Compiler Explorer](https://godbolt.org/)
 
-* [Compiler Optimizations](https://compileroptimizations.com/)
 * [Optimization Levels](https://www.linuxtopia.org/online_books/an_introduction_to_gcc/gccintro_49.html)
 * [GCC Optimization](https://wiki.gentoo.org/wiki/GCC_optimization#-O)
 
