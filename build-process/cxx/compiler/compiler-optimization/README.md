@@ -5,20 +5,34 @@
 In order to control compilation-time and compiler memory usage, and the **trade-offs between speed and space** for the resulting executable, GCC provides a range of general optimization levels, numbered from 0--3, as well as individual options for specific types of optimization.
 
 * **-O0 or no -O option (default)**\
-At this optimization level **GCC does not perform any optimization** and compiles the source code in the most straightforward way possible. Each command in the source code is converted directly to the corresponding instructions in the executable file, without rearrangement. This is the best option to use when debugging a program and is the default if no optimization level option is specified.
+At this optimization level **GCC does not perform any optimization** and compiles the source code in the most straightforward way possible.
+Each command in the source code is converted directly to the corresponding instructions in the executable file, without rearrangement.
+This is the **best option to use when debugging a program** and is the default if no optimization level option is specified.
 
 * **-O1 or -O**\
-This level turns on the **most common forms of optimization** that do not require any speed-space tradeoffs. With this option the resulting executables should be smaller and faster than with -O0. The more expensive optimizations, such as instruction scheduling, are not used at this level. Compiling with the option -O1 can often take less time than compiling with -O0, due to the reduced amounts of data that need to be processed after simple optimizations.
+This level turns on the **most common forms of optimization** that do not require any speed-space tradeoffs.
+With this option the resulting executables should be smaller and faster than with -O0.
+The more expensive optimizations, such as instruction scheduling, are not used at this level.
+Compiling with the option -O1 can often take less time than compiling with -O0, due to the reduced amounts
+of data that need to be processed after simple optimizations.
 
 * **-O2**\
-This option turns on further optimizations, in addition to those used by -O1. These additional optimizations include **instruction scheduling**. Only optimizations that do not require any speed-space tradeoffs are used, so the executable should not increase in size. The compiler will take longer to compile programs and require more memory than with -O1. This option is generally the best choice for deployment of a program, because it provides maximum optimization without increasing the executable size. It is the **default optimization level for releases of GNU packages**.
+This option turns on further optimizations, in addition to those used by -O1.
+These additional optimizations include **instruction scheduling**. Only optimizations that do not require
+any speed-space tradeoffs are used, so the executable should not increase in size. The compiler will take
+longer to compile programs and require more memory than with -O1.
+This option is generally the best choice for deployment of a program, because it provides maximum optimization
+without increasing the executable size. It is the **default optimization level for releases of GNU packages**.
 
 * **-O3**\
-This option turns on more expensive optimizations. The -O3 optimization level may increase the speed of the resulting executable, but **can also increase its size**. Under some circumstances where these optimizations are not favorable, this option might actually make a program slower.
+This option turns on more expensive optimizations.
+The -O3 optimization level may increase the speed of the resulting executable, but **can also increase its size**.
+Under some circumstances where these optimizations are not favorable, this option might actually make a program slower.
 
 * **-Os**\
 **Optimizes code for size**. It activates all `-O2` options that do not increase the size of the generated code.
 It can be useful for machines that have extremely limited disk storage space and/or CPUs with small cache sizes.
+
 
 ## Method Inlining
 
