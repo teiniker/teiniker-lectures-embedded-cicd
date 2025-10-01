@@ -13,9 +13,9 @@ compiling, assembling, and linking.
 * [Binutils](binutils/README.md)
 
 * Reverse Enineering
-    * [Static Analysis](reverse-engineering/binaries/analysis-static/)
-    * [Dynamic Analysis](reverse-engineering/binaries/analysis-dynamic/)
-    * [Decompiler](reverse-engineering/binaries/Ghidra/)
+    * [Static Analysis](reverse-engineering/analysis-static/)
+    * [Dynamic Analysis](reverse-engineering/analysis-dynamic/)
+    * [Decompiler](reverse-engineering/Ghidra/)
 
 
 ## Build Cross Platform Binaries  

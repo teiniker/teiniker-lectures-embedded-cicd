@@ -89,7 +89,7 @@ Assembly code is difficult to read, especially when it comes to large binary fil
 Analysis tools such as **Ghidra** can be very helpful here.
 Ghidra can represent a binary in assembly, as data flow graph or pseudocode.
 
-![Hopper Pseudo Code](Hopper-Pseudocode.png)
+![Ghidra Decompiler](figures/Ghidra-Decompiler.png)
 
 This **pseudocode** is a mixture of C and assembler code that cannot be compiled. 
 Nevertheless, this representation makes the analysis much easier.
