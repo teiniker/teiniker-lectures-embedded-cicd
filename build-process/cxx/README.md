@@ -9,7 +9,7 @@ compiling, assembling, and linking.
 * [From C/C++ Source Code to the Executable](build-steps/README.md)
 * C/C++ Compiler
     * [Using Compiler Flags](compiler/compiler-flags/README.md)
-    * [C Compiler Optimization](compiler/compiler-optimization/README.md)
+    * [Compiler Optimization](compiler/compiler-optimization/README.md)
 * [Binutils](binutils/README.md)
 
 * Reverse Enineering
