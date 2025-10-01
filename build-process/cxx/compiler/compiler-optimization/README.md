@@ -17,7 +17,53 @@ This option turns on further optimizations, in addition to those used by -O1. Th
 This option turns on more expensive optimizations. The -O3 optimization level may increase the speed of the resulting executable, but **can also increase its size**. Under some circumstances where these optimizations are not favorable, this option might actually make a program slower.
 
 
-## Method Inlining
+## Dead Code Elimination (DCE)
+
+Removes code that never affects program output.
+
+```C
+int foo(int x) {
+    int y = x * 10;
+    return x; // `y` is never used → compiler removes it
+}
+```
+
+_Example:_ Assembly code without optimization -O0
+
+```assembly
+push    rbp
+mov     rbp, rsp
+mov     DWORD PTR [rbp-20], edi
+mov     edx, DWORD PTR [rbp-20]
+mov     eax, edx
+sal     eax, 2
+add     eax, edx
+add     eax, eax
+mov     DWORD PTR [rbp-4], eax
+mov     eax, DWORD PTR [rbp-20]
+pop     rbp
+ret
+```
+
+_Example:_ Assembly code with optimization -O2
+
+```assembly
+mov     eax, edi
+ret
+```
+
+## Constant Folding & Propagation
+
+Computes constant expressions at compile-time instead of run-time.
+
+```C
+int a = 5 * 10;  // compiler turns this into: int a = 50;
+```
+
+
+## Inlining
+
+Small functions may be replaced with their code body to reduce function call overhead.
 
 ```C
 #include <stdio.h>
@@ -43,9 +89,9 @@ int main(void)
 }
 ```
 
-### Optimization: -O0
+_Example:_ Assembly code without optimization -O0
 
-```
+```assembly
 empty_method:
         push    rbp
         mov     rbp, rsp
@@ -88,9 +134,9 @@ main:
 ```
 
 
-### Optimization: -O2
+_Example:_ Assembly code with optimization -O2
 
-```
+```assembly
 empty_method:
         ret
 .LC0:
@@ -115,7 +161,89 @@ main:
         pop     rbx
         ret
 ```
+In C++, the `inline` keyword can be used with functions and methods to suggest 
+to the compiler that it should attempt to expand the function's code at each 
+call site, rather than generating a regular function call. 
 
+This can reduce function call overhead for small, frequently called functions. 
+However, the compiler may ignore the `inline` suggestion if it determines that 
+inlining is not beneficial.
+
+
+## Inlining of Standard Library Calls
+
+Replaces calls like `memcpy`, `strlen` with optimized built-in machine instructions.
+
+
+## Loop Optimizations
+
+* **Loop unrolling**: Expands loop iterations to reduce branch overhead.
+* **Loop fusion**: Combines multiple loops into one to reduce passes.
+* **Loop invariant code motion**: Moves calculations outside the loop 
+if they don’t change.
+
+```C
+// (a+b) can be computed once outside the loop
+for (int i=0; i<n; i++)
+{
+    y[i] = x[i] * (a+b);  
+} 
+```
+
+## Register Allocation
+
+Places frequently used **variables in CPU registers** instead of memory for speed.
+
+
+## Instruction Scheduling
+
+**Reorders instructions** to reduce CPU pipeline stalls while preserving correctness.
+
+
+## Vectorization (SIMD)
+
+**Single Instruction, Multiple Data (SIMD)** is a parallel computing model where 
+one CPU instruction operates on multiple data elements simultaneously.
+Instead of processing one integer or float at a time, SIMD instructions let the 
+CPU process vectors of data in parallel.
+
+SIMD needs **special CPU registers and instructions**. 
+On x86/x86-64 CPUs, the major families are:
+
+**1. Streaming SIMD Extensions (SSE)**
+* Introduced by Intel (Pentium III, ~1999).
+* 128-bit registers (XMM0–XMM15).
+* Can operate on:
+    - 4 × 32-bit floats
+    - 2 × 64-bit doubles
+    - 16 × 8-bit integers
+* Instructions like:
+    - addps: Add Packed Single-precision floats
+    - mulps: Multiply Packed Single-precision floats
+    - movaps: Move Aligned Packed Single-precision
+
+**2. AVX (Advanced Vector Extensions)**
+* Introduced with Intel Sandy Bridge (~2011).
+* 256-bit registers (YMM0–YMM15).
+* Can operate on:
+    - 8 × 32-bit floats
+    - 4 × 64-bit doubles
+
+
+## Tail Call Optimization (TCO)
+
+**Optimizes recursive calls** to avoid growing the call stack.
+
+
+## Trade-offs
+
+* **Higher optimizations (-O3)** may increase binary size, cause longer 
+compile times, or introduce non-standard behavior.
+
+* **Debugging** optimized code is harder (variables may be optimized away, 
+reordering may confuse step-through debugging).
+
+* `-O2` is usually the best balance for **production builds**.
 
 
 
