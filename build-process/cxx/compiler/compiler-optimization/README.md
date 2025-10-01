@@ -1,4 +1,4 @@
-# C Compiler Optimization
+# C/C++ Compiler Optimization
 
 ## Optimization Levels
 
