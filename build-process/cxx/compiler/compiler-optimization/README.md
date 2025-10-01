@@ -16,6 +16,9 @@ This option turns on further optimizations, in addition to those used by -O1. Th
 * **-O3**\
 This option turns on more expensive optimizations. The -O3 optimization level may increase the speed of the resulting executable, but **can also increase its size**. Under some circumstances where these optimizations are not favorable, this option might actually make a program slower.
 
+* **-Os**\
+**Optimizes code for size**. It activates all `-O2` options that do not increase the size of the generated code.
+It can be useful for machines that have extremely limited disk storage space and/or CPUs with small cache sizes.
 
 ## Method Inlining
 
