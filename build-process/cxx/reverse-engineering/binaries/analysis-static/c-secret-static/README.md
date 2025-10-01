@@ -86,8 +86,8 @@ $ objdump -d ./secret | less
 ```
 
 Assembly code is difficult to read, especially when it comes to large binary files. 
-Analysis tools such as **Hopper** can be very helpful here.
-Hopper can represent a binary in assembly, as data flow graph or pseudocode.
+Analysis tools such as **Ghidra** can be very helpful here.
+Ghidra can represent a binary in assembly, as data flow graph or pseudocode.
 
 ![Hopper Pseudo Code](Hopper-Pseudocode.png)
 
@@ -97,7 +97,6 @@ Nevertheless, this representation makes the analysis much easier.
 
 
 ## References
-* [Hopper Disassembler](https://www.hopperapp.com/) the reverse engineering tool that lets you disassemble, decompile and debug your applications.
+* [Ghidra](https://github.com/NationalSecurityAgency/ghidra)
 
-
-*Egon Teiniker, 2023, GPL v3.0* 
+*Egon Teiniker, 2025, GPL v3.0* 
