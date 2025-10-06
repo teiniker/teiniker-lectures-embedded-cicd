@@ -18,12 +18,4 @@ be applied to the development of embedded systems.
 
 * Continuous Delivery
 
-* [Software Building and Packaging](build-process)
-
-* [Embedded Architectures]()
-
-* [Continuous Integration]()
-
-* [Continuous Delivery]()
-
 *Egon Teiniker, 2025, GPL v3.0*
