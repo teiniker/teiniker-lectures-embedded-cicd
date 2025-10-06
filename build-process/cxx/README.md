@@ -7,9 +7,7 @@ source code into an executable binary. This typically includes preprocessing,
 compiling, assembling, and linking.
 
 * [From C/C++ Source Code to the Executable](build-steps/README.md)
-* C/C++ Compiler
-    * [Using Compiler Flags](compiler/compiler-flags/README.md)
-    * [Compiler Optimization](compiler/compiler-optimization/README.md)
+* [C/C++ Compiler](compiler/README.md)
 * [Binutils](binutils/README.md)
 
 * Reverse Enineering
@@ -36,3 +34,5 @@ constraints.
 ## References
 
 * [YouTube (The Linux Foundation):Building Bare Metal Toolchains, Crosstool-ng and Yocto Project](https://youtu.be/b0yXASkIIv8?si=tPmf_oFJgk7tPOIk)
+
+*Egon Teiniker, 2025, GPL v3.0*
