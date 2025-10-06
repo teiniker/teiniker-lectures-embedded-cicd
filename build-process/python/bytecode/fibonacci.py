@@ -13,5 +13,6 @@ def fibonacci(n):
 
 
 if __name__ == "__main__":
+    print(fibonacci(10))  # Example usage
     import dis
     dis.dis(fibonacci)

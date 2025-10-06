@@ -62,7 +62,7 @@ Here is a breakdown of the supported C versions by g++ 12.2.0:
 * [Linux manual page: g++](https://man7.org/linux/man-pages/man1/g++.1.html)
 
 
-*Egon Teiniker, 2020-2024, GPL v3.0*    
+*Egon Teiniker, 2025, GPL v3.0*    
 
 
 
