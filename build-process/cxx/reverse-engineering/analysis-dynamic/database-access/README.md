@@ -68,4 +68,4 @@ we can see all the commands and data.
 To stop `strace` hit [Ctrl-c]
 
 
-*Egon Teiniker, 2023, GPL v3.0*
+*Egon Teiniker, 2025, GPL v3.0*

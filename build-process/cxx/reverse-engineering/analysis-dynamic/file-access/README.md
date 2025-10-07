@@ -108,4 +108,4 @@ _Exercise_: Make the same experiment but use **ltrace** instead of strace.
 
 * [The strace Command in Linux](https://www.baeldung.com/linux/strace-command)
 
-*Egon Teiniker, 2020-2021, GPL v3.0* 
+*Egon Teiniker, 2025, GPL v3.0* 

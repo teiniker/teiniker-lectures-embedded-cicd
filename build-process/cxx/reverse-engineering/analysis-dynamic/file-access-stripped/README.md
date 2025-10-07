@@ -77,4 +77,4 @@ Now it is much harder to analyze the assembly code to find the right locations f
 ## References:
 * [Linux strip command](https://www.computerhope.com/unix/strip.htm)
 
-*Egon Teiniker, 2020-2022, GPL v3.0* 
+*Egon Teiniker, 2025, GPL v3.0* 

@@ -174,4 +174,4 @@ ACD0-84F1-9A56-47BC
 
 * [GDB: The GNU Project Debugger](https://www.sourceware.org/gdb/)
 
-*Egon Teiniker, 2023, GPL v3.0* 
+*Egon Teiniker, 2025, GPL v3.0* 
