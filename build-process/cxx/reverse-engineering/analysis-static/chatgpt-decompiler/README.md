@@ -68,7 +68,7 @@ Decompile the given assembly code into C source code:
    0010120b c3         RET
 ```
 
-## ChatGPT Answer
+## ChatGPT 
 
 Below is a plausible C reconstruction of the given assembly snippet. I've added comments to show how each assembly instruction maps to the C code. Note that decompiled code is never a perfect 1:1 representation of the original source—but this gets you close.
 
@@ -176,3 +176,5 @@ So, in plain C, the logic is:
     - If it returns non-zero (true), retrieve the secret via `get_secret()` and print it.  
     - Otherwise, print `"Invalid password!"`.  
 3. Finally, return 0.
+
+*Egon Teiniker, 2025, GPL v3.0*

@@ -1,9 +1,17 @@
 # Ghidra
 
+## Setup
+
 [Download: Ghidra](https://github.com/NationalSecurityAgency/ghidra/releases)
-```
+
+```bash
 $ cd Downloads
 $ unzip ghidra_10.0.4_PUBLIC_20210928.zip
+```
+
+## Analyze a Binary
+
+```bash
 $ cd ghidra_10.0.4_PUBLIC_20210928
 $ ./ghidraRun
 
