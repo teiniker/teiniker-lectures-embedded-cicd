@@ -68,5 +68,5 @@ Archive:  dist/electronics-0.1.0-py3-none-any.whl
      2611                     8 files
 ```
 
-Run the tests to see if this is working:
+Run the tests to see if this is working.
 
