@@ -13,6 +13,7 @@ void get_input()
 {   
     char buffer[8];
  
+    // In gcc 14, the gets() function was removed from the standard library due to security issues.
     gets(buffer);
     puts(buffer);
 }

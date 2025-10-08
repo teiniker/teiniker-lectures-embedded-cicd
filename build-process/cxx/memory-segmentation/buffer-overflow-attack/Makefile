@@ -1,6 +1,6 @@
 
 OBJECTS = 
-CFLAGS = -g -fno-stack-protector -z execstack -Wall
+CFLAGS = -std=c11 -g -fno-stack-protector -z execstack -Wall
 LDLIBS = 
 CC=gcc
 

@@ -6,7 +6,8 @@ void read_line()
     int flag = 0x0;
     char buffer[8];
     
-    gets(buffer);
+    // In gcc 14, the gets() function was removed from the standard library due to security issues.
+    gets(buffer);   
 
     if(flag == 0x0)
     {
