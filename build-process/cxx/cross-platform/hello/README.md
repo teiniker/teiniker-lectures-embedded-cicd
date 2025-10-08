@@ -1,4 +1,4 @@
-# Cross-Compiler Example
+# Example: Cross-Compiler 
 
 Given a simple C++ program
 
