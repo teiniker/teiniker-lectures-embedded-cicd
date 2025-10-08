@@ -13,7 +13,7 @@ compiling, assembling, and linking.
 * Reverse Enineering
     * [Static Analysis](reverse-engineering/analysis-static/)
     * [Dynamic Analysis](reverse-engineering/analysis-dynamic/)
-    * [Decompiler](reverse-engineering/Ghidra/)
+    * [Decompiler](reverse-engineering/analysis-static/Ghidra/README.md)
 
 
 ## Build Cross Platform Binaries  
