@@ -14,7 +14,6 @@ Create the following project structure:
     └── resistor_test.py
 ```
 
-
 ## Build Source and Wheel Distributions 
 
 ```bash
@@ -33,7 +32,6 @@ dist/
 $ cd test
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-```
 
 $ pip install ../dist/electronics-0.1.0-py3-none-any.whl
 $ pip list
@@ -43,6 +41,7 @@ electronics 0.1.0
 pip         25.1.1
 
 $ python resistor_test.py
+```
 
 
 ## Build Bytcode Distribution 
@@ -70,3 +69,4 @@ Archive:  dist/electronics-0.1.0-py3-none-any.whl
 
 Run the tests to see if this is working.
 
+*Egon Teiniker, 2025, GPL v3.0*
