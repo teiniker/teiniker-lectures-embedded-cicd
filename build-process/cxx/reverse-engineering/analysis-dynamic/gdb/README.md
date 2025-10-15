@@ -92,30 +92,30 @@ We can define breakpoints in different ways:
 
 We can also list and modify breakpoints:
 
-* List all breakpoints
+* **List all breakpoints**:
 
     _Example:_ `(gdb) info breakpoints`
 
-* Disable breakpoint 
+* **Disable breakpoint**: Disable first breakpoint
 
-    _Example:_ `(gdb) disable 1` # disable first breakpoint 
+    _Example:_ `(gdb) disable 1` 
 
-* Enable breakpoint
+* **Enable breakpoint**: Enable first breakpoint
 
-    _Example:_ `(gdb) enable 1` # enable first breakpoint
+    _Example:_ `(gdb) enable 1`
 
-* Remove breakpoint 
+* **Remove breakpoint**: Remove first breakpoint
 
-    _Example:_ `(gdb) delete 1` # remove first breakpoint
+    _Example:_ `(gdb) delete 1`  
 
-* Clear all breakpoints in a function 
+* **Clear all breakpoints** in a function:  
 
-    _Example:_ `(gdb) clear main` # remove first breakpoint
+    _Example:_ `(gdb) clear main` 
 
 
 ### Continue After Breakpoint
 
-* Resumes execution until the next stop
+* **Resumes execution** until the next stop
 
     _Example:_ `(gdb) continue`
 
@@ -128,9 +128,9 @@ Stepping lets us control how far the program runs between stops.
 
 If we compiled with `-g`, GDB knows which instructions correspond to each source line.
 
-* `step` or `s`: Execute one **source line**, stepping *into* functions. Calls are entered.
+* `step` (or `s`): Execute one **source line**, stepping *into* functions. Calls are entered.
 
-* `next` or `n`: Execute one **source line**, stepping *over* functions (calls are run entirely).
+* `next` (or `n`): Execute one **source line**, stepping *over* functions (calls are run entirely).
 
 * `finish`: Run until the current function returns (stops after returning).
 
@@ -141,11 +141,8 @@ If we compiled with `-g`, GDB knows which instructions correspond to each source
 
 When debugging at the assembly level, we can use instruction-level commands.
 
-| Command           | Meaning                                                 | Analogy                |
-| ----------------- | ------------------------------------------------------- | ---------------------- |
-| `si` (or `stepi`) | Execute one **assembly instruction**, step *into* calls | Like `step` but in asm |
-| `ni` (or `nexti`) | Execute one **assembly instruction**, step *over* calls | Like `next` but in asm |
-
+* `stepi` (or `si`): Execute one **assembly instruction**, step *into* calls (like `step` but in asm)
+* `nexti` (or `ni`): Execute one **assembly instruction**, step *over* calls (Like `next` but in asm)
 
 
 
@@ -167,9 +164,9 @@ exactly what the CPU is doing at this moment.
 
 ### Inspecting Registers
 
-* View all registers: `(gdb) info registers`
+* **View all registers**: `(gdb) info registers`
 
-* Print a specific register: Use the \$ prefix to refer to a register: 
+* **Print a specific register**: Use the \$ prefix to refer to a register: 
 
     ```bash
     (gdb) print $rax         # value in decimal
@@ -180,7 +177,7 @@ exactly what the CPU is doing at this moment.
 
 ### Modifying Registers
 
-* Set a register value
+* **Set a register value**:
 
     ```bash
     (gdb) set $rax = 0xdeadbeef
@@ -188,7 +185,7 @@ exactly what the CPU is doing at this moment.
     (gdb) set $rip = 0x401080     # jump to a different instruction
     ```
 
-* Modify the flags
+* **Modify the flags**:
     ```bash
     (gdb) set $eflags |= 0x80    # Set the Sign Flag (bit 7)
     ```
@@ -216,7 +213,8 @@ _Syntax:_ `(gdb) x/NFU ADDRESS`
 | **F**  | Format: how to print the data (hex, decimal, chars, instructions, etc.) |
 | **U**  | Unit size: how big each unit is (byte, halfword, word, giant word)      |
 
-Common Formats:
+
+**Common Formats**:
 
 | Code | Format                    | Example        |
 | ---- | ------------------------- | -------------- |
@@ -230,7 +228,7 @@ Common Formats:
 | `i`  | instruction (disassembly) | `mov eax, ebx` |
 
 
-Unit Sizes:
+**Unit Sizes**:
 
 | Code | Unit       | Bytes |
 | ---- | ---------- | ----- |
@@ -240,27 +238,27 @@ Unit Sizes:
 | `g`  | giant word | 8     |
 
 
-_Example:_ Inspect a C string - Prints the string located where \$rdi points (typical for printf’s first argument).
+_Example:_ Inspect a **C string** - Prints the string located where \$rdi points (typical for printf’s first argument).
 
 ```bash
 (gdb) x/s $rdi
 ```
 
-_Example:_ View a data region in hex and ASCII - 32 bytes, one per line, hex format.
+_Example:_ View a data region in **hex and ASCII** - 32 bytes, one per line, hex format.
 
 ```bash
 (gdb) x/32xb 0x404000
 ```
 
 
-_Example:_ Inspect stack memory - Shows 16 eight-byte (giant word) values from the current stack pointer.
+_Example:_ Inspect **stack memory** - Shows 16 eight-byte (giant word) values from the current stack pointer.
 
 ```bash
 (gdb) x/16gx $rsp
 ```
 
 
-_Example:_ Inspect instruction memory - Disassembles the next 10 instructions starting at the instruction pointer.
+_Example:_ Inspect **instruction memory** - Disassembles the next 10 instructions starting at the instruction pointer.
 
 ```bash
 (gdb) x/10i $rip
