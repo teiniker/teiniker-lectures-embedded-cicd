@@ -85,6 +85,13 @@ $ objdump -d ./secret | less
 ...
 ```
 
+We can also select the assembly syntax used:
+```bash
+$ objdump -d -M intel secret        # Disassemble with Intel syntax
+
+$ objdump -d -M att secret          # Disassemble with AT&T syntax
+```
+
 Assembly code is difficult to read, especially when it comes to large binary files. 
 Analysis tools such as **Ghidra** can be very helpful here.
 Ghidra can represent a binary in assembly, as data flow graph or pseudocode.
