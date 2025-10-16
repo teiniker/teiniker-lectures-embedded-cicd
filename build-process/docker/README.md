@@ -27,6 +27,14 @@ The default Docker registry is **Docker Hub**.
 To create a Docker image, we create a **Dockerfile** which contains all 
 the other images, dependencies, and commands.
 
+* **Docker Images**
+    * [Using Docker Images](docker-images/README.md)
+    * [Securing Docker Images](docker-images/Docker-Security.md)
+
+* **Docker Compose**
+    * [Using Docker Compose](docker-compose/README.md)
+        - [compose-flask](docker-compose/compose-flask/)
+
 
 ## References
 

@@ -1,4 +1,4 @@
-# Docker-Compose
+# Docker Compose
 
 Compose is a tool for defining, launching, and managing services, where service is defined as one or more replicas of a 
 Docker container.
@@ -21,16 +21,16 @@ scale independently. Thus, most interactions with Docker will be through Compose
 From within the **directory which contains the docker-compose-yml file**, we can manage this system of containers with 
 the following commands:
 ```
-# docker-compose up         Create and start containers
+# docker compose up         Create and start containers
 
-# docker-compose ps         List containers
+# docker compose ps         List containers
 
-# docker-compose stop       Stop services
-# docker-compose start      Start services
+# docker compose stop       Stop services
+# docker compose start      Start services
 
-# docker-compose rm         Remove stopped containers
+# docker compose rm         Remove stopped containers
 
-# docker-compose down       Stop all containers and remove them
+# docker compose down       Stop all containers and remove them
 ```
 
 ## YAML Configuration 
