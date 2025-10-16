@@ -1,4 +1,4 @@
-# Docker Compose
+# Using Docker Compose
 
 Compose is a tool for defining, launching, and managing services, where service is defined as one or more replicas of a 
 Docker container.
