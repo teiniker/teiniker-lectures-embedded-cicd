@@ -65,6 +65,13 @@ $ gdb
 (gdb) run arg1 arg2  
 ```
 
+To **exit the gdb**, we use the `quit` command:
+
+_Example:_ Quit out of gdb
+```bash
+(gdb) quit  
+```
+
 
 ## Breakpoints
 
