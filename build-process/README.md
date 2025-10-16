@@ -9,7 +9,7 @@ approaches and best practices rather than cover every detail.
 
 * [C/C++ Build Process for Embedded Systems](cxx/README.md)
 
-* [Docker and Docker Compose](docker/)
+* [Docker and Docker Compose](docker/README.md)
 
 
 *Egon Teiniker, 2025, GPL v3.0*
