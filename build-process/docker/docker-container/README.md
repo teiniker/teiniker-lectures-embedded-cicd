@@ -1,4 +1,4 @@
-# Using Docker 
+# Using Docker Containers
 
 On our Linux VM the **Docker Engine** (dockerd) is not started automatically to conserve 
 resources. Enable and start it with systemd:

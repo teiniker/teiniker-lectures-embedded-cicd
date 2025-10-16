@@ -1,4 +1,4 @@
-# Securing Docker
+# Docker Container Security
 
 ## Introduction
 Docker containers provide additional protection over a native runtime by **isolating applications** and by **reducing the 
