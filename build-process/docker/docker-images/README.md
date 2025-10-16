@@ -1,45 +1,45 @@
-# Docker 
+# Using Docker 
 
-Docker is a command-line program, a background daemon, and a set of remote services.
-Docker helps to simplify tasks like installing, running, publishing, and removing software.
+On our Linux VM the **Docker Engine** (dockerd) is not started automatically to conserve 
+resources. Enable and start it with systemd:
 
-UNIX-style OS have used the term *jail* to describe a modified runtime environment for a program that prevents that 
-program from accessing protected resources. Later the term container was used for this type of environment.
-Any software run with Docker is run inside a **Docker Container**.
-
-**Virtual machines (VM)** provide virtual hardware on which an operating system and other programs can be installed.
-Docker containers don't use hardware virtualization. Programs running inside Docker containers interface directly with 
-the host's Linux kernel and can access only their own memory and resources as scoped by the container.
-
-Docker runs natively on Linux and comes with a single virtual machine for OS X and Windows environments. 
-Thus, software running in Docker containers need only be written once against a consistent set of dependencies.
-
-Docker improves the portability of every program regardless of the language it was written in, the operating system it 
-was designed for, or the state of the environment where it is running.
-
-Docker completes the traditional container metaphor by including a way to package and distribute software - called a 
-**Docker Image**.
-A Docker image is a bundled snapshot of all the files that should be available to a program running inside a container.
-We can create as many containers from an image as we want.
-Containers that were started from the same image don't share changes to their file system.
-
-When we distribute software with Docker, we distribute these images, and the receiving computers create containers from them.
-
-Docker provides a set of infrastructure components that simplify distributing Docker images called registries and indexes.
-
-## Using Docker
-
-Note that Docker runs as the root user on our system (Debian 10).
 ```
 # sudo systemctl start docker
-# sudo systemctl stop docker
 
-# sudo docker version
-# sudo docker info
+# docker version
+# docker info
+
+# sudo systemctl stop docker
 ```
 
-A **Docker Container** is an instance of that image running as a process.
-There are many container specific commands we can use:
+A **Docker Image** is a read-only template that contains an application 
+and all of its dependencies, configuration, and metadata. 
+Images are built from **Dockerfiles** or pulled from a registry (**Docker Hub**) 
+and are identified by a repository name and an optional tag (repo:tag, 
+default tag is `latest`). 
+
+The following commands are used in the context of Docker images:
+
+```
+# docker image help
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+```
+
+
+A **Docker Container** is an instance of a Docker image running as a process.
+There are also container specific commands we can use:
 
 ```
 # docker container help
@@ -71,85 +71,160 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 ```
 
-A **Docker Image** is the application we want to run. 
-Also there are many commands we can use to manage images:
+### Creating and Starting a Container
 
-```
-# docker image help
-Commands:
-  build       Build an image from a Dockerfile
-  history     Show the history of an image
-  import      Import the contents from a tarball to create a filesystem image
-  inspect     Display detailed information on one or more images
-  load        Load an image from a tar archive or STDIN
-  ls          List images
-  prune       Remove unused images
-  pull        Pull an image or a repository from a registry
-  push        Push an image or a repository to a registry
-  rm          Remove one or more images
-  save        Save one or more images to a tar archive (streamed to STDOUT by default)
-  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+**Nginx** is a web server that can also be used as a reverse proxy, 
+load balancer, mail proxy and HTTP cache.
+
+The following Docker command creates and runs a new container with an Nginx web server: 
+```bash
+$ docker container run -p 8080:80 --name webhost -d nginx
 ```
 
-Docker provides a mechanism for a user to inject environment variables into a new container.
-The --env flag or -e for short can be used to inject any environment variable.
+* `docker container run`: Creates and starts a new container
+* `-p 8080:80`: Port mapping flag that maps port `8080` on our host machine to port `80` inside the container
+	Format: `-p <host-port>:<container-port>`
+* `--name webhost`: Assigns a custom name "webhost" to the container for easier identification and management
+* `-d`: Runs the container in **detached" mode** (in the background), so it doesn't block your terminal
+* `nginx`: The Docker image to use (pulls the official nginx image from Docker Hub if not already available locally)
 
-### Example: Wildfly
-See: [DockerHub](https://hub.docker.com/r/jboss/wildfly)
-```
-# sudo docker container run -p 8080:8080 -p 9990:9990 jboss/wildfly
-```
-The **run** command downloads the needed image from DockerHub (and all its dependencies) and starts a container running
-the Wildfly application server.
-```
-# sudo docker container ls -a
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-e25fd561accc        jboss/wildfly       "/opt/jboss/wildfly/…"   2 minutes ago       Up 2 minutes        8080/tcp            gracious_bassi
 
-# sudo docker image ls
-REPOSITORY                               TAG                 IMAGE ID            CREATED             SIZE
-jboss/wildfly                            latest              e6f71554a543        3 days ago          757MB
-```
+What this single command does:
+* Downloads the nginx image (if not already present)
+* Creates a new container named "webhost"
+* Starts an nginx web server inside the container
+* Maps port 80 from the container to port `8080` on our host
+* Runs the container in the background
 
-After starting Wildfly, we can access the application server using a Browser:
-```
-URL: http://localhost:8080/
+We can **list all downloaded images**:
+
+```bash
+$ docker image ls -a
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+nginx        latest    07ccdb783875   8 days ago   160MB
 ```
 
-We can manage the container using the **start** and **stop** commands.
-```
-# sudo docker container stop e25fd561accc
-e25fd561accc
+We can **list all containers**:
 
-# sudo docker container ls -a
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS               NAMES
-e25fd561accc        jboss/wildfly       "/opt/jboss/wildfly/…"   5 minutes ago       Exited (0) 5 seconds ago                       gracious_bassi
-
-# sudo docker container start e25fd561accc
-
-# ps -ax
-27753 ?        Sl     0:00 containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/5f1f3d2d445a199a6c5b7f79fef50a7c8b40dc32e9060a84442c515f3f3e5a26 -
-27772 ?        Ss     0:00 /bin/sh /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0
-27889 ?        Sl     0:09 /usr/lib/jvm/java/bin/java -D[Standalone] -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.
-27998 pts/3    R+     0:00 ps -ax
-```
-Note that the **Wildfly container is running as a process** in our Linux system.
-
-
-### Example: Database
-See: [DockerHub](https://hub.docker.com/_/mariadb)
-```
-# sudo docker container run -d -p 3306:3306 --name db  --env="MYSQL_ROOT_PASSWORD=root66" mariadb
-
-# sudo docker container inspect db
-...
-"IPAddress": "172.17.0.2"
-...
-
-# mysql -uroot -proot66 -h 172.17.0.2
+```bash
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+8a38dbf20ee7   nginx     "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   webhost
 ```
 
-## Docker Repositories
+Using **curl** we can **access the web server** running inside the container:
+
+```bash
+$ curl http://localhost:8080
+```
+
+
+We can **stop the container** from running:
+
+```bash
+$ docker container stop webhost
+
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                     PORTS     NAMES
+8a38dbf20ee7   nginx     "/docker-entrypoint.…"   9 minutes ago   Exited (0) 2 seconds ago             webhost
+```
+
+And we can **remove the container** from the list:
+
+```bash
+$ docker container rm webhost
+```
+
+Note that there is still the **Docker image** even if we removed the container.
+
+```bash
+$ docker image ls -a
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+nginx        latest    07ccdb783875   8 days ago   160MB
+```
+
+In fact, we can **create any number of containers from a single image**:
+
+```bash
+$ docker container run -p 8070:80 --name webhost_1 -d nginx
+$ docker container run -p 8090:80 --name webhost_2 -d nginx
+
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+38965c1288bd   nginx     "/docker-entrypoint.…"   9 seconds ago    Up 9 seconds    0.0.0.0:8090->80/tcp, [::]:8090->80/tcp   webhost_2
+659d9e270d39   nginx     "/docker-entrypoint.…"   18 seconds ago   Up 17 seconds   0.0.0.0:8070->80/tcp, [::]:8070->80/tcp   webhost_1
+```
+
+Let's access the two web servers:
+
+```bash
+$ curl http://localhost:8070
+$ curl http://localhost:8090
+```
+
+We can **stop and start one of the containers** again:
+
+```bash
+$ docker container stop webhost_1
+
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                    PORTS                                     NAMES
+38965c1288bd   nginx     "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes              0.0.0.0:8090->80/tcp, [::]:8090->80/tcp   webhost_2
+659d9e270d39   nginx     "/docker-entrypoint.…"   2 minutes ago   Exited (0) 1 second ago                                             webhost_1
+
+$ docker container start webhost_1
+
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+38965c1288bd   nginx     "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes   0.0.0.0:8090->80/tcp, [::]:8090->80/tcp   webhost_2
+659d9e270d39   nginx     "/docker-entrypoint.…"   2 minutes ago   Up 1 second    0.0.0.0:8070->80/tcp, [::]:8070->80/tcp   webhost_1
+```
+
+Finally, we can **stop and remove the containers and remove the image** as well:
+
+```bash
+$ docker container stop webhost_1
+$ docker container rm webhost_1
+
+$ docker container stop webhost_2
+$ docker container rm webhost_2
+
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+$ docker image ls -a
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+nginx        latest    07ccdb783875   8 days ago   160MB
+
+$ docker image rm 07ccdb783875
+Untagged: nginx:latest
+Untagged: nginx@sha256:3b7732505933ca591ce4a6d860cb713ad96a3176b82f7979a8dfa9973486a0d6
+Deleted: sha256:07ccdb7838758e758a4d52a9761636c385125a327355c0c94a6acff9babff938
+Deleted: sha256:71b75b17511f67932ccf71e2046c6d1b4fe17a594134c765bf71c874dedc7027
+Deleted: sha256:c76da83ebfb3e35184d1a7105d03cecfb144d07cb4dae12378392040fbd44615
+Deleted: sha256:f825da5ac2d31a2c717db4fa159b6728b33a94bcb7285bd1dfebcbbe23ebd185
+Deleted: sha256:31333e0f1ecf5940213f8b1ed4eb3e4d78d77fa5fb59c1cd05a6672690ed133c
+Deleted: sha256:e72eb931613f8c1b5baf39f864877beee0780af9f9d20c5a02790d0146f0b012
+Deleted: sha256:775e3183eed457c31a0855ac7a55b6e0cb8d40554e9524cb6d503cb2351e0b10
+Deleted: sha256:1d46119d249f7719e1820e24a311aa7c453f166f714969cffe89504678eaa447
+
+$ docker image ls -a
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+```
+
+The `docker image rm`command removes the image whose ID is 07ccdb783875 from our 
+local system.
+Docker first untags any names that refer to the image (like nginx:latest), then 
+deletes the actual image layers if no other image uses them.
+These `Deleted:`lines show the deletion of the image layers that made up the nginx 
+image. Each layer is a separate filesystem snapshot Docker uses to efficiently 
+store and reuse parts of images.
+
+
+
+
+
+## Docker Hub
 
 A **Docker Repository** is a named bucket of Docker images.
 A repository's name is made up of the name of the host where the image is located, the user account that owns the image, 
@@ -177,22 +252,6 @@ We can use the following command to search the index:
 Docker Hub lets users star a repository, similar to a Facebook Like.
 
 
-## Image Layers
-
-A **layer** is an image that is related to at least one other image.
-When Docker went to install a dependency, it discovers the dependencies of that layer and downloads those first. 
-Once all the dependencies of a layer are installed, that layer is installed.
-
-By default, the docker images command will only show us repositories.
-If we specify the -a flag, the list will include every installed intermediate image or layer.
-
-Programs running inside containers know nothing about image layers.
-From the perspective of the container, it has exclusive copies of the files provided by the image.
-This is possible because of the so called **union file system**.
-The file system is used to create mount points on our host's file system that abstracts the use of layers. 
-When a Docker image is installed, its layers are unpacked and appropriately configured for the use by the specific 
-file system.
-The benefit is that common layers need to be installed only once.
 
 
 ## References
