@@ -118,7 +118,6 @@ Using **curl** we can **access the web server** running inside the container:
 $ curl http://localhost:8080
 ```
 
-
 We can **stop the container** from running:
 
 ```bash
