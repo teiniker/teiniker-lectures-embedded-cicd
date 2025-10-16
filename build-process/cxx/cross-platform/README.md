@@ -47,7 +47,7 @@ Crosstool-NG provides:
 
 _Example:_ Build a cross compiler toolchain for a Rspberry Pi 5
 
-1. Build Crosstool-NG 
+### 1. Build Crosstool-NG 
 
 ```bash
 $ cd Downloads
@@ -77,7 +77,7 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 ```
 
-2. Build a Raspberry Pi 5 tool chain
+### 2. Build a Raspberry Pi 5 Toolchain
 
 ```bash
 $ mkdir -p Downloads/raspi5-toolchain
@@ -124,12 +124,12 @@ Here is an overview about the generated tool chain:
     └── ...             <-- Mirrors what /usr/ on the Pi would look like
 ```
 
-* aarch64-rpi5-linux-gnu/ This folder usually mirrors the target **root filesystem** structure.
+* **aarch64-rpi5-linux-gnu/** This folder usually mirrors the target **root filesystem** structure.
     When we cross compile, GCC and binutils use this directory as the sysroot, so the target 
     headers and libraries are kept separate from host ones.
     We can think of this as a mini version of `/usr/` on the Raspberry Pi, but built on your host.
 
-* bin/ Contains the actual cross compiler binaries we will call, for example:
+* **bin/** Contains the actual cross compiler binaries we will call, for example:
     - aarch64-rpi5-linux-gnu-gcc
     - aarch64-rpi5-linux-gnu-ld
     - aarch64-rpi5-linux-gnu-as
@@ -137,19 +137,19 @@ Here is an overview about the generated tool chain:
 
     This is the directory we add to our $PATH environment variable.
 
-* include/ Host-side include files that the compiler itself needs.
+* **include/** Host-side include files that the compiler itself needs.
     Mostly headers used by GCC internals and the toolchain runtime, not the target’s headers 
     (those live inside `lib/gcc/aarch64-rpi5-linux-gnu/12.5.0/include`).
 
-* lib/ Host-side support libraries for the toolchain itself.
+* **lib/** Host-side support libraries for the toolchain itself.
     - GCC runtime libraries (libgcc.a, etc.)
     - Compiler plugins
     - Build-time helper libraries
 
-* libexec/ Internal helper programs used by GCC and binutils.
+* **libexec/** Internal helper programs used by GCC and binutils.
     These aren’t called directly, but the compiler uses them under the hood.
 
-* share/ Architecture-independent data files:
+* **share/** Architecture-independent data files:
     - man pages
     - Documentation
     - Config files, build metadata
@@ -157,10 +157,10 @@ Here is an overview about the generated tool chain:
 
 Notice the separation of **Host vs Target**:
 
-* Host-side stuff (`bin/, lib/, libexec/, include/, share/`): Needed to make the compiler 
+* **Host-side** stuff (`bin/, lib/, libexec/, include/, share/`): Needed to make the compiler 
     itself work on your PC.
 
-* Target-side stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Pi’s /usr/ and contains the 
+* **Target-side** stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Pi’s /usr/ and contains the 
     target headers & libraries used to build ARM64 binaries.
 
 The **sysroot** is the logical root directory for headers and libraries where gcc 
@@ -171,12 +171,12 @@ and overridden at runtime using gcc's `--sysroot` option.
 
 ```bash
 $ aarch64-rpi5-linux-gnu-gcc -print-sysroot
-/opt/x-tools/aarch64-rpi5-linux-gnu/bin/../aarch64-rpi5-linux-gnu/sysroot
+/opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu/sysroot
 ```
 
 
 
-3. Compile a First C Program
+### 3. Compile a First C Program
 
 Once the cross toolchain is ready, we can compile C code for your target device.
 
@@ -215,120 +215,6 @@ int main() {
 
 Finally, we can transfer `hello` to our Raspberry Pi 5 and run it.
 
-
-## Google Test Library 
-
-When we cross-compile, **all target libraries must live inside the toolchain’s sysroot**, i.e.:
-
-```
-/opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu/
-   ├── include/   <-- target headers
-   └── lib/       <-- target libraries
-```
-
-So if we need **GoogleTest (gtest)** for our Raspberry Pi binaries:
-
-* **Headers** go into
-  ```
-  /opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu/include/gtest/
-  ```
-
-* **Libraries (`.a` or `.so`)** go into
-  ```
-  /opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu/lib/
-  ```
-
-This way, when we compile with
-
-```bash
-aarch64-rpi5-linux-gnu-g++ my_test.cpp -lgtest
-```
-
-the cross compiler automatically finds the right **headers** and **libraries** in its sysroot.
-
-
-Build gtest for the target:
-
-1. Download gtest sources:
-
-   ```bash
-   git clone https://github.com/google/googletest.git
-   cd googletest
-   ```
-
-2. Create a build dir and cross-compile:
-
-   ```bash
-   mkdir build && cd build
-   cmake .. \
-     -DCMAKE_C_COMPILER=aarch64-rpi5-linux-gnu-gcc \
-     -DCMAKE_CXX_COMPILER=aarch64-rpi5-linux-gnu-g++ \
-     -DCMAKE_INSTALL_PREFIX=/opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu
-   make -j$(nproc)
-   make install
-   ```
-
-   * `CMAKE_INSTALL_PREFIX` ensures headers and libs are installed into the **target sysroot**.
-
-3. Verify:
-
-   ```
-   /opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu/include/gtest/gtest.h
-   /opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu/lib/libgtest.a
-   ```
-
-## Using CMake 
-
-* CMake **detects the compiler at configuration time**, before it even reads most of your `CMakeLists.txt`.
-
-* That means settings like `set(CMAKE_C_COMPILER …)` in `CMakeLists.txt` are **too late** — CMake has already 
-    chosen a compiler when it parses the project.
-
-* `CMakeLists.txt` should be **project-agnostic** (works for native and cross builds).
-
-* Toolchain settings are **environment-specific**, so they belong in a separate file.
-
-
-### Use a *toolchain file*
-
-We tell CMake about your cross compiler via a **CMake toolchain file**, not the project’s `CMakeLists.txt`.
-
-_Example:_ `rpi-toolchain.cmake`
-
-```cmake
-# Tell CMake we are cross-compiling for Linux on aarch64
-set(CMAKE_SYSTEM_NAME Linux)
-set(CMAKE_SYSTEM_PROCESSOR aarch64)
-
-# Point to the cross-compiler binaries
-set(CMAKE_C_COMPILER   /opt/x-tools/aarch64-rpi5-linux-gnu/bin/aarch64-rpi5-linux-gnu-gcc)
-set(CMAKE_CXX_COMPILER /opt/x-tools/aarch64-rpi5-linux-gnu/bin/aarch64-rpi5-linux-gnu-g++)
-
-# (Optional) Point to the sysroot
-set(CMAKE_SYSROOT /opt/x-tools/aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-gnu)
-
-# Ensure search paths are correct
-set(CMAKE_FIND_ROOT_PATH ${CMAKE_SYSROOT})
-
-# Control how CMake searches for libs/headers
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-```
-
-
-Instead of editing `CMakeLists.txt`, we pass the toolchain file when configuring:
-
-```bash
-cmake -B build -S . \
-  -DCMAKE_TOOLCHAIN_FILE=../rpi-toolchain.cmake
-```
-
-Then build as usual:
-
-```bash
-cmake --build build
-```
 
 ## References 
 
