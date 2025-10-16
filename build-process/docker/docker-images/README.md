@@ -221,13 +221,87 @@ store and reuse parts of images.
 
 
 
+### Running Interactive Containers
+
+**BusyBox** is a tiny Linux toolkit that combines many common UNIX utilities 
+(like ls, cat, sh, echo, grep, vi, etc.) into a single executable.
+
+It’s often called “The Swiss Army Knife of Embedded Linux.”
+It’s widely used in embedded systems, small devices, and in Docker minimal base images.
+
+
+Download the BusyBox image from Docker Hub and run a container:
+
+```bash
+$ docker run -it --name shell busybox:latest
+```
+
+* `docker run`: Creates and starts a new container.
+
+* `-i`: Keeps STDIN open (interactive mode).
+
+* `-t`: Allocates a pseudo-TTY (so you get a shell-like experience).
+
+* `--name shell`: Names the container “shell”.
+
+* `busybox:latest`: Uses the lightweight BusyBox Linux image.
+
+After starting the container we will drop into an **interactive shell inside the container**:
+```bash
+/ # ls
+bin    dev    etc    home   lib    lib64  proc   root   sys    tmp    usr    var
+
+/ # exit
+```
+
+We can now work with this interactive shell and we can **stop the container** bei typing `exit`.
+
+The whole **size of this image** is around 4MB:
+
+```bash
+$ docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+busybox      latest    0ed463b26dae   12 months ago   4.43MB
+```
+
+To **restart in interactive mode**, we have to attach to the container’s stdin/stdout again:
+
+```bash
+$ docker start -ai shell
+```
+
+* `start`: Starts an existing (stopped) container.
+* `-a`: Attaches to the container’s stdout/stderr.
+* `-i`: Keeps stdin open for interactive input.
+
+When finished, **remove the container and its image** to clean up:
+
+```bash
+$ docker container ls -a
+CONTAINER ID   IMAGE            COMMAND   CREATED          STATUS                      PORTS     NAMES
+c365580fe14f   busybox:latest   "sh"      12 minutes ago   Exited (0) 12 seconds ago             shell
+
+$ docker container rm shell
+
+$ docker image ls -a
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+busybox      latest    0ed463b26dae   12 months ago   4.43MB
+
+$ docker image rm 0ed463b26dae
+Untagged: busybox:latest
+Untagged: busybox@sha256:2f590fc602ce325cbff2ccfc39499014d039546dc400ef8bbf5c6ffb860632e7
+Deleted: sha256:0ed463b26daee791b094dc3fff25edb3e79f153d37d274e5c2936923c38dac2b
+Deleted: sha256:80e840de630d08a6a1e0ee30e7c8378cf1ed6a424315d7e437f54780aee6bf5a
+```
+
+
 
 
 ## Docker Hub
 
 A **Docker Repository** is a named bucket of Docker images.
-A repository's name is made up of the name of the host where the image is located, the user account that owns the image, 
-and a short name.
+A repository's name is made up of the name of the host where the image is located, 
+the user account that owns the image, and a short name.
 As there can be several versions of software, a repository can hold several images.
 Each of the images in a repository is identified uniquely with tags.
 A repository name and tag form a composite key.
@@ -238,19 +312,37 @@ There are several public indexes, but by default Docker is integrated with an in
 
 Docker Hub makes Docker more useful out of the box.
 
-We can use the following command to search the index:
+We can use the following command to **search the index**:
 
 ```
-    # docker search mariadb
-    NAME                                   DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
-    mariadb                                MariaDB is a community-developed fork of MyS…   3103                [OK]                
-    bitnami/mariadb                        Bitnami MariaDB Docker Image                    107                                     [OK]
-    linuxserver/mariadb                    A Mariadb container, brought to you by Linux…   92                                      
+$ docker search alpine
++NAME                DESCRIPTION                                     STARS     OFFICIAL
+alpine              A minimal Docker image based on Alpine Linux…   11400     [OK]
+alpine/git          A  simple git container running in alpine li…   244       
+alpine/socat        Run socat command in alpine container           112       
+alpine/helm         Auto-trigger docker build for kubernetes hel…   69        
+alpine/curl                                                         11        
+alpine/k8s          Kubernetes toolbox for EKS (kubectl, helm, i…   63        
+alpine/httpie       Auto-trigger docker build for `httpie` when …   21        
+alpine/bombardier   Auto-trigger docker build for bombardier whe…   28        
+alpine/terragrunt   Auto-trigger docker build for terragrunt whe…   17        
+alpine/openssl      openssl                                         7         
+alpine/flake8       Auto-trigger docker build for fake8 via ci c…   2         
+alpine/psql         psql — The PostgreSQL Command-Line Client       4         
+alpine/kubectl      Kubernetes command-line tool for managing cl…   0         
+alpine/ansible      run ansible and ansible-playbook in docker      27        
+alpine/semver       Docker tool for semantic versioning             4         
+alpine/jmeter       run jmeter in Docker                            9         
+alpine/java         Repo containing the build scripts to produce…   4         
+alpine/mongosh      mongosh - MongoDB Command Line Database Tools   2         
+alpine/xml          several xml tools to work on xml file as jq …   1         
+alpine/mysql        mysql client                                    6         
+alpine/bundle       This repository has been archived by the own…   1         
+alpine/gcloud       Auto-trigger docker build for gcloud (google…   0         
+alpine/cfn-nag      Auto-trigger docker build for cfn-nag when n…   0         
+alpine/crane                                                        0         
+alpine/dfimage      reverse Docker images into Dockerfiles          70     
 ```
-
-Docker Hub lets users star a repository, similar to a Facebook Like.
-
-
 
 
 ## References
