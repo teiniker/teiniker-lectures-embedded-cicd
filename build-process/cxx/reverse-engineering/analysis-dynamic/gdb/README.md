@@ -47,7 +47,7 @@ _Example:_  Disassemble a range of addresses
 
 Before you can step, you need to start or restart the program inside GDB.
 
-_Example:_ Start gdb witha a particular binary 
+_Example:_ Start GDB witha a particular binary 
 
 ```bash
 $ gdb ./secret 
@@ -61,7 +61,7 @@ $ gdb
 (gdb) run               # Start program from beginning
 ```
 
-_Example:_ Execute a programm with arguments 
+_Example:_ Execute a program with arguments 
 ```bash
 $ gdb 
 (gdb) run arg1 arg2  
@@ -247,27 +247,27 @@ _Syntax:_ `(gdb) x/NFU ADDRESS`
 | `g`  | giant word | 8     |
 
 
-_Example:_ Inspect a **C string** - Prints the string located where \$rdi points (typical for printf’s first argument).
+_Example:_ Inspect a **C string** - Prints the string located where \$rdi points (typical for printf’s first argument)
 
 ```bash
 (gdb) x/s $rdi
 ```
 
-_Example:_ View a data region in **hex and ASCII** - 32 bytes, one per line, hex format.
+_Example:_ View a data region in **hex and ASCII** - 32 bytes, one per line, hex format
 
 ```bash
 (gdb) x/32xb 0x404000
 ```
 
 
-_Example:_ Inspect **stack memory** - Shows 16 eight-byte (giant word) values from the current stack pointer.
+_Example:_ Inspect **stack memory** - Shows 16 eight-byte (giant word) values from the current stack pointer
 
 ```bash
 (gdb) x/16gx $rsp
 ```
 
 
-_Example:_ Inspect **instruction memory** - Disassembles the next 10 instructions starting at the instruction pointer.
+_Example:_ Inspect **instruction memory** - Disassembles the next 10 instructions starting at the instruction pointer
 
 ```bash
 (gdb) x/10i $rip
