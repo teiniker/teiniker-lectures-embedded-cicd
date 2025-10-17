@@ -4,12 +4,13 @@ On our Linux VM the **Docker Engine** (dockerd) is not started automatically to 
 resources. Enable and start it with systemd:
 
 ```
-# sudo systemctl start docker
+$ sudo systemctl start docker
+$ sudo systemctl status docker
 
-# docker version
-# docker info
+$ docker version
+$ docker info
 
-# sudo systemctl stop docker
+$ sudo systemctl stop docker
 ```
 
 A **Docker Image** is a read-only template that contains an application 
