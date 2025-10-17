@@ -17,7 +17,7 @@ However, many containers are build on base OS images which are quite fat. We hav
 
 There are a number of **security issues with Docker containers** that we need to manage:
 * **Docker Daemon Attack Surface**:
-    While using containers properly can reduce the system's attack surface, the Docker deamonitself exposes its own 
+    While using containers properly can reduce the system's attack surface, the Docker deamon itself exposes its own 
     attack surface.
     Anyone with access to the Docker deamon control socket or API effectively has **root access to the container**.
     Therefore:
@@ -29,14 +29,14 @@ There are a number of **security issues with Docker containers** that we need to
 * **Image Poisoning**:
     Docker makes it easy for developers to **download and work with pre-build images**.
     This makes it easy for them to introduce vulnerabilities by accident.
-    The risks of using pre-built Docker images are similar to the risk of developers using open source software libraries and other compnents.
+    The risks of using pre-built Docker images are similar to the risk of developers using open source software libraries and other components.
      
     While the Docker company is taking active steps to improve the security of images hosted in **Docker Hub**, we need to
     understand and manage the risk of building on public images.
     We need to check images downloaded from repositories:
     * Verify the **provenance of images**.
     * Ensuring that the image has been **scanned or reviewed for vulnerabilities**.
-    * **Testing and reviewingimages before allowing them to be checked in our own registry**  - this is a natural gate 
+    * **Testing and reviewing images before allowing them to be checked in our own registry**  - this is a natural gate 
     point for adding security checks.
     * Use [Official Images on Docker Hub](https://docs.docker.com/docker-hub/official_images/) whenever possible.
     * Use **automated tools** to check images for known vulnerabilities: [Ancore](https://github.com/anchore/anchore-engine), Banyan Ops Collector, CoreOS Clair, Dagda, etc.  
@@ -64,7 +64,7 @@ There are a number of **security issues with Docker containers** that we need to
     As a result, people hacked their own solutions:
     * **Passing secrets in environment variables**: Environment variables are discouraged because they are acessible by any
         process in the container, thus easily leaked.
-    * **Build-time environment variables**: The Docker build-time environment variables where not designed to handle secrets.    
+    * **Build-time environment variables**: The Docker build-time environment variables were not designed to handle secrets.    
     
     It is recommended to use a **general-purpose secret keeper** such as 
     [Keywhiz](https://square.github.io/keywhiz/), Vault or Sneaker to handle secrets.
@@ -72,14 +72,14 @@ There are a number of **security issues with Docker containers** that we need to
 * **Lightweight Isolation**:
     It is important to understand that container isolation is **not as strong as VM isolation**.
     We should assume that it is possible to break out of a container, therefore:
-    * **Make sure that you don't mix tiers on the same pysical box**: Public network-facing applications should not be
+    * **Make sure that you don't mix tiers on the same physical box**: Public network-facing applications should not be
         physically isolated from business logic services and database services.
     * **Isolate containers in separate VMs or on separate physical hosts**: Some firms actually choose to implement only 
         one container per VM, to provide two layers of containment and isolation. 
         This improves security at the cost of hardware.    
     
 * **User Namespace**:
-    Docker implements five namespaces in Linux: PID process, NET netwirk interfaces, MNT filesystem mount points, 
+    Docker implements five namespaces in Linux: PID process, NET network interfaces, MNT filesystem mount points, 
     UTS kernel and version identifiers, IPC access to interprocess communication resources.
     Other important namespaces are outside of the container, including all devices and filesystems under /sys, and user 
     namespaces.

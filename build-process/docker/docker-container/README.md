@@ -86,14 +86,14 @@ $ docker container run -p 8080:80 --name webhost -d nginx
 * `-p 8080:80`: Port mapping flag that maps port `8080` on our host machine to port `80` inside the container
 	Format: `-p <host-port>:<container-port>`
 * `--name webhost`: Assigns a custom name "webhost" to the container for easier identification and management
-* `-d`: Runs the container in **detached" mode** (in the background), so it doesn't block your terminal
-* `nginx`: The Docker image to use (pulls the official nginx image from Docker Hub if not already available locally)
+* `-d`: Runs the container in **detached mode** (in the background), so it doesn't block your terminal
+* `nginx`: The Docker image to use (pulls the official Nginx image from Docker Hub if not already available locally)
 
 
 What this single command does:
-* Downloads the nginx image (if not already present)
+* Downloads the Nginx image (if not already present)
 * Creates a new container named "webhost"
-* Starts an nginx web server inside the container
+* Starts an Nginx web server inside the container
 * Maps port 80 from the container to port `8080` on our host
 * Runs the container in the background
 
@@ -216,7 +216,7 @@ The `docker image rm`command removes the image whose ID is 07ccdb783875 from our
 local system.
 Docker first untags any names that refer to the image (like nginx:latest), then 
 deletes the actual image layers if no other image uses them.
-These `Deleted:`lines show the deletion of the image layers that made up the nginx 
+These `Deleted:`lines show the deletion of the image layers that made up the Nginx 
 image. Each layer is a separate filesystem snapshot Docker uses to efficiently 
 store and reuse parts of images.
 

@@ -32,6 +32,8 @@ to change the disassembly-flavor permanently.
 _Example:_ Disassemble a function
 
 ```bash
+$ gdb ./secret 
+
 (gdb) disassemble main
 ```
 

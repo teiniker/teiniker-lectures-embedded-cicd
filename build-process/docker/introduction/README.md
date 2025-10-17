@@ -8,7 +8,7 @@ running on a server.
 The process of **deploying a software system** and running an application 
 should be **repeatable**. 
 
-A **Docker image** image contains all the code and dependencies. 
+A **Docker image** contains all the code and dependencies. 
 This image is run each time the application needs to be run.
 
 The Docker image can run in any Docker environment. 
