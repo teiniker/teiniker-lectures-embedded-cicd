@@ -1,4 +1,26 @@
-# Using Docker Containers
+# Introduction to Docker
+
+A **Docker image** contains all the code and dependencies. 
+This image is run each time the application needs to be run.
+
+The Docker image can run in any Docker environment. 
+The runtime environment of the Docker image is called a **Docker container**. 
+
+Docker uses **resource isolation**, like how processes are isolated 
+in the operating system kernel to **run multiple containers** on the 
+**same operating system**.
+
+![Docker Layers](figures/Docker-Layers.png)
+
+Either we build a Docker image or pull the already pre-built Docker image 
+from a **Docker registry**. The Docker registry stores Docker images. 
+The default Docker registry is **Docker Hub**.
+
+To create a Docker image, we create a **Dockerfile** which contains all 
+the other images, dependencies, and commands.
+
+
+## Using Docker Containers
 
 On our Linux VM the **Docker Engine** (dockerd) is not started automatically to conserve 
 resources. Enable and start it with systemd:
@@ -126,6 +148,10 @@ alpine/dfimage      reverse Docker images into Dockerfiles          70
 * [Docker Engine](https://docs.docker.com/engine/)
 
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
+
+* Richard Bullington-McGuire, Andrew K. Denis, Michael Schwartz. **Docker for Developers**. Packt Publishing, 2020.
+
+* SK. Singh. **Cloud Computing and AWS Introduction: Docker | AWS Cloud Platform | Serverless Computing | Virtualization | Virtual Machine | Hypervisor | IaaS | PaaS | SaaS | FaaS | DaaS | EC2 | IAM | S3**. Independently published, 2021
 
 * [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
