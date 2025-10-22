@@ -327,6 +327,8 @@ _Example:_ Overwrite instruction bytes (patch code)
 
 ## References
 
+* [YouTube: Master GNU Debugger: Debug C++ & Assembly Programs with GDB Like a Pro](https://youtu.be/lPcwsvSWak0?si=a2ZSHaHRLspXKCZQ)
+
 * Norman Matloff, **Peter Jay Salzman. The Art of Debugging With GDB, DDD, and Eclipse**. No Starch Press, 2008
 
 *Egon Teiniker, 2025, GPL v3.0*
