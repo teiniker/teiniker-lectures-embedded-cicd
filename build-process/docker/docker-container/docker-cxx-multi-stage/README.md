@@ -1,4 +1,4 @@
-# Create a Docker Image With Stages
+# Build a Multi-Stage Docker Image
 
 If we want to keep the final image smaller, we can use a **multi-stage** build:
 compile in one stage, copy the binary to a clean Alpine runtime image.
