@@ -1,4 +1,4 @@
-# Create a Docker Image 
+# Building a Docker Image 
 
 In this example we build a Docker image that compiles and runs a C++ program 
 using CMake. All necessary steps are specified in the Dockerfile.
