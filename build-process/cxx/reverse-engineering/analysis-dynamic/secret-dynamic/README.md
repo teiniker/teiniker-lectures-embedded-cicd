@@ -2,18 +2,22 @@
 
 Given a simple C program that reads an input string and compares it to
 a password. If the strings match, a secret (product key) is shown.
-```
+
+```bash
 $ make
 gcc -std=c11 -Wall -o secret secret.c
 ```
+
 Note that we use the compiler **without debug flag (-g)**.
-```
+
+```bash
 $ ./secret xxxxx
 Invalid password!
 
 $ ./secret 6LJ53vc6kFtwY_
 ACD0-84F1-9A56-47BC
 ```
+
 Now, let's use dynamic analysis practices to reverse engineer that binary file to 
 find out the hidden secret...
 
@@ -21,7 +25,8 @@ find out the hidden secret...
 ## Dynamic Analysis
 
 Using **strace** we can monitor the interaction between the application and the kernel:
-```
+
+```bash
 $ strace ./secret xxxx
 execve("./secret", ["./secret", "xxxx"], 0x7ffd712bb8f8 /* 44 vars */) = 0
 brk(NULL)                               = 0x55c505d9e000
@@ -43,11 +48,13 @@ write(1, "Invalid password!\n", 18Invalid password!
 exit_group(0)                           = ?
 +++ exited with 0 +++
 ```
+
 There is no file access because the password is hard-coded, thus, we can not see 
 much information from system call analysis.
 
 Using **ltrace**, we can trace the interaction between the application and the libraries: 
-```
+
+```bash
 $ ltrace ./secret xxxx
 strcmp("6LJ53vc6kFtwY_", "xxxx")  = -66         <= !!!
 puts("Invalid password!"Invalid password! 
@@ -57,7 +64,8 @@ puts("Invalid password!"Invalid password!
 
 Using the **gdb** we can interactively execute the binary.
 Note that we can see the C source code because we did not use the `-g` compiler flag.
-```
+
+```bash
 $ gdb ./secret 
 (gdb) disass main
 Dump of assembler code for function main:
@@ -77,7 +85,7 @@ Dump of assembler code for function main:
    0x00000000000011ce <+51>:    mov    rax,QWORD PTR [rax]
    0x00000000000011d1 <+54>:    mov    rdi,rax
    0x00000000000011d4 <+57>:    call   0x116a <is_correct_password>
-   0x00000000000011d9 <+62>:    test   eax,eax                  <= !!!
+   0x00000000000011d9 <+62>:    test   eax,eax                       <== break
    0x00000000000011db <+64>:    je     0x11ec <main+81>
    0x00000000000011dd <+66>:    call   0x1155 <get_secret>
    0x00000000000011e2 <+71>:    mov    rdi,rax
@@ -90,7 +98,8 @@ End of assembler dump.
 
 We set a breakpoint to analyze the value of the **EAX register** after the
 invocation of the **is_correct_password** function with a wrong password.
-```
+
+```bash
 (gdb) break *0x00000000000011d9
 
 (gdb) run xxxx
@@ -104,7 +113,8 @@ Invalid password!
 ```
 
 Now let's do the same but **manipulate the value of the EAX register**.
-```
+
+```bash
 (gdb) run xxxx
 
 (gdb) set $eax = 1
@@ -115,12 +125,14 @@ $3 = 1
 Continuing.
 ACD0-84F1-9A56-47BC
 ```
+
 Note that we have changed the control flow of the application by setting
 a register value. In other words, if we change the code of the binary at 
 that point we could bypass the password check. 
 
 An alternative approache is to **modify the Instruction Pointer RIP** directly:
-```
+
+```bash
 (gdb) run xxxx
 Breakpoint 1, 0x00005555555551d9 in main ()
 
@@ -144,7 +156,7 @@ Dump of assembler code for function main:
    0x00005555555551d4 <+57>:    call   0x55555555516a <is_correct_password>
 => 0x00005555555551d9 <+62>:    test   eax,eax
    0x00005555555551db <+64>:    je     0x5555555551ec <main+81>
-   0x00005555555551dd <+66>:    call   0x555555555155 <get_secret>    <= !!!
+   0x00005555555551dd <+66>:    call   0x555555555155 <get_secret>            <== rip
    0x00005555555551e2 <+71>:    mov    rdi,rax
    0x00005555555551e5 <+74>:    call   0x555555555030 <puts@plt>
    0x00005555555551ea <+79>:    jmp    0x5555555551f8 <main+93>
