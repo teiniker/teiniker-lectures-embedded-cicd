@@ -1,4 +1,4 @@
-# Exercise: Reverse Engineering - Product Key 
+# Example: Reverse Engineering - Product Key 
 
 In the given binary, username and product key will be checkt before the program 
 goes on. 
