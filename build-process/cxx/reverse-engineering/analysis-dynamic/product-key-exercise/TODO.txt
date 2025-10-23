@@ -27,8 +27,8 @@ Using the disassembly of the binary:
 
 $ objdump -d product
 
-Use a HexEditor to modify the right bytes to bypass the username and key 
-checks permanently.
+Use a hex editor (VS Code Extension) to modify the right bytes to bypass 
+the username and key checks permanently.
 
 Tip: There is a No Operation (NOP) command we can use for x86-64 CPUs 
 
