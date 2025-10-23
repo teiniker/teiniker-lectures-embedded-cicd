@@ -10,11 +10,7 @@ If the correct username and product key are supplied, the program prints
 "Welcome to your product."
 Otherwise it prints "Invalid product key or username!".
 
-A) Static Analysis
-Extract username and key from the given binary.
-
-
-B) Dynamic Analysis 
+A) Dynamic Analysis 
 Use the gdb to manipulate the control flow.
 Modify register values to bypass the username and key checks.
 
@@ -25,7 +21,7 @@ $ gdb ./product
 Welcome to your product.
 
 
-C) Patch Binary 
+B) Patch Binary 
 
 Using the disassembly of the binary: 
 
