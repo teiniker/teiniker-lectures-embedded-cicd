@@ -56,12 +56,12 @@ Modify register values to bypass the username and key checks.
     * **test** and **je** instructions 
 
     ```bash
-    gdb) disass main
+    (gdb) disass main
     Dump of assembler code for function main:
-    0x00005555555551c1 <+0>:	    push   rbp
-    0x00005555555551c2 <+1>:	    mov    rbp,rsp
-    0x00005555555551c5 <+4>:	    sub    rsp,0x10
-    0x00005555555551c9 <+8>:	    mov    DWORD PTR [rbp-0x4],edi
+    0x00005555555551c1 <+0>:	push   rbp
+    0x00005555555551c2 <+1>:	mov    rbp,rsp
+    0x00005555555551c5 <+4>:	sub    rsp,0x10
+    0x00005555555551c9 <+8>:	mov    DWORD PTR [rbp-0x4],edi
     0x00005555555551cc <+11>:	mov    QWORD PTR [rbp-0x10],rsi
     0x00005555555551d0 <+15>:	cmp    DWORD PTR [rbp-0x4],0x3
     0x00005555555551d4 <+19>:	je     0x5555555551ef <main+46>
@@ -115,7 +115,7 @@ Modify register values to bypass the username and key checks.
     0x000055555555522c <+107>:	jmp    0x55555555523d <main+124>
 
     (gdb) break *0x0000555555555202
-    (gdb) break *0x0
+    (gdb) break *0x0000555555555219
     ```
 
     Now, we run the application until the first breakpoint.
@@ -157,7 +157,7 @@ No Operation (NOP) instructions** to skip the checks permanently.
 We use a **hex editor** (VS Code Extension) to overwrite the two-byte 
 `JE` instructions with a two-byte NOP sequence (`66 90`). 
 
-There are **No Operation (NOP)** commands we can use for x86-64 CPUs 
+There are different **No Operation (NOP)** commands we can use for x86-64 CPUs:
 
 ```
 90                ; 1-byte NOP 
@@ -227,9 +227,11 @@ like the following are common:
 
 4. **Save the file and run it**:
 
+    ```bash
     $ ./product-hack homer xxxxxx
     Welcome to your product.
-
+    ```
+    
     The changes are now permanent, and username and product key checks have been disabled.
 
 
