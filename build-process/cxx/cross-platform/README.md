@@ -118,17 +118,13 @@ Here is an overview about the generated tool chain:
 │
 ├── share/              <-- Architecture-independent data (man pages, specs)
 │
-└── aarch64-rpi5-linux-gnu/   <-- Target sysroot (mini rootfs for Pi 5)
-    ├── include/        <-- Target headers (kernel, libc, etc.)
-    ├── lib/            <-- Target libraries (glibc/musl, crt1.o, etc.)
-    └── ...             <-- Mirrors what /usr/ on the Pi would look like
+└── aarch64-rpi5-linux-gnu/   <-- Target files system including sysroot 
 ```
 
 * **aarch64-rpi5-linux-gnu/** This folder usually mirrors the target **root filesystem** structure.
-    When we cross compile, GCC and binutils use this directory as the sysroot, so the target 
+    When we cross compile, GCC and binutils use this directory, so the target 
     headers and libraries are kept separate from host ones.
-    We can think of this as a mini version of `/usr/` on the Raspberry Pi, but built on your host.
-
+    
 * **bin/** Contains the actual cross compiler binaries we will call, for example:
     - aarch64-rpi5-linux-gnu-gcc
     - aarch64-rpi5-linux-gnu-ld
@@ -160,10 +156,10 @@ Notice the separation of **Host vs Target**:
 * **Host-side** stuff (`bin/, lib/, libexec/, include/, share/`): Needed to make the compiler 
     itself work on your PC.
 
-* **Target-side** stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Pi’s /usr/ and contains the 
-    target headers & libraries used to build ARM64 binaries.
+* **Target-side** stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Pi’s filesystem and contains 
+    the target headers & libraries used to build ARM64 binaries.
 
-The **sysroot** is the logical root directory for headers and libraries where gcc 
+The **sysroot** is the logical **root directory** for headers and libraries where gcc 
 looks for headers, and ld looks for libraries.
 
 The current sysroot can be printed using the `-print-sysroot` option 
