@@ -25,7 +25,7 @@ the other images, dependencies, and commands.
 On our Linux VM the **Docker Engine** (dockerd) is not started automatically to conserve 
 resources. Enable and start it with systemd:
 
-```
+```bash
 $ sudo systemctl start docker
 $ sudo systemctl status docker
 
@@ -43,8 +43,8 @@ default tag is `latest`).
 
 The following commands are used in the context of Docker images:
 
-```
-# docker image help
+```bash
+$ docker image help
 Commands:
   build       Build an image from a Dockerfile
   history     Show the history of an image
@@ -64,8 +64,8 @@ Commands:
 A **Docker Container** is an instance of a Docker image running as a process.
 There are also container specific commands we can use:
 
-```
-# docker container help
+```bash
+$ docker container help
 Commands:
   attach      Attach local standard input, output, and error streams to a running container
   commit      Create a new image from a container's changes
@@ -112,7 +112,7 @@ Docker Hub makes Docker more useful out of the box.
 
 We can use the following command to **search the index**:
 
-```
+```bash
 $ docker search alpine
 +NAME                DESCRIPTION                                     STARS     OFFICIAL
 alpine              A minimal Docker image based on Alpine Linux…   11400     [OK]
