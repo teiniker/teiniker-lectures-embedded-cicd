@@ -2,7 +2,7 @@
 
 This repository contains examples and documentation for using Continuous Integration and Continuous Delivery in embedded systems.
 
-![CI/CD Process](CICD-Process.png
+![CI/CD Process](CICD-Process.png)
 
 * [Software Building and Packaging](build-process/)
 * [Embedded Architectures](embedded-architectures/)
