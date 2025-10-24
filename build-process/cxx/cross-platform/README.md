@@ -159,7 +159,7 @@ Notice the separation of **Host vs Target**:
 * **Target-side** stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Pi’s filesystem and contains 
     the target headers & libraries used to build ARM64 binaries.
 
-The **sysroot** is the logical **root directory** for headers and libraries where gcc 
+The **sysroot** is the logical target **root directory** for headers and libraries where gcc 
 looks for headers, and ld looks for libraries.
 
 The current sysroot can be printed using the `-print-sysroot` option 
