@@ -1,12 +1,19 @@
-# Using Docker Compose
+# Docker Compose
 
-Compose is a tool for defining, launching, and managing services, where service is defined as one or more replicas of a 
-Docker container.
-Services and systems of services are defined in **YAML files** (docker-compose.yml) and managed with the command-line 
-program `docker-compose`.
+Docker Compose is a tool for **defining and running multi-container applications**. 
 
-Docker-Compose lets us stop focusing on individual containers and instead **describe full environments** and 
-**service component interactions**. 
+It is the key to unlocking a streamlined and efficient development and deployment experience.
+
+Compose simplifies the control of your entire application stack, making it easy to manage 
+services, networks, and volumes in a single YAML configuration file. Then, with a single 
+command, you create and start all the services from your configuration file.
+
+Compose works in all environments - production, staging, development, testing, as well 
+as CI workflows.
+
+Docker Compose shifts the focus from individual containers to defining **complete environments** 
+and the interactions between **service components**.
+
 With Compose we can use simple commands to accomplish these tasks:
 * Build Docker images
 * Launch containerized applications as services
@@ -15,29 +22,29 @@ With Compose we can use simple commands to accomplish these tasks:
 * Scale services up or down
 * View logs for the collection of containers making a service
 
-A Compose file might describe four or five unique services that are interrelated but should maintain isolation and may 
-scale independently. Thus, most interactions with Docker will be through Compose.
 
-From within the **directory which contains the docker-compose-yml file**, we can manage this system of containers with 
-the following commands:
+From within the **directory which contains the docker-compose-yml file**, we can manage 
+this system of containers with the following commands:
 ```
-# docker compose up         Create and start containers
+$ docker-compose up         Create and start containers
 
-# docker compose ps         List containers
+$ docker-compose ps         List containers
 
-# docker compose stop       Stop services
-# docker compose start      Start services
+$ docker-compose stop       Stop services
+$ docker-compose start      Start services
 
-# docker compose rm         Remove stopped containers
+$ docker-compose rm         Remove stopped containers
 
-# docker compose down       Stop all containers and remove them
+$ docker-compose down       Stop all containers and remove them
 ```
 
 ## YAML Configuration 
-Docker Compose works by applying many rules declared within a single `docker-compose.yml` configuration file.
-The following descriptions are mainly out of the following article: [Introduction to Docker Compose](https://www.baeldung.com/docker-compose) 
+Docker Compose works by applying many rules declared within a single `docker-compose.yml` 
+configuration file.
 
-In Docker Compose, **Services** are the building blocks and refer to Docker container configurations. 
+In Docker Compose, **Services** are the building blocks and refer to Docker container 
+configurations. 
+
 A `docker-compose.yml` file usually defines many services:
 ```
 services:
@@ -54,8 +61,10 @@ services:
 There are multiple settings that we can apply to services.
 
 ### Configuring Images
-Sometimes, the **image** we need for our service has already been published (by us or by others) in Docker Hub, or another Docker Registry.
-If that's the case, then we can **pull an image** using the `image` attribute, by specifying the image name and tag:
+Sometimes, the **image** we need for our service has already been published 
+(by us or by others) in Docker Hub, or another Docker Registry.
+If that's the case, then we can **pull an image** using the `image` attribute, 
+by specifying the image name and tag:
 ```
 services: 
   my-service:
@@ -63,8 +72,11 @@ services:
     ...
 ```
 
-Instead, we might need to **build an image** from the source code by reading its `Dockerfile`.
-This time, we'll use the build keyword, passing the path to the Dockerfile as the value:
+Instead, we might need to **build an image** from the source code by reading 
+its `Dockerfile`.
+This time, we'll use the `build` keyword, passing the path to the Dockerfile 
+as the value:
+
 ```
 services: 
   my-custom-app:
@@ -73,7 +85,8 @@ services:
 ```
 
 Note that we can also use a URL instead of a path.
-Additionally, we can specify an image name in conjunction with the build attribute, which will name the image once created: 
+Additionally, we can specify an image name in conjunction with the `build` attribute, 
+which will name the image once created: 
 ```
 services: 
   my-custom-app:
@@ -83,9 +96,12 @@ services:
 ```
 
 ### Configuring the Network
-Docker containers communicate between themselves in networks created, implicitly or through configuration, by Docker 
-Compose. A service can communicate with another service on the same network by simply referencing it by **container name 
-and port**, provided that we have made the port accessible through the `expose` keyword:
+Docker containers communicate between themselves in networks created, implicitly 
+or through configuration, by Docker Compose. 
+A service can communicate with another service on the same network by simply referencing 
+it by **container name and port**, provided that we have made the port accessible through 
+the `expose` keyword:
+
 ```
 services:
   network-example-service:
@@ -94,9 +110,11 @@ services:
       - "80"
 ```
 
-To **reach a container from the host**, the ports must be exposed declaratively through the `ports` keyword, which also 
-allows us to choose the **port differently in the host**. 
-This powerful mechanism allows us to run different containers exposing the same ports without collisions.
+To **reach a container from the host**, the ports must be exposed declaratively through 
+the `ports` keyword, which also allows us to choose the **port differently in the host**. 
+This powerful mechanism allows us to run different containers exposing the same ports 
+without collisions.
+
 ```
 services:
   my-custom-app:
@@ -128,18 +146,26 @@ networks:
   my-shared-network: {}
   my-private-network: {}
 ```
-We can see that a`nother-service-in-the-same-network` will be able to ping and to reach port 80 of 
-`network-example-service`, while `another-service-in-its-own-network` won't.
+We can see that a`nother-service-in-the-same-network` will be able to ping 
+and to reach port 80 of `network-example-service`, while 
+`another-service-in-its-own-network` won't.
 
 ### Configuring Volumes
+
 There are three types of volumes:
-* Docker manages both **anonymous and named volumes**, automatically mounting them in self-generated directories 
-  in the host. While anonymous volumes were useful with older versions of Docker (pre 1.9), named ones are the 
+
+* Docker manages both **anonymous and named volumes**, automatically mounting 
+  them in self-generated directories in the host. While anonymous volumes were 
+  useful with older versions of Docker (pre 1.9), named ones are the 
   suggested way to go nowadays. 
+
 * **Host volumes** allow us to specify an existing folder in the host.
 
-We can configure **host volumes at the service level** and **named volumes in the outer level** of the configuration, 
-in order to make the latter visible to other containers and not only to the one they belong:
+We can configure **host volumes at the service level** and 
+**named volumes in the outer level** of the configuration, 
+in order to make the latter visible to other containers and not only 
+to the one they belong:
+
 ```
 services:
   volumes-example-service:
@@ -157,20 +183,25 @@ services:
 volumes:
   my-named-global-volume: 
 ```
-Both containers will have read/write access to the `my-named-global-volume` shared folder, no matter the different 
-paths they've mapped it to. 
+
+Both containers will have read/write access to the `my-named-global-volume` 
+shared folder, no matter the different paths they've mapped it to. 
 
 The two host volumes, instead, will be available only to `volumes-example-service`.
 
-The `/tmp` folder of the host's file system is mapped to the `/my-volumes/host-volume` folder of the container.
-This portion of the file system is writeable, which means that the container can not only read but also write 
-(and delete) files in the host machine.
+The `/tmp` folder of the host's file system is mapped to the 
+`/my-volumes/host-volume` folder of the container.
+This portion of the file system is writeable, which means that the container 
+can not only read but also write (and delete) files in the host machine.
 
-We can mount a volume in read-only mode by appending `:ro` to the rule, like for the `/home` folder.
+We can mount a volume in read-only mode by appending `:ro` to the rule, like 
+for the `/home` folder.
 
 ### Configuring Dependencies
-Often, we need to create a **dependency chain between our services**, so that some services get loaded before 
-(and unloaded after) other ones. We can achieve this result through the `depends_on` keyword:
+Often, we need to create a **dependency chain between our services**, so that 
+some services get loaded before (and unloaded after) other ones. We can achieve 
+this result through the `depends_on` keyword:
+
 ```
 services:
   kafka:
@@ -182,11 +213,12 @@ services:
     image: wurstmeister/zookeeper
     ...
 ```
-Note that Compose will not wait for the `zookeeper` service to finish loading before starting the `kafka` service: 
-it will simply wait for it to start. 
+Note that Compose will not wait for the `zookeeper` service to finish loading before 
+starting the `kafka` service: it will simply wait for it to start. 
 
 ### Configuring Environment Variables
-We can define **static environment variables**, and also define **dynamic variables** with the `${}` notation:
+We can define **static environment variables**, and also define **dynamic variables** 
+with the `${}` notation:
 ```
 services:
   database: 
@@ -196,24 +228,29 @@ services:
       USER: "${USER}"
 ```
 There are different methods to provide those values to Compose.
-* We can  setting them in a **.env file** in the same directory, structured like a `.properties` file, `key=value`
+* We can  setting them in a **.env file** in the same directory, structured like 
+  a `.properties` file, `key=value`
+
     ```
     POSTGRES_VERSION=alpine
     USER=foo
     ```
 * We can **set them in the OS** before calling the command:
+  
     ```
     export POSTGRES_VERSION=alpine
     export USER=foo
     docker-compose up
     ```
+  
     We might find handy using a simple one-liner in the shell:
+  
     ```
     POSTGRES_VERSION=alpine USER=foo docker-compose up
     ```
 
-We can mix the approaches, but let's keep in mind that Compose uses the following **priority order**, overwriting the 
-less important with the higher ones:
+We can mix the approaches, but let's keep in mind that Compose uses the following 
+**priority order**, overwriting the less important with the higher ones:
 1. Compose file
 2. Shell environment variables
 3. Environment file
@@ -222,8 +259,9 @@ less important with the higher ones:
 
 
 ## References
+* [Introduction to Docker Compose](https://www.baeldung.com/docker-compose) 
 * [Overview of Docker Compose](https://docs.docker.com/compose/)
+
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
-* [Introduction to Docker Compose](https://www.baeldung.com/docker-compose)
 
 *Egon Teiniker, 2025, GPL v3.0*

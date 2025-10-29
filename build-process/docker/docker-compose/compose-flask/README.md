@@ -1,11 +1,12 @@
-# Docker Compose: Python + Flask + Redis
+# Example: Python + Flask + Redis
 
 This example is based on the [Get started with Docker Compose](https://docs.docker.com/compose/gettingstarted/)
 article published on the Docker homepage.
 
 ## Create a Dockerfile
 
-We want to setup the infrastructure for a Python Service based on Flask and Redis, an in-memory data structure store.
+We want to setup the infrastructure for a Python Service based on **Flask** 
+and **Redis**, an in-memory data structure store.
 
 First, we create a `docker-flask` directory:
 ```
@@ -28,7 +29,6 @@ FROM python:3.7-alpine
 WORKDIR /code
 ENV FLASK_APP=service.py
 ENV FLASK_RUN_HOST=0.0.0.0
-RUN apk add --no-cache gcc musl-dev linux-headers
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 EXPOSE 5000
@@ -47,8 +47,8 @@ Within this `Dockerfile`, the following steps will be performed:
 
 
 ## Create a Compose File
-Because we want to use the Flask image together with Redis, we use the following `docker-compose.yml` file,
-stored in a top-level directory called `compose-flask`:
+Because we want to use the Flask image together with Redis, we use the following 
+`docker-compose.yml` file, stored in a top-level directory called `compose-flask`:
 ```
 compose-flask/
 ├── docker-compose.yml
@@ -79,15 +79,15 @@ Note that we have mount the host's directory `./docker-flask` to the in containe
 by using the `volumes` keyword.
 This allows us to **modify the code on the fly**, without having to rebuild the image.
 
-The `environment` key sets the `FLASK_ENV` environment variable, which tells flask run to run in **development mode** 
-and reload the code on change. This mode should only be used in development.
+The `environment` key sets the `FLASK_ENV` environment variable, which tells flask run to run 
+in **development mode** and reload the code on change. This mode should only be used in development.
 
 ## Run the Service
 From our project directory, we start up your application:
 ```
-# cd compose-flask
+$ cd compose-flask
 
-# docker-compose up
+$ docker-compose up
 ```
 
 Now we can use curl to access the service:
@@ -106,7 +106,7 @@ Hello World! I have been seen 1 times.
 Using the `docker` command, we can analyse the installed images and running containers:
 
 ```
-# docker image ls 
+$ docker image ls -a
 
 REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
 compose-flask_web          latest              b72cc165c386        15 minutes ago      196MB
@@ -115,7 +115,7 @@ python                     3.7-alpine          72e4ef8abf8e        5 weeks ago  
 ```
 
 ```
-# docker container ls
+$ docker container ls -a
 
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 c5e772c5cb2e        redis:alpine        "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        6379/tcp                 compose-flask_redis_1
