@@ -18,7 +18,7 @@ $ cmake -S . -B build \
 
 $ cd build/
 $ make
-$ make install
+$ sudo make install
 ```
 
 The built and **installed header and library files** can be found at:
