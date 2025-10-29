@@ -35,12 +35,44 @@ original image layers to remain untouched. This enables you to run multiple
 containers from the same underlying image.
 
 
+## Base Image 
+
+A **base image** is the starting layer of a Docker image, the foundation on top 
+of which all other layers are added. It’s the first image you specify in a 
+`Dockerfile` using the `FROM` instruction.
+
+```dockerfile
+FROM alpine:latest
+#...
+```
+
+The `alpine` base image is a minimal Docker image based on **Alpine Linux** 
+with a complete package index and only **5 MB** in size.
+
+The `alpine` image uses the **Alpine Package Keeper (apk)** package manager.
+apk is lightweight, fast, and designed specifically for Alpine’s minimal 
+footprint. It’s used to install, update, and remove software packages inside 
+Alpine-based containers.
+
+* **Install a package**: `apk add g++`
+* **Remove a package**: `apk del g++`
+* **Update package index**: `apk update`
+* **Upgrade installed packages**: `apk upgrade`
+
+Alpine Linux uses the **Alpine Package** format `.apk`.
+Each `.apk` file is a compressed tar archive (tar.gz or tar.xz)
+
+We can look up apk packages in the official 
+[**Alpine Linux package repositories**](https://pkgs.alpinelinux.org/packages)
 
 
 
 
-
-
-## References 
+## References
 
 * [Understanding the image layers](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/)
+
+* [DockerHub: Docker Official Image - alpine](https://hub.docker.com/_/alpine)
+
+
+*Egon Teiniker, 2025, GPL v3.0*

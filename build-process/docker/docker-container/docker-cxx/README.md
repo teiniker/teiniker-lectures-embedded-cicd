@@ -39,21 +39,6 @@ WORKDIR /app/build
 CMD ["./hello"]
 ```
 
-The Alpine Linux image uses the **Alpine Package Keeper (apk)** package manager.
-apk is lightweight, fast, and designed specifically for Alpine’s minimal 
-footprint. It’s used to install, update, and remove software packages inside 
-Alpine-based containers.
-
-* **Install a package**: `apk add g++`
-* **Remove a package**: `apk del g++`
-* **Update package index**: `apk update`
-* **Upgrade installed packages**: `apk upgrade`
-
-Alpine Linux uses the **Alpine Package** format `.apk`.
-Each `.apk` file is a compressed tar archive (tar.gz or tar.xz)
-
-We can look up apk packages in the official 
-[**Alpine Linux package repositories**](https://pkgs.alpinelinux.org/packages)
 
 
 We can build an image from the `Dockerfile` that can be run as a container 
