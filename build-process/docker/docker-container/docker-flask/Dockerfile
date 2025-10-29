@@ -1,0 +1,11 @@
+FROM python:3-alpine
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8080
+
+COPY ./src .
+CMD [ "python", "./book_service.py" ]
