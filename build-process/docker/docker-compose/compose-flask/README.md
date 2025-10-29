@@ -124,6 +124,6 @@ c5e772c5cb2e        redis:alpine        "docker-entrypoint.s…"   5 minutes ago
 
 
 ## References
-* [Get started with Docker Compose](https://docs.docker.com/compose/gettingstarted/)
+* [Docker Compose Quickstart](https://docs.docker.com/compose/gettingstarted/)
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 * [Redis](https://redis.io/)
