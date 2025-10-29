@@ -58,6 +58,14 @@ This leads to:
     libraries, and source code) from the runtime environment (just the 
     executable and essentials).
 
+
+By default, the stages aren't named, and we refer to them by their integer 
+number, starting with `0` for the first `FROM` instruction. 
+
+However, we can **name our stages**, by adding an `AS <NAME>` to the 
+`FROM` instruction.
+
+
 We can build an image from the `Dockerfile`:
 
 ```bash
@@ -94,6 +102,9 @@ $ docker image rm hello-cmake
 
 
 ## References
+
+* [Multi-stage builds](http://docs.docker.com/build/building/multi-stage/)
+
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
 
 *Egon Teiniker, 2025, GPL v3.0*
