@@ -1,5 +1,12 @@
 # Building Docker Images
 
+Docker Build is one of Docker Engine's most used features. 
+
+Whenever we are creating an image we are using Docker Build. 
+Build is a key part of your software development life cycle allowing 
+us to package and bundle our code and ship it anywhere.
+
+
 ## Image Layers
 
 **Container images are composed of layers**. And each of these layers, once created, 
@@ -29,7 +36,7 @@ original image layers to remain untouched. This enables you to run multiple
 containers from the same underlying image.
 
 
-## Base Image 
+### Base Image 
 
 A **base image** is the starting layer of a Docker image, the foundation on top 
 of which all other layers are added. It’s the first image you specify in a 
@@ -119,20 +126,23 @@ Some of the most **common instructions** in a Dockerfile include:
 * `CMD ["<command>", "<arg1>"]`: This instruction sets the default command 
     a container using this image will run.
 
-_Example:_ Dockerfile for a Python image running a simple application
+_Example:_ [Dockerfile for a Python image running a simple application](../docker-python/)
 
-```dockerfile
-FROM python:3-alpine
 
-WORKDIR /app
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+## Multi-Stage Builds
 
-COPY . .
-CMD [ "python", "./hello.py" ]
-```
+With multi-stage builds, we use **multiple FROM statements** in our Dockerfile. 
 
+Each `FROM` instruction can use a different base, and each of them begins a 
+new stage of the build. We can selectively **copy artifacts from one stage to 
+another**, leaving behind everything we don't want in the final image.
+
+_Example:_ [C++ build and run stages](../docker-cxx-multi-stage/)
+
+The end result is a **tiny production image** with nothing but the binary inside. 
+None of the build tools required to build the application are included in the 
+resulting image.
 
 
 
