@@ -21,11 +21,50 @@ This is beneficial because:
 * it **reduces the amount of storage and bandwidth** required to distribute the images
 
 
+_Example:_ Layers of the nginx Docker image
+```bash
+$ docker pull nginx
+
+$ docker image ls -a
+REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+nginx          latest    9d0e6f6199dc   15 hours ago    152MB
+
+# Show the layer-by-layer history of how the nginx image was built.
+$ docker image history nginx
+IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+9d0e6f6199dc   15 hours ago   CMD ["nginx" "-g" "daemon off;"]                0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   STOPSIGNAL SIGQUIT                              0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   EXPOSE map[80/tcp:{}]                           0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   ENTRYPOINT ["/docker-entrypoint.sh"]            0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   COPY 30-tune-worker-processes.sh /docker-ent…   4.62kB    buildkit.dockerfile.v0
+<missing>      15 hours ago   COPY 20-envsubst-on-templates.sh /docker-ent…   3.02kB    buildkit.dockerfile.v0
+<missing>      15 hours ago   COPY 15-local-resolvers.envsh /docker-entryp…   389B      buildkit.dockerfile.v0
+<missing>      15 hours ago   COPY 10-listen-on-ipv6-by-default.sh /docker…   2.12kB    buildkit.dockerfile.v0
+<missing>      15 hours ago   COPY docker-entrypoint.sh / # buildkit          1.62kB    buildkit.dockerfile.v0
+<missing>      15 hours ago   RUN /bin/sh -c set -x     && groupadd --syst…   73.2MB    buildkit.dockerfile.v0
+<missing>      15 hours ago   ENV DYNPKG_RELEASE=1~trixie                     0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   ENV PKG_RELEASE=1~trixie                        0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   ENV NJS_RELEASE=1~trixie                        0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   ENV NJS_VERSION=0.9.4                           0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   ENV NGINX_VERSION=1.29.3                        0B        buildkit.dockerfile.v0
+<missing>      15 hours ago   LABEL maintainer=NGINX Docker Maintainers <d…   0B        buildkit.dockerfile.v0
+<missing>      9 days ago     # debian.sh --arch 'amd64' out/ 'trixie' '@1…   78.6MB    debuerreotype 0.16
+```
+
+Each row represents a layer of the final nginx image:
+* The top row is the newest layer; bottom rows are oldest
+* `CREATED BY` shows which Dockerfile instruction produced it
+* `SIZE` shows how large the layer is
+* `<missing>` image IDs usually mean the layer came from a parent/base image
+
+
 Layering is made possible by **content-addressable storage** and **union filesystems**:
 
 * After each layer is downloaded, it is extracted into its own directory on the host filesystem.
+
 * When we run a container from an image, a union filesystem is created where layers are stacked 
     on top of each other, creating a new and unified view.
+
 * When the container starts, its root directory is set to the location of this unified directory, 
     using `chroot`.
 
@@ -127,6 +166,8 @@ Some of the most **common instructions** in a Dockerfile include:
     a container using this image will run.
 
 _Example:_ [Dockerfile for a Python image running a simple application](../docker-python/)
+
+_Example:_ [Dockerfile for a C++ image building and running a simple application](../docker-cxx/)
 
 
 
