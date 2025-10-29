@@ -60,13 +60,16 @@ We can build an image from the `Dockerfile` that can be run as a container
 just like an image pulled from Docker Hub.
 
 ```bash
-# build the Docker image with the tag "hello-cmake"
+# Build the Docker image with the tag "hello-cmake"
 $ docker build -t hello-cmake .
 
-# list local images to confirm the image was created
+# List local images to confirm the image was created
 $ docker image ls
 
-# run the image (container removed after exit with --rm)
+# Show the layers and build steps of the hello-cmake image
+$ docker image history hello-cmake
+
+# Run the image (container removed after exit with --rm)
 $ docker run --rm hello-cmake
 Hello world using CMake!
 Hello world using CMake!
@@ -157,6 +160,8 @@ $ rm -f hello-cmake.tar
 
 
 ## References
+* [DockerHub: Docker Official Image - alpine](https://hub.docker.com/_/alpine)
+
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
 
 *Egon Teiniker, 2025, GPL v3.0*
