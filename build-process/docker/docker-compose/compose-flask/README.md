@@ -9,7 +9,7 @@ We want to setup the infrastructure for a Python Service based on **Flask**
 and **Redis**, an in-memory data structure store.
 
 First, we create a `docker-flask` directory:
-```
+```bash
 docker-flask/
 ├── Dockerfile
 ├── requirements.txt
@@ -49,7 +49,8 @@ Within this `Dockerfile`, the following steps will be performed:
 ## Create a Compose File
 Because we want to use the Flask image together with Redis, we use the following 
 `docker-compose.yml` file, stored in a top-level directory called `compose-flask`:
-```
+
+```bash
 compose-flask/
 ├── docker-compose.yml
 ├── docker-flask
@@ -84,14 +85,14 @@ in **development mode** and reload the code on change. This mode should only be 
 
 ## Run the Service
 From our project directory, we start up your application:
-```
+```bash
 $ cd compose-flask
 
 $ docker compose up
 ```
 
 Now we can use curl to access the service:
-```
+```bash
 $ curl -i http://localhost:8080
 
 HTTP/1.0 200 OK
@@ -105,7 +106,7 @@ Hello World! I have been seen 1 times.
 
 Using the `docker` command, we can analyse the installed images and running containers:
 
-```
+```bash
 $ docker image ls -a
 
 REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
@@ -114,13 +115,30 @@ redis                      alpine              933c79ea2511        9 days ago   
 python                     3.7-alpine          72e4ef8abf8e        5 weeks ago         41.1MB
 ```
 
-```
+```bash
 $ docker container ls -a
 
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 c5e772c5cb2e        redis:alpine        "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        6379/tcp                 compose-flask_redis_1
 17cfd8800d30        compose-flask_web   "flask run"              5 minutes ago       Up 5 minutes        0.0.0.0:8080->5000/tcp   compose-flask_web_1
 ```
+
+To clean up the containers and networks created by docker compose, run the following command:
+
+```bash
+$ docker compose down
+
+$ docker container ls -a
+CONTAINER ID   IMAGE            COMMAND   CREATED      STATUS                  PORTS     NAMES
+
+$ docker image ls -a
+REPOSITORY          TAG       IMAGE ID       CREATED         SIZE
+nginx               latest    9d0e6f6199dc   33 hours ago    152MB
+redis               alpine    5d79a9ce29f8   3 weeks ago     70.6MB
+```
+
+The `docker compose down` command stops the services defined in `docker-compose.yml` and 
+removes their containers, but it does not remove the Docker images.
 
 
 ## References
