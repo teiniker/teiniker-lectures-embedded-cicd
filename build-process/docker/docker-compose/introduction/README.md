@@ -95,126 +95,6 @@ services:
     ...
 ```
 
-### Configuring the Network
-Docker containers communicate between themselves in networks created, implicitly 
-or through configuration, by Docker Compose. 
-A service can communicate with another service on the same network by simply referencing 
-it by **container name and port**, provided that we have made the port accessible through 
-the `expose` keyword:
-
-```
-services:
-  network-example-service:
-    image: karthequian/helloworld:latest
-    expose:
-      - "80"
-```
-
-To **reach a container from the host**, the ports must be exposed declaratively through 
-the `ports` keyword, which also allows us to choose the **port differently in the host**. 
-This powerful mechanism allows us to run different containers exposing the same ports 
-without collisions.
-
-```
-services:
-  my-custom-app:
-    image: myapp:latest
-    ports:
-      - "8080:3000"
-    ...
-```
-
-Finally, we can define **additional virtual networks** to segregate our containers:
-```
-services:
-  network-example-service:
-    image: karthequian/helloworld:latest
-    networks: 
-      - my-shared-network
-    ...
-  another-service-in-the-same-network:
-    image: alpine:latest
-    networks: 
-      - my-shared-network
-    ...
-  another-service-in-its-own-network:
-    image: alpine:latest
-    networks: 
-      - my-private-network
-    ...
-networks:
-  my-shared-network: {}
-  my-private-network: {}
-```
-We can see that a`nother-service-in-the-same-network` will be able to ping 
-and to reach port 80 of `network-example-service`, while 
-`another-service-in-its-own-network` won't.
-
-### Configuring Volumes
-
-There are three types of volumes:
-
-* Docker manages both **anonymous and named volumes**, automatically mounting 
-  them in self-generated directories in the host. While anonymous volumes were 
-  useful with older versions of Docker (pre 1.9), named ones are the 
-  suggested way to go nowadays. 
-
-* **Host volumes** allow us to specify an existing folder in the host.
-
-We can configure **host volumes at the service level** and 
-**named volumes in the outer level** of the configuration, 
-in order to make the latter visible to other containers and not only 
-to the one they belong:
-
-```
-services:
-  volumes-example-service:
-    image: alpine:latest
-    volumes: 
-      - my-named-global-volume:/my-volumes/named-global-volume
-      - /tmp:/my-volumes/host-volume
-      - /home:/my-volumes/readonly-host-volume:ro
-    ...
-  another-volumes-example-service:
-    image: alpine:latest
-    volumes:
-      - my-named-global-volume:/another-path/the-same-named-global-volume
-    ...
-volumes:
-  my-named-global-volume: 
-```
-
-Both containers will have read/write access to the `my-named-global-volume` 
-shared folder, no matter the different paths they've mapped it to. 
-
-The two host volumes, instead, will be available only to `volumes-example-service`.
-
-The `/tmp` folder of the host's file system is mapped to the 
-`/my-volumes/host-volume` folder of the container.
-This portion of the file system is writeable, which means that the container 
-can not only read but also write (and delete) files in the host machine.
-
-We can mount a volume in read-only mode by appending `:ro` to the rule, like 
-for the `/home` folder.
-
-### Configuring Dependencies
-Often, we need to create a **dependency chain between our services**, so that 
-some services get loaded before (and unloaded after) other ones. We can achieve 
-this result through the `depends_on` keyword:
-
-```
-services:
-  kafka:
-    image: wurstmeister/kafka:2.11-0.11.0.3
-    depends_on:
-      - zookeeper
-    ...
-  zookeeper:
-    image: wurstmeister/zookeeper
-    ...
-```
-Note that Compose will not wait for the `zookeeper` service to finish loading before 
-starting the `kafka` service: it will simply wait for it to start. 
 
 ### Configuring Environment Variables
 We can define **static environment variables**, and also define **dynamic variables** 
@@ -256,6 +136,27 @@ We can mix the approaches, but let's keep in mind that Compose uses the followin
 3. Environment file
 4. Dockerfile
 5. Variable not defined
+
+
+### Configuring Dependencies
+Often, we need to create a **dependency chain between our services**, so that 
+some services get loaded before (and unloaded after) other ones. We can achieve 
+this result through the `depends_on` keyword:
+
+```
+services:
+  kafka:
+    image: wurstmeister/kafka:2.11-0.11.0.3
+    depends_on:
+      - zookeeper
+    ...
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ...
+```
+Note that Compose will not wait for the `zookeeper` service to finish loading before 
+starting the `kafka` service: it will simply wait for it to start. 
+
 
 
 ## References
