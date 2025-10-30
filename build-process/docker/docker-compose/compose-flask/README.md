@@ -87,7 +87,7 @@ From our project directory, we start up your application:
 ```
 $ cd compose-flask
 
-$ docker-compose up
+$ docker compose up
 ```
 
 Now we can use curl to access the service:

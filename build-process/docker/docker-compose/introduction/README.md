@@ -26,16 +26,16 @@ With Compose we can use simple commands to accomplish these tasks:
 From within the **directory which contains the docker-compose-yml file**, we can manage 
 this system of containers with the following commands:
 ```
-$ docker-compose up         Create and start containers
+$ docker compose up         Create and start containers
 
-$ docker-compose ps         List containers
+$ docker compose ps         List containers
 
-$ docker-compose stop       Stop services
-$ docker-compose start      Start services
+$ docker compose stop       Stop services
+$ docker compose start      Start services
 
-$ docker-compose rm         Remove stopped containers
+$ docker compose rm         Remove stopped containers
 
-$ docker-compose down       Stop all containers and remove them
+$ docker compose down       Stop all containers and remove them
 ```
 
 ## YAML Configuration 
@@ -240,13 +240,13 @@ There are different methods to provide those values to Compose.
     ```
     export POSTGRES_VERSION=alpine
     export USER=foo
-    docker-compose up
+    docker compose up
     ```
   
     We might find handy using a simple one-liner in the shell:
   
     ```
-    POSTGRES_VERSION=alpine USER=foo docker-compose up
+    POSTGRES_VERSION=alpine USER=foo docker compose up
     ```
 
 We can mix the approaches, but let's keep in mind that Compose uses the following 
