@@ -12,13 +12,8 @@ FROM python:3-alpine
 # Set the working directory inside the container
 WORKDIR /app  
 
-# Copy the requirements file into the working directory
-COPY requirements.txt ./  
-# Install Python dependencies without caching wheels
-RUN pip install --no-cache-dir -r requirements.txt  
-
 # Copy the entire project into the container's working directory
-COPY ./src .  
+COPY . .  
 # Default command: run the hello.py script
 CMD [ "python", "./hello.py" ]  
 ```
