@@ -1,0 +1,41 @@
+Exercise: C++ Class with Google Testing Framework
+-------------------------------------------------------------------------------
+
+You are given a C++ class (display.h, lcd.h, lcd.cpp) that is verified using 
+the Google Test framework (test.cpp).
+
+Build a Docker image that has the following properties:
+1) Use the "alpine:latest" base image
+2) Install git, g++, make, and cmake
+3) Install the Google Test framework
+4) Set the working directory to "/app"
+5) Copy the C++ source files into the working directory
+6) Build the "test" executable
+7) Run the "test" executable
+
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from LCDTestGroup
+[ RUN      ] LCDTestGroup.ClearTest
+[       OK ] LCDTestGroup.ClearTest (0 ms)
+[ RUN      ] LCDTestGroup.PrintCharTest
+[       OK ] LCDTestGroup.PrintCharTest (0 ms)
+[ RUN      ] LCDTestGroup.PrintCharPtrTest
+[       OK ] LCDTestGroup.PrintCharPtrTest (0 ms)
+[ RUN      ] LCDTestGroup.PrintTest
+[       OK ] LCDTestGroup.PrintTest (0 ms)
+[ RUN      ] LCDTestGroup.PolymorphismTest
+[       OK ] LCDTestGroup.PolymorphismTest (0 ms)
+[----------] 5 tests from LCDTestGroup (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 5 tests.
+
+
+Tip: How to build and install the Google Test framework:
+$ git clone -q https://github.com/google/googletest.git /googletest \
+  && mkdir -p /googletest/build \
+  && cd /googletest/build \
+  && cmake .. && make && make install \
+  && cd / && rm -rf /googletest
