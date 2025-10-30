@@ -160,8 +160,9 @@ starting the `kafka` service: it will simply wait for it to start.
 
 
 ## References
-* [Introduction to Docker Compose](https://www.baeldung.com/docker-compose) 
 * [Overview of Docker Compose](https://docs.docker.com/compose/)
+
+* [Introduction to Docker Compose](https://www.baeldung.com/docker-compose) 
 
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
 
