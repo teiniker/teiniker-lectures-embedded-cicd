@@ -1,0 +1,18 @@
+Exercise: Python Application Using BCrypt and Cryptography 
+-------------------------------------------------------------------------------
+
+You are given a Python file (password_bcrypt) that is using the BCrypt and 
+Cryptography libraries.
+
+Build a Docker image that has the following properties:
+1) Use the "python:3-alpine" base image
+2) Set the working directory to "/app"
+3) Install the following Python libraries (using a "requirements.txt" file)
+    $ pip install cryptography
+    $ pip install bcrypt
+4) Copy the Python source files into the working directory
+5) Run the "password_bcrypt.py" script
+
+Tip: To generate a proper "requirements.txt" file, create a virtual environment 
+in your project directory, install the necessary libraries, and then export 
+the dependencies to "requirements.txt".
