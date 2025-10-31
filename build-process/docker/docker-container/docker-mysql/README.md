@@ -38,10 +38,18 @@ We can **create a volume explicitly** using the `docker volume create`
 command, or Docker can create a volume during container or service creation:
 
 ```bash
+# Create a named volume
 $ docker volume create mydata
 
+# List volumes
+$  docker volume ls
+
+# Pass a named volume to a starting container
 $ docker run -d -v mydata:/var/lib/mysql mysql
 ```
+
+If we start a container and specify a volume which does not already exist, 
+an empty volume is created for us. 
 
 When we mount the volume into a container, this directory is what's mounted 
 into the container. This is **similar to the way that bind mounts work**, 
@@ -52,6 +60,15 @@ While bind mounts are dependent on the directory structure and OS of the
 host machine, volumes are completely managed by Docker. 
 
 ## Anonymous Volumes
+
+Anonymous volumes persist even if we remove the container that uses them, 
+except if we use the `--rm` flag when creating the container, in which case 
+the anonymous volume associated with the container is destroyed.
+
+If we create multiple containers consecutively that each use anonymous volumes, 
+each container creates its own volume. Anonymous volumes aren't reused or shared 
+between containers automatically. To share an anonymous volume between two or 
+more containers, we must mount the anonymous volume using the random volume ID.
 
 We create a container named `mysql`:
 
