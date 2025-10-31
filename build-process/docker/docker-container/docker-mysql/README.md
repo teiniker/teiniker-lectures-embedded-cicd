@@ -16,6 +16,36 @@ $ docker image inspect mysql:9.5.0
             },
 ```
 
+## Docker Volumes 
+
+Docker volumes are a built-in mechanism for 
+**persisting and sharing data used by Docker containers**. 
+
+Normally, anything written inside a container’s filesystem disappears when 
+the container stops or is removed. 
+
+Volumes solve that problem by storing data outside the container’s 
+internal filesystem, they:
+* Persist data beyond container lifecycles (database files, uploads, logs).
+* Share data between multiple containers.
+* Isolate storage from container images (smaller images, easier upgrades).
+* Better performance than bind mounts on many systems.
+
+Docker manages them under `/var/lib/docker/volumes/` on Linux 
+(or equivalent directories on Mac/Windows).
+
+Volumes can be **created manually** and attached to a container 
+when it is started:
+
+```bash
+$ docker volume create mydata
+
+$ docker run -d -v mydata:/var/lib/mysql mysql
+```
+
+A volume can be created by containers themselves if none exists yet (anonymous volumes).
+
+
 ## Anonymous Volumes
 
 We create a container named `mysql`:
@@ -130,7 +160,7 @@ mysql> grant alter, create, delete, drop, index, insert, select, update on testd
 mysql> exit 
 ```
 
-IN SQL, we created a database named `testdb` and a user `student`.
+In SQL, we created a database named `testdb` and a user `student`.
 We can now connect to the MySQL server using the `student` account:
 
 ```bash
@@ -203,6 +233,8 @@ mysql> exit
 
 
 ## References
+
+* [Volumes](https://docs.docker.com/engine/storage/volumes/)
 
 * [DockerHub: mysql](https://hub.docker.com/_/mysql)
 
