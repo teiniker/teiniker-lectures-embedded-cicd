@@ -34,8 +34,8 @@ internal filesystem, they:
 Docker manages them under `/var/lib/docker/volumes/` on Linux 
 (or equivalent directories on Mac/Windows).
 
-Volumes can be **created manually** and attached to a container 
-when it is started:
+We can **create a volume explicitly** using the `docker volume create` 
+command, or Docker can create a volume during container or service creation:
 
 ```bash
 $ docker volume create mydata
@@ -43,8 +43,13 @@ $ docker volume create mydata
 $ docker run -d -v mydata:/var/lib/mysql mysql
 ```
 
-A volume can be created by containers themselves if none exists yet (anonymous volumes).
+When we mount the volume into a container, this directory is what's mounted 
+into the container. This is **similar to the way that bind mounts work**, 
+except that volumes are managed by Docker and are **isolated from the core 
+functionality of the host machine**.
 
+While bind mounts are dependent on the directory structure and OS of the 
+host machine, volumes are completely managed by Docker. 
 
 ## Anonymous Volumes
 
