@@ -20,9 +20,9 @@ running on a server.
     - Building Docker Images
         - [Introduction](docker-container/docker-build/README.md)
         - [Python Docker Image](docker-container/docker-python/)
+        - [Flask Docker Image](docker-container/docker-flask/)
         - [C++ Docker Image](docker-container/docker-cxx/)
         - [C++ Multi-Stage Docker Image](docker-container/docker-cxx-multi-stage/)
-        - [Flask Docker Image](docker-container/docker-flask/)
 
     - Docker Bind Mounts and Volumes 
         - [Flask Bind Mount Image](docker-container/docker-flask-mount/)       
