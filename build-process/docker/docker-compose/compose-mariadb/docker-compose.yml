@@ -1,0 +1,26 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root66
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: student
+      MYSQL_PASSWORD: student
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  mysql-client:
+    image: mysql:latest
+    container_name: mysql-client
+    depends_on:
+      - mariadb
+    command: sh -c "sleep 10 && mysql -h mariadb -u student -pstudent testdb"
+    # keeps the container running so you can exec into it if you want
+    tty: true
+    stdin_open: true
+
+volumes:
+  mariadb_data:
