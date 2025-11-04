@@ -191,14 +191,14 @@ or transfer it as a tarball. Here we use the **tarball approach**:
 $ docker save -o hello-cmake.tar hello-cmake
 
 # Copy image file to Raspi5
-$ scp ./hello-cmake.tar student@<Raspi-IP>:/home/student/Downloads
+$ scp ./hello-cmake.tar student@<raspi-ip-address>:/home/student/Downloads
 ```
 
 Then we connect to the Raspberry Pi, load the image from the tar file, 
 and start the container:
 
 ```bash
-$ ssh 192.168.0.73
+$ ssh <raspi-ip-address>
 $ cd Downloads 
 $ docker load -i hello-cmake.tar
 
@@ -220,6 +220,13 @@ Hello world using CMake!
 ```
 
 With that, we built a Docker image on the PC and ran it as a container on the Raspberry Pi.
+
+To tidy up, remove the created image:
+
+```bash
+# remove the local image
+$ docker image rm hello-cmake:raspi5
+```
 
 
 ## References

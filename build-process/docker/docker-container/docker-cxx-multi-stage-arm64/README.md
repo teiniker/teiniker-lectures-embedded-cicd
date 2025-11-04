@@ -84,12 +84,12 @@ We save the image in a tarball and deploy it to a Raspberry Pi:
 $ docker save -o hello-cmake.tar hello-cmake
 
 # Copy image file to Raspi5
-$ scp ./hello-cmake.tar student@192.168.0.73:/home/student/Downloads
+$ scp ./hello-cmake.tar student@<raspi-ip-address>:/home/student/Downloads
 ```
 
 Finally, we run the container on the Raspberry Pi:
 ```bash
-$ ssh 192.168.0.73
+$ ssh <raspi-ip-address>
 $ cd Downloads 
 $ docker load -i hello-cmake.tar
 
