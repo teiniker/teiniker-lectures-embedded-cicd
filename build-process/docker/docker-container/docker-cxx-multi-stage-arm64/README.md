@@ -64,6 +64,7 @@ tonistiigi/binfmt   latest            c97f15e717f7   7 weeks ago     83.3MB
 
 # Run container on x86-64 using QEMU 
 $ docker run --rm --platform=linux/arm64 hello-cmake:raspi5 
+
 Hello world using CMake!
 Hello world using CMake!
 Hello world using CMake!
@@ -98,6 +99,7 @@ REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
 hello-cmake   raspi5    be31b668a9b3   9 minutes ago   282MB
 
 $ docker run --rm hello-cmake:raspi5 
+
 Hello world using CMake!
 Hello world using CMake!
 Hello world using CMake!

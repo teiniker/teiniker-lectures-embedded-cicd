@@ -27,93 +27,17 @@ WORKDIR /app/build
 CMD ["./hello"]
 ```
 
-## Docker Buildx
-Docker Buildx is an extended build tool for Docker that adds powerful 
-features on top of the standard docker build command.
+## Build Multi-Platform Image 
 
-We can build Docker images for multiple CPU platforms from one machine, 
-such as: linux/amd64, linux/arm64, linux/arm/v7	
+We can build a multi-platform image from the `Dockerfile`:
 
 ```bash
+# Creates a new Buildx builder instance (if not already done)
 $ docker buildx create --name multiarch --use
 
-# verify it’s the current builder
-$ docker buildx ls         
-```
-
-* `docker buildx create`: Creates a new Buildx builder instance.
-    - Buildx uses “builder instances” to control how and where images are built
-    - A builder can be local, remote, multi-node, or connect to Docker 
-        drivers like docker-container or kubernetes
-    - We can have multiple builders and switch between them.
-
-* `--name multiarch`: This assigns a name to the builder instance.
-    - Without a name, Docker would auto-generate one.
-    - Naming it helps us list, inspect, remove, or reuse it later:
-        - `docker buildx rm multiarch`
-        - `docker buildx use multiarch`
-
-* `--use`: Immediately activates this builder and sets it as the current 
-    default for future docker buildx build commands.
-    Without `--use`, the builder is created but not selected.
-
-Because the default Docker builder doesn’t support multi-architecture builds on its own.
-Creating a new builder like this:
-* Enables BuildKit (faster builds, caching, parallelism)
-* Allows cross-platform builds (`--platform linux/arm64,linux/amd64`)
-* Works with QEMU emulation for foreign architectures
-
-* `docker buildx ls`: Docker prints a table showing:
-    - what builders exist
-    - which builder is currently active
-    - what architectures they support
-    - their status (running/stopped)
-    - which driver each uses
-
-
-### QEMU 
-
-Next, we have to **install QEMU emulation support** on our machine so we can run 
-ARM64 binaries (or build ARM64 Docker images) on a non-ARM64 host like x86-64.
-
-This makes Docker able to execute ARM code transparently, which is crucial for 
-docker buildx multi-architecture builds.
-
-```bash
+# Install QEMU emulation support on our machine (if not already done)
 $ docker run --privileged --rm tonistiigi/binfmt --install arm64
 ```
-
-* `--privileged`: Gives the container elevated permissions so it can modify 
-    system settings. Required because it needs to add entries to `binfmt_misc` 
-    (a kernel feature).
-
-* `--rm`: Automatically deletes the container after it finishes.
-    The changes persist, but the container isn’t left behind.
-
-* `tonistiigi/binfmt`: This is the container image.
-    It’s a lightweight tool created by a Docker BuildKit maintainer.
-    Purpose: install CPU architecture interpreters for cross-execution.
-
-* `--install arm64`: Installs the emulator for ARM64 only.
-    - We could also do: `--install all` to install interpreters for most 
-    architectures (`arm`, `arm64`, `s390x`, `ppc64le`, `riscv`, etc.).
-
-Now, we can run ARM64 binaries directly:
-```bash
-$ ./some-arm64-binary
-```
-
-We can test ARM64 container images locally:
-```bash
-$ docker run --platform=linux/arm64 arm64v8/alpine 
-```
-
-We can build ARM64 Docker images using Buildx:
-```bash
-$ docker buildx build --platform linux/arm64 -t myapp:arm64 . 
-```
-
-### Build the Docker Image 
 
 We want to build a Docker **image for ARM64** (for devices like a Raspberry Pi 5) 
 on our current machine, and then load that image into our local Docker engine so 
@@ -134,25 +58,6 @@ tonistiigi/binfmt   latest            c97f15e717f7   7 weeks ago     83.3MB
 $ docker image history hello-cmake:raspi5
 ```
 
-* `docker buildx build`: Uses Buildx, Docker’s advanced builder (BuildKit-powered).
-    Supports multi-architecture builds, caching, and parallel builds.
-
-* `--platform linux/arm64`: Tells Buildx to produce an image whose CPU/OS target is:
-    - OS: Linux
-    - Architecture: ARM64 (aka aarch64)
-
-    This is what Raspberry Pi 5 uses when running a 64-bit OS.
-
-* `-t hello-cmake:raspi5`: Tags the resulting image so Docker can refer to it by name:
-    - repository: hello-cmake
-    - tag: raspi5
-
-* `--load`: Converts the built image into a format the regular Docker daemon can 
-    use and loads it into the local image store. 
-    - Without it, Buildx would not load the image into our local Docker
-    - Buildx normally stores images in its own cache or pushes to a registry
-
-
 We have built a **Docker image suitable for the Raspberry Pi** 
 (linux/arm64 architecture).
 
@@ -161,6 +66,7 @@ To run this ARM container on a PC, we use the **QEMU emulator**:
 ```bash
 # Run the image on x86-64 (using QEMU to simulate an linux/arm64 architecture) 
 $ docker run --rm --platform=linux/arm64 hello-cmake:raspi5 
+
 Hello world using CMake!
 Hello world using CMake!
 Hello world using CMake!
@@ -207,6 +113,7 @@ REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
 hello-cmake   raspi5    be31b668a9b3   9 minutes ago   282MB
 
 $ docker run --rm hello-cmake:raspi5 
+
 Hello world using CMake!
 Hello world using CMake!
 Hello world using CMake!
