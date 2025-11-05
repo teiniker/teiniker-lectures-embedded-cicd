@@ -7,10 +7,8 @@ The `mysql` client represents various applications that require access to the da
 
 ## Docker Compose File
 
-Because we want to use the Flask image together with Redis, we use the following 
-`docker-compose.yml` file, stored in a top-level directory called `compose-flask`:
-
-This `docker-compose.yml` file defines two services: `mariadb` and `mysql-client`:
+This `docker-compose.yml` file defines two services: `mariadb` and `mysql-client`.
+It also creates a persistent volume so the database data isn’t lost when the container stops.
 
 ```yaml
 services:
@@ -41,7 +39,45 @@ volumes:
   mariadb_data:
 ```
 
+* **Service: `mariadb`** 
+  - Runs the official MariaDB image
+  - The container is named `mariadb` so other services can reference it by name
 
+*  Environment variables set up the database when the server initializes:
+  - Root password = **root66**
+  - Creates a database named **testdb**
+  - Creates a user named **student** with password **student**
+
+* Port mapping: Exposes the database on port 3306 
+
+* Volume: 
+  - Stores database files outside the container
+  - Ensures data persists even if the container is removed
+
+* **Service: `mysql-client`**
+  - Uses the official MySQL client tools
+  - Helpful for testing or manually running SQL commands
+
+* Container dependency: Ensures the database container starts before the client does
+
+* Startup command: 
+  - Waits 10 seconds to allow MariaDB to fully start
+  - Then runs a MySQL client command:
+    - `-h mariadb`: connects by container name over Docker network
+    - `-u student -pstudent`: logs in with the created user
+    - `testdb`: opens the database
+
+* Keeps container open:  
+  - Prevents container from exiting after running the command
+  - Allows you to exec into the container and manually run commands:
+    
+    ```bash
+    docker exec -it mysql-client mysql -h mariadb -u student -pstudent testdb
+    ```
+
+* **Volume definition**
+  - Declares the named volume used by MariaDB
+  - Data stored here survives container deletion
 
 
 ## Run the Services
@@ -60,7 +96,7 @@ $ docker exec -it mysql-client mysql -h mariadb -u student -pstudent testdb
 mysql> 
 ```
 
-Now we can work with the `testdb` database.
+Now we can work with the `testdb` database:
 
 ```SQL
 CREATE TABLE user
