@@ -39,7 +39,7 @@ WORKDIR /app/build
 CMD ["./hello"]
 ```
 
-
+## Build a Docker Image
 
 We can build an image from the `Dockerfile` that can be run as a container 
 just like an image pulled from Docker Hub.
@@ -53,9 +53,14 @@ $ docker image ls
 
 # Show the layers and build steps of the hello-cmake image
 $ docker image history hello-cmake
+```
 
+## Create Docker Container
+
+```bash
 # Run the image (container removed after exit with --rm)
 $ docker run --rm hello-cmake
+
 Hello world using CMake!
 Hello world using CMake!
 Hello world using CMake!
@@ -132,6 +137,8 @@ Hello world using CMake!
 Hello world using CMake!
 Hello world using CMake!
 ```
+
+## Clean Up 
 
 To tidy up, remove the created image and the exported tar file:
 
