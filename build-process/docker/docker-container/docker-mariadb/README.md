@@ -54,7 +54,7 @@ Using the `mysql` client, installed in the Debian VM, we access the running Mari
 $ mysql -h 127.0.0.1 -P 3306 -u root -p  
 
 # Connect as user 'student'; prompts for password ('student')
-$ mysql -h 127.0.0.1 -P 3306 -u student -p  
+$ mysql -h 127.0.0.1 -P 3306 -u student -p testdb
 
 # Inside the MySQL client: switch to the 'testdb' database
 MariaDB [(none)]> use testdb;  
@@ -83,8 +83,8 @@ Stop and remove the container, then optionally remove the data volume and image:
 
 ```bash
 # Stop and remove the container
-docker stop mariadb
-docker rm mariadb
+docker container stop mariadb
+docker container rm mariadb
 
 # List volumes
 docker volume ls
