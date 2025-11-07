@@ -20,15 +20,14 @@ We use the **Raspberry Pi Imager** to install Raspberry Pi OS on an SD card:
 * Set username and password
   * username: student
   * password: student
+
 * Configure wireless LAN:
   * SSID: FHJOANNEUM4iot
   * Password: <IOT Password>
+
 * Set locale settings:
   * Time zone: Europe/Vienna
   * Keyboard layout: de
-
-
-## Shell Configurations
 
 * Change super user password:
   * username: root
@@ -38,6 +37,8 @@ We use the **Raspberry Pi Imager** to install Raspberry Pi OS on an SD card:
 $ sudo su -
 passwd
 ```
+
+## Shell Configurations
 
 * Terminal Settings
 	* Background: FFFFBB
@@ -196,52 +197,5 @@ $ sudo apt install graphviz
 $ sudo apt install xpdf
 ```
 
-## Delete bash history
-
-```bash
-$ rm ~/.bash_history
-```
-
-## Win32 Disk Imager – Copy SD Card Images
-
-### 1. Create an Image (Copy SD Card → PC)
-
-* Insert the SD card into the PC’s card reader.
-* Open **Win32 Disk Imager** (as Administrator).
-* **Image File** field:
-  - Choose a location and name for the backup image (e.g., `C:\<USER>\rpi5_student_image_2025.img`).
-* **Device** dropdown:
-  - Select your SD card path (e.g., `D:`).
-* Click **Read**.
-  - The SD card is read and saved as an image file (`.img`) at the chosen location on your PC.
-* Wait for the process to complete (takes about 30 minutes).
-
-### 2. Write an Image (Copy Image → SD Card)
-
-* Insert the target SD card into your PC.
-* **Image File** field:
-  - Browse and select the `.img` file you want to write (e.g., `C:\<USER>\rpi5_student_image_2025.img`).
-* **Device** dropdown:
-  - Select the drive letter of your SD card (e.g., `D:`).
-* Click **Write** to start writing the image.
-* Wait until the process completes (takes about 15–20 minutes).
-  
-## Change hostname 
-
-Replace XX with the kit number:
-
-```bash
-$ sudo hostnamectl set-hostname ece-rpi5-kitXX
-```
-
-Update the `/etc/hosts` to the correct kit number: 
-```bash
-$ sudo vim /etc/hosts
-```
-
-Reboot the Raspberry: 
-```bash
-$ sudo reboot
-```
 
 *Egon Teiniker, 2024-2025, GPL v3.0*
