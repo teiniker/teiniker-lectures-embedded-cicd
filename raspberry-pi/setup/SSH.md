@@ -1,6 +1,7 @@
 # SSH-Connection 
 
-Connecting via SSH and using a SSH key for passwordless login.
+This guide shows how to connect to your Raspberry Pi over SSH and configure 
+an SSH key pair for secure, passwordless login.
 
 **Note:** Ensure your Raspberry Pi is connected to the WLAN: `FHJOANNEUM2work`.
 
@@ -11,7 +12,7 @@ $ ssh student@10.225.32.XXX
 ```
 **Note:**: Replace `10.225.32.XXX`with the actual IP address of your Raspberry Pi.
 
-Change your Password:
+Change your Passwords (for root and student):
 
 ```bash
 $ passwd
