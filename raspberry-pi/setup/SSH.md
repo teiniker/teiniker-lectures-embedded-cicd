@@ -8,9 +8,10 @@ an SSH key pair for secure, passwordless login.
 ## Connect to the Raspberry Pi: 
 
 ```bash
-$ ssh student@10.225.32.XXX
+$ ssh student@xxx.xxx.xxx.xxx
 ```
-**Note:**: Replace `10.225.32.XXX`with the actual IP address of your Raspberry Pi.
+
+**Note:** Replace `xxx.xxx.xxx.xxx` with the actual IP address of your Raspberry Pi.
 
 Change your Passwords (for root and student):
 
@@ -18,7 +19,7 @@ Change your Passwords (for root and student):
 $ passwd
 ```
 
-## SSH Connection from the Linux VM  
+## SSH Connection from the **Linux VM**
 
 Generate an SSH Key, open a terminal and create a key:
 
@@ -29,7 +30,7 @@ $ ssh-keygen -t ed25519
 Use the `ssh-copy-id` command to copy your public key to the Raspberry Pi:
 
 ```bash 
-$ ssh-copy-id -i ~/.ssh/id_ed25519.pub student@10.225.32.XXX
+$ ssh-copy-id -i ~/.ssh/id_ed25519.pub student@xxx.xxx.xxx.xxx
 ```
 
 This will copy the public key to your home directory on the Raspberry Pi 5 into the following directory: 
@@ -41,7 +42,7 @@ $ ~/.ssh/authorized_keys
 ## Test the Connection without using a password: 
 
 ```bash
-$ ssh student@10.225.32.XXX
+$ ssh student@xxx.xxx.xxx.xxx
 ```
 
 ## References
