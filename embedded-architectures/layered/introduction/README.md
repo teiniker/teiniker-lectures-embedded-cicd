@@ -1,46 +1,115 @@
-# Layered Architecture 
+# Clean Embedded Architecture 
 
-In embedded systems, a layered architecture is a design approach that organizes 
-software into **distinct layers**, each with specific roles and well-defined 
-interfaces. 
+Embedded systems present unique challenges: constrained resources (CPU, 
+memory, energy), real-time and timing requirements, close coupling to 
+hardware, limited observability and debugging, and long hardware–software 
+integration cycles. 
 
-A layered architecture divides the software stack into **hierarchical layers**, where:
-* **Each layer provides services** to the layer above it.
-* **Each layer uses services** from the layer below it.
-* **Direct access across non-adjacent layers is avoided**, ensuring abstraction and 
-    separation of concerns.
+One of the special embedded problems is the **target-hardware bottleneck**. 
 
-This allows developers to modify one layer (e.g., hardware drivers) without 
-affecting the higher-level application logic.
+When embedded code is structured without applying clean architecture principles 
+and practices, we will often face the scenario in which we can **test our code 
+only on the target**. 
 
+If the target is the only place where testing is possible, the target-hardware 
+bottleneck will slow us down.
 
-## Layers in an Embedded System
-
-
-* **Hardware Layer**: The physical components of the system.
-
-    _Examples:_ Microcontroller, sensors, actuators, communication interfaces.
-
-* **Hardware Abstraction Layer (HAL)**: Provides a consistent API to interact with 
-    hardware, hiding device-specific details.
-
-    _Examples:_ GPIO, ADC, UART drivers
-
-* **Operating System (or RTOS) Layer**: Manages tasks, timing, and system resources.
-
-    _Examples:_ FreeRTOS, Zephyr
-
-* **Middleware Layer**: Offers reusable software components and communication services.
-
-    _Examples:_ TCP/IP stack, file system, Bluetooth stack
-
-* **Application Layer**: Implements the specific logic and behavior of the system.
-
-    _Examples:_ Control algorithms, user interface, application logic
+Layering comes in many flavors. 
 
 
+## A Testable Embedded Architecture
 
-## Implementation Techniques 
+The separation between hardware and the rest of the system is given, at least 
+once the hardware is defined.
+But because of technology advances the hardware will change over time.
+
+A problem is that there is nothing that keeps hardware knowledge from polluting 
+all the code so the code will be very hard to change.
+
+**Software and firmware intermingling is an anti-pattern**.
+
+
+### Hardware Abstraction Layer 
+
+The **line between software and firmware** is typically not so well defined
+as the line between code and hardware.
+One of our jobs as an embedded software devloper is to firm up that line.
+
+![Embedded Architecture Layers](figures/Embedded-Architecture-Layered.png)
+
+The name of the boundary between the software and the firmware is the 
+**Hardware Abstraction Layer (HAL)**.
+
+The HAL exists for the software that sits on top of it, and its API should 
+be tailored to that software’s needs. 
+
+_Example:_ The firmware can store bytes and arrays of bytes into flash memory. 
+    In contrast, the application needs to store and read name/value pairs to 
+    some persistence mechanism. 
+    The software should not be concerned that the name/value pairs are stored 
+    in flash memory, a spinning disk, the cloud, or core memory. 
+    The HAL provides a service, and it does not reveal to the software how it 
+    does it. The flash implementation is a detail that should be hidden from 
+    software.
+
+A clean embedded architecture’s software is **testable off the target hardware**. 
+A successful HAL provides that seam or set of substitution points that facilitate 
+off-target testing
+
+
+### Processor Is a Detail
+
+A clean embedded architecture would use device access registers directly in very 
+few places and confine them totally to the firmware.
+Anything that knows about these registers becomes firmware and is consequently 
+bound to the silicon.
+
+If we use a microcontroller our firmware could isolate these low-level functions 
+with some form of a **Processor Abstraction Layer (PAL)**.
+Firmware above the PAL could be tested iff-target, making it a little less firm.
+
+
+### Operating System is a Detail 
+
+What about embedded systems that use a real-time operating system (RTOS) or some
+embedded version of Linux?
+
+To give our embedded code a good chance at a long life, we have to treat 
+the operating system as a detail and protect against OS dependencies.
+
+A clean embedded architecture isolates software from the operating system,
+through an **Operating System Abstraction Layer (OSAL)**.
+
+In some cases, implementing this layer might be as simple as changing the name 
+of a function.
+In other cases, it might involve wrapping several functions together.
+
+The OSAL can help provide test points so that the valuable application code 
+in the software layer can be tested off-target and off-OS.
+A clean embedded architecture's software is **testable off the target operating system**.
+
+
+### Programming to Interfaces and Substitutability
+
+The idea of a layered architecture is build on the idea of **programming to interfaces**.
+
+When one module interacts with another though an interface, we can substitute 
+one service provider for another.
+
+One basic rule of thumb is to **use header files as interface definitions**.
+Limit header file contents to functiondeclarations as well as the constants 
+and struct names that are needed by the function.
+
+Don't clutter the interface header files with data structures, constants, and typedefs
+that are needed by only the implementation.
+
+A clean embedded architecture is testable within the layers because 
+modules interact through interfaces.
+Each interface provides a substitution point that facilitates off-target testing.
+
+
+
+### Implementation Techniques 
 
 To implement a layered architecture, developers can leverage both language-specific 
 mechanisms and language-agnostic design patterns. 
@@ -57,17 +126,10 @@ improve code maintainability, and ensure that each layer interacts only through 
 interfaces.
 
 
-
-
-
-
-
-
-
 ## References
 
 * Robert C. Martin. **Clean Architecture: A Craftsman's Guide to Software Structure and Design**. Addison-Wesley, 2017
-
+    - Chapter 29: Clean Embedded Architecture 
 
 
 _Egon Teiniker, 2025, GPL v3.0_
