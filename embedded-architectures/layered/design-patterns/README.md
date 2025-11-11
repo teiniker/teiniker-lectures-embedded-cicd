@@ -12,6 +12,11 @@ The following design patterns help to implement a layered architecture:
     created. It encapsulates the object creation process and delegates 
     it to subclasses.
 
+* [Dependency Injection]():
+    This pattern supplies an object’s required dependencies from the 
+    outside rather than having the object create them itself, promoting 
+    loose coupling and easier testing.
+
 
 ## Structural Patterns
 
