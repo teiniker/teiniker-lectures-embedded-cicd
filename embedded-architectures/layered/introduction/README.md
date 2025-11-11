@@ -131,5 +131,7 @@ interfaces.
 * Robert C. Martin. **Clean Architecture: A Craftsman's Guide to Software Structure and Design**. Addison-Wesley, 2017
     - Chapter 29: Clean Embedded Architecture 
 
+* Buschmann, Meunier, Rohnert, Sommerlad, Stal. **Pattern-Oriented Software Architecture, Volume 1**. Wiley, 1996
+    - Chapter 2.2: From Mud to Structure
 
 _Egon Teiniker, 2025, GPL v3.0_
