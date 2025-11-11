@@ -80,6 +80,35 @@ Forms of injection:
 * **Interface Injection**: Client exposes method for receiving dependency.
 
 
+## Other Design Patterns
+
+When we compare the Dependency Injection Pattern with other Design Patterns, the following 
+differences in functionality and application emerge.
+
+### Dependency Injection vs. Factory Method
+
+#### Purpose:
+
+* **Dependency Injection**: Externalizes object creation: dependencies are given to an object.
+
+
+* **Factory Method**: Encapsulates object creation within a subclass, letting subclasses 
+    decide which concrete class to instantiate.
+
+#### Use Cases:
+
+* **Dependency Injection**:
+    - Swapping implementations at runtime.
+    - Unit testing with mocks or stubs.
+    - Configurable behavior without changing code.
+    - Reducing coupling in layered architectures.
+
+* **Factory Method**:
+    - Creating objects based on dynamic conditions.
+    - Object creation with additional logic.
+    - Avoiding direct dependency on concrete classes.
+
+
 ## References
 
 * Martin Fowler: [**Inversion of Control Containers and the Dependency Injection Pattern**](https://martinfowler.com/articles/injection.html). 2004 
