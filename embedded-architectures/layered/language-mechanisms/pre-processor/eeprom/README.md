@@ -28,7 +28,6 @@ _Example_: Conditional compilation - Compiles code only if `FEATURE_ENABLED` has
 This is equivalent to:
 ```C++
 #if defined(FEATURE_ENABLED)
-
 ```
 
 _Example_: AVR Arduino Core - [HardwareSerial.h](https://github.com/arduino/ArduinoCore-avr/blob/master/cores/arduino/HardwareSerial.h)
