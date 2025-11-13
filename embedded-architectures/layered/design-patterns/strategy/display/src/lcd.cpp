@@ -7,6 +7,8 @@ LCD::LCD(size_t cols, size_t rows)
 {	
 	_buffer = new char[_cols * _rows]; // malloc(cols_*rows_*sizeof(char))
 	_index = 0;
+
+	i2c_init(0x27, 21, 22); // Example I2C address and pins
 }
 
 LCD::~LCD()
@@ -24,12 +26,7 @@ void LCD::clear(void)
 void LCD::print(char c)
 {
 	_buffer[_index++] = c;
-}
-
-void LCD::print(const char* c_ptr)
-{
-	strcpy(_buffer + _index, c_ptr);
-	_index += sizeof(c_ptr);
+	i2c_write((uint8_t)c);
 }
 
 char* LCD::buffer(void) const
@@ -37,7 +34,7 @@ char* LCD::buffer(void) const
 	return _buffer;
 }
 
-void LCD::init_i2c(uint16_t address, uint8_t sda, uint8_t scl)
+void LCD::i2c_init(uint16_t address, uint8_t sda, uint8_t scl)
 {
 	_address = address;
 	_sda = sda;
@@ -46,7 +43,7 @@ void LCD::init_i2c(uint16_t address, uint8_t sda, uint8_t scl)
 	// Initialize I2C communication
 }
 
-void LCD::write_i2c(uint8_t data)
+void LCD::i2c_write(uint8_t data)
 {
 	_data = data;
 

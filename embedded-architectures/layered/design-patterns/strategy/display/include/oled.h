@@ -24,7 +24,6 @@ class OLED : public Display
 		// Methods
 		void clear(void) override;
 		void print(char c) override;
-		void print(const char * c_ptr) override;
 
 	private:
 		u_int8_t _mosi;
@@ -33,8 +32,8 @@ class OLED : public Display
 		u_int8_t _cs;
 		uint8_t _data;
 
-		void init_spi(u_int8_t mosi, u_int8_t miso, u_int8_t sck, u_int8_t cs);
-		void write_spi(uint8_t data);
+		void spi_init(u_int8_t mosi, u_int8_t miso, u_int8_t sck, u_int8_t cs);
+		void spi_write(uint8_t data);
 };
 
 #endif /*_OLED_H_ */

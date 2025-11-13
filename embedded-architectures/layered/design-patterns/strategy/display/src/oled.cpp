@@ -7,6 +7,7 @@ OLED::OLED(size_t cols, size_t rows)
 {	
 	_buffer = new char[_cols * _rows]; // malloc(cols_*rows_*sizeof(char))
 	_index = 0;
+	spi_init(10, 9, 11, 8); 
 }
 
 OLED::~OLED()
@@ -24,12 +25,7 @@ void OLED::clear(void)
 void OLED::print(char c)
 {
 	_buffer[_index++] = c;
-}
-
-void OLED::print(const char* c_ptr)
-{
-	strcpy(_buffer + _index, c_ptr);
-	_index += sizeof(c_ptr);
+	spi_write((uint8_t)c);
 }
 
 char* OLED::buffer(void) const
@@ -37,7 +33,7 @@ char* OLED::buffer(void) const
 	return _buffer;
 }
 
-void OLED::init_spi(u_int8_t mosi, u_int8_t miso, u_int8_t sck, u_int8_t cs)
+void OLED::spi_init(u_int8_t mosi, u_int8_t miso, u_int8_t sck, u_int8_t cs)
 {
 	_mosi = mosi;
 	_miso = miso;
@@ -47,7 +43,7 @@ void OLED::init_spi(u_int8_t mosi, u_int8_t miso, u_int8_t sck, u_int8_t cs)
 	// Initialize SPI communication
 }
 
-void OLED::write_spi(uint8_t data)
+void OLED::spi_write(uint8_t data)
 {
 	_data = data;
 
