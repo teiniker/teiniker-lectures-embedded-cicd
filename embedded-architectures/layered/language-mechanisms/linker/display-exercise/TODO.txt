@@ -1,0 +1,54 @@
+Exercise: Link-Time Polymorhism 
+-------------------------------------------------------------------------------
+
+You have an implementation of the Strategy pattern that can switch
+between two display variants at runtime: LCD and OLED.
+
+See: layered/design-patterns-strategy/display
+
+Selecting variants at runtime is not sensible for an embedded system,
+so adapt this example so the selection occurs at link time.
+
+
+A) Common API 
+Define a header file "display.h" containing the common attributes and
+operations for both implementations (LCD and OLED).
+Include the constructor and destructor as well.
+
+
+B) Implementation Variants 
+Use two source directories to implement the two variants:
+
+    src-lcd/
+        CMakeLists.txt
+        lcd.cpp
+
+    src-oled/
+        CMakeLists.txt
+        oled.cpp
+
+Implement the respective interface attributes and operations (for I2C and
+SPI) directly in the .cpp files.
+
+Tip: Remember that the implementation files share a common header file.
+
+
+C) Build Configuration 
+
+Configure the top-level CMakeLists.txt so that the following build
+options are available:
+
+# Build with LCD Diaplay
+$ cmake -S . -B build -DUSE_IMPL=LCD
+
+# Build with OLED Display
+$ cmake -S . -B build -DUSE_IMPL=OLED
+
+# Build with LCD Display (default)
+$ cmake -S . -B build 
+
+# Build with Invalid Option
+$ cmake -S . -B build -DUSE_IMPL=LED
+CMake Error at CMakeLists.txt:28 (message):
+  Invalid value for USE_IMPL: LED.  Valid options are 'LCD' or 'OLED'.
+
