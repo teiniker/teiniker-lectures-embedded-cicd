@@ -1,13 +1,17 @@
 #include <cstring>
+#include <cstdio>
 
 #include <lcd.h>
 
 LCD::LCD(size_t cols, size_t rows) 
 	: _cols{cols}, _rows{rows}
 {	
+	printf("LCD Display Created: %zu cols x %zu rows\n", cols, rows);
+
 	_buffer = new char[_cols * _rows]; // malloc(cols_*rows_*sizeof(char))
 	_index = 0;
 
+	printf("Initializing I2C for LCD...\n");
 	i2c_init(0x27, 21, 22); // Example I2C address and pins
 }
 
@@ -26,6 +30,7 @@ void LCD::clear(void)
 void LCD::print(char c)
 {
 	_buffer[_index++] = c;
+
 	i2c_write((uint8_t)c);
 }
 

@@ -1,12 +1,17 @@
 #include <cstring>
+#include <cstdio>
 
 #include <oled.h>
 
 OLED::OLED(size_t cols, size_t rows) 
 	: _cols{cols}, _rows{rows}
 {	
+	printf("OLED Display Created: %zu cols x %zu rows\n", cols, rows);
+
 	_buffer = new char[_cols * _rows]; // malloc(cols_*rows_*sizeof(char))
 	_index = 0;
+
+	printf("Initializing SPI for OLED...\n");
 	spi_init(10, 9, 11, 8); 
 }
 
@@ -25,6 +30,7 @@ void OLED::clear(void)
 void OLED::print(char c)
 {
 	_buffer[_index++] = c;
+
 	spi_write((uint8_t)c);
 }
 
