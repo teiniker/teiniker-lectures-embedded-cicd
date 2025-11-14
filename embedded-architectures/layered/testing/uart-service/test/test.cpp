@@ -6,7 +6,8 @@
 #include "uart_mock.h"
 
 using namespace std;
-using testing::Return;
+using namespace testing;
+
 
 TEST(UartServiceTest, SetUartParameters)
 {
