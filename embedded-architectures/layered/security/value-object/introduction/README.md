@@ -1,24 +1,40 @@
 # Value Object Pattern 
 
-The Value Object pattern is a design pattern for creating immutable objects 
-whose identity is based on their attributes' values rather than a unique reference. 
+The Value Object Pattern is a design pattern used in the domain of 
+domain-driven design. 
 
-Key characteristics:
+Here are the key aspects of this pattern:
 
-* **Immutability**: Once a Value Object is created, its internal state cannot 
-be changed. Any operation that would appear to modify it must instead return 
-a new instance of the object.
+* **Immutability**: Value objects are immutable, meaning once they 
+    are created, their state cannot be changed. This makes them 
+    inherently safe for use in a concurrent environment since they 
+    can't be modified once they've been instantiated.
 
-* **Value-based equality**: Two Value Objects are considered equal if all their 
-attributes have the same values, regardless of whether they are different objects 
-in memory. This requires overriding equality methods and potentially operators.
+* **Identity-less**: Unlike entities, value objects do not have a unique 
+    identity. Two value objects are considered equal if all their fields 
+    are equal. Their identity is solely based on their attributes, not 
+    on a unique identifier.
 
-* **No conceptual identity**: Unlike entities, Value Objects don't have a unique 
-ID. They represent a descriptive aspect of the domain that is identified by its 
-state.
+* **Self-validation**: Value objects should validate their own state 
+    during creation. This ensures they are always in a valid state once 
+    they are instantiated.
 
-* **Encapsulates data and logic**: They can wrap primitive types, **adding validation** 
-and business rules to **prevent invalid states**, solving the problem of "primitive obsession". 
+* **Simplicity and Focus**: They typically have a small number of attributes 
+    and are focused on modeling a specific aspect of the domain. 
+    For example, an `Address` value object might include fields for street, 
+    city, and postal code, and nothing more.
+
+* **Lifecycle**: They are often created, used for a specific calculation or 
+    operation, and then discarded. They don't usually have a long lifecycle 
+    within the application.
+
+The Value Object pattern can be effectively used in the context of software 
+security, particularly for **input validation**.
+
+By using value objects for input validation, we ensure **consistency** throughout 
+the application. Instead of scattering validation logic across the application, 
+it is centralized within the value object, making it easier to maintain and update 
+the validation rules as needed.
 
 
 ## Implement a Value Object in C++ 
@@ -151,6 +167,8 @@ else
 ## References
 
 * [Value Object — Martin Fowler](https://martinfowler.com/bliki/ValueObject.html)
+
+* Eric Evans. **Domain-Driven Design: Tackling Complexity in the Heart of Software**. Pearson International, 2003.
 
 
 _Egon Teiniker, 2025, GPL v3.0_
