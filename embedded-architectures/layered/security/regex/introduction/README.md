@@ -75,14 +75,44 @@ header (since C++11).
 We can use `std::regex`, `std::regex_match`, `std::regex_search`, and 
 `std::regex_replace` to work with them.
 
+* `std::regex`: The pattern itself
+    - It’s just a compiled regex
 
-## Matching
+    _Example_: 
+    ```c++
+    std::regex pattern(R"(^[-+]?[0-9]+\.[0-9]+$)");
+    ```
+
+* `std::regex_match`: Match the entire string
+    - This one checks if the whole string fits the pattern
+    - No partial matches allowed, even if the regex itself has no `^` or `$`.
+    
+    _Example_: 
+    ```c++
+    regex pattern("0[xX][0-9a-fA-F]+");   // means "^0[xX][0-9a-fA-F]+$"
+    string input = "0x1A3F";
+    bool match = regex_match(input, pattern);
+    ```
 
 
-## Searching
 
+* `std::regex_search`: Find a match somewhere inside
+    - Finds the first match inside the string
+    - Can give us submatches
+    - Perfect for scanning logs, parsing lines, etc.
 
-## Replacing
+    _Example_: 
+    ```c++
+    regex pattern("[<>]");
+    string input = "<script>";
+    bool found = regex_search(input, pattern);    
+    ```
+
+* std::regex_replace — find and replace
+    - Replace anything matching the pattern
+
+TODO: Example
+
 
 
 ## Techniques Used Together With Regular Expressions
