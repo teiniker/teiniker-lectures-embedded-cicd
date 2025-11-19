@@ -8,74 +8,85 @@
 using namespace std;
 using namespace testing;
 
+constexpr uint8_t BUTTON_UP_PIN = 22;
+constexpr uint8_t BUTTON_DOWN_PIN = 23;
+constexpr uint8_t BUTTON_STOP_PIN = 24; 
+
+constexpr uint8_t MOTOR_IN1_PIN = 5;
+constexpr uint8_t MOTOR_IN2_PIN = 6;
+
 TEST(ControllerTest, ControllerInitialize)
 {
     // Setup
-    MockGpio mock;
-    Controller controller(&mock);
+    auto mock = std::make_shared<MockGpio>();
+    Controller controller(mock);
 
-    EXPECT_CALL(mock, setPinMode(22, PinMode::INPUT));
-    EXPECT_CALL(mock, setPinMode(23, PinMode::INPUT));
-    EXPECT_CALL(mock, setPinMode(24, PinMode::INPUT));
-    EXPECT_CALL(mock, setPinMode(5, PinMode::OUTPUT));
-    EXPECT_CALL(mock, setPinMode(6, PinMode::OUTPUT));
+    EXPECT_CALL(*mock, setPinMode(BUTTON_UP_PIN, PinMode::INPUT));
+    EXPECT_CALL(*mock, setPinMode(BUTTON_DOWN_PIN, PinMode::INPUT));
+    EXPECT_CALL(*mock, setPinMode(BUTTON_STOP_PIN, PinMode::INPUT));
 
-    EXPECT_CALL(mock, writePin(5, false));
-    EXPECT_CALL(mock, writePin(6, false));
+    EXPECT_CALL(*mock, setPinMode(MOTOR_IN1_PIN, PinMode::OUTPUT));
+    EXPECT_CALL(*mock, setPinMode(MOTOR_IN2_PIN, PinMode::OUTPUT));
+
+    EXPECT_CALL(*mock, writePin(MOTOR_IN1_PIN, false));
+    EXPECT_CALL(*mock, writePin(MOTOR_IN2_PIN, false));
 
     // Exercise
     controller.initialize();
 
-    // Verify
+    // Verify: Expectations are verified on destruction of mock
 }
 
 TEST(ControllerTest, ControllerControl_UpButton)
 {
     // Setup
-    MockGpio mock;
-    Controller controller(&mock);
+    auto mock = std::make_shared<MockGpio>();
+    Controller controller(mock);
 
-    EXPECT_CALL(mock, readPin(22)).WillOnce(Return(true));  // UP button pressed
-    EXPECT_CALL(mock, writePin(5, true));   // Motor FORWARD
-    EXPECT_CALL(mock, writePin(6, false));
+    EXPECT_CALL(*mock, readPin(BUTTON_UP_PIN)).WillOnce(Return(true));  // UP button pressed
+
+    EXPECT_CALL(*mock, writePin(MOTOR_IN1_PIN, true));                  // Motor FORWARD
+    EXPECT_CALL(*mock, writePin(MOTOR_IN2_PIN, false));
 
     // Exercise
     controller.control();
 
-    // Verify
+    // Verify: Expectations are verified on destruction of mock
 }
 
 TEST(ControllerTest, ControllerControl_DownButton)
 {
     // Setup
-    MockGpio mock;
-    Controller controller(&mock);
+    auto mock = std::make_shared<MockGpio>();
+    Controller controller(mock);
 
-    EXPECT_CALL(mock, readPin(22)).WillOnce(Return(false)); // UP button not pressed
-    EXPECT_CALL(mock, readPin(23)).WillOnce(Return(true));  // DOWN button pressed
-    EXPECT_CALL(mock, writePin(5, false));  // Motor BACKWARD
-    EXPECT_CALL(mock, writePin(6, true));
+    EXPECT_CALL(*mock, readPin(BUTTON_UP_PIN)).WillOnce(Return(false));     // UP button not pressed
+    EXPECT_CALL(*mock, readPin(BUTTON_DOWN_PIN)).WillOnce(Return(true));    // DOWN button pressed
+
+    EXPECT_CALL(*mock, writePin(MOTOR_IN1_PIN, false));                     // Motor BACKWARD
+    EXPECT_CALL(*mock, writePin(MOTOR_IN2_PIN, true));
 
     // Exercise
     controller.control();
 
-    // Verify
+    // Verify: Expectations are verified on destruction of mock
 }
 
 TEST(ControllerTest, ControllerControl_StopButton)
 {
     // Setup
-    MockGpio mock;
-    Controller controller(&mock);
+    auto mock = std::make_shared<MockGpio>();
+    Controller controller(mock);
 
-    EXPECT_CALL(mock, readPin(22)).WillOnce(Return(false)); // UP button not pressed
-    EXPECT_CALL(mock, readPin(23)).WillOnce(Return(false)); // DOWN button not pressed
-    EXPECT_CALL(mock, readPin(24)).WillOnce(Return(true));  // STOP button pressed
-    EXPECT_CALL(mock, writePin(5, false));  // Motor STOP
-    EXPECT_CALL(mock, writePin(6, false));
+    EXPECT_CALL(*mock, readPin(BUTTON_UP_PIN)).WillOnce(Return(false));     // UP button not pressed
+    EXPECT_CALL(*mock, readPin(BUTTON_DOWN_PIN)).WillOnce(Return(false));   // DOWN button not pressed
+    EXPECT_CALL(*mock, readPin(BUTTON_STOP_PIN)).WillOnce(Return(true));    // STOP button pressed
+
+    EXPECT_CALL(*mock, writePin(MOTOR_IN1_PIN, false));                     // Motor STOP
+    EXPECT_CALL(*mock, writePin(MOTOR_IN2_PIN, false));
 
     // Exercise
     controller.control();
 
-    // Verify
+    // Verify: Expectations are verified on destruction of mock
 }

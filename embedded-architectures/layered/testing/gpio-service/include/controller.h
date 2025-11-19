@@ -25,10 +25,10 @@ enum class MotorState : uint8_t
 class Controller 
 {
 private:
-	Gpio* _gpio;
+	std::shared_ptr<Gpio> _gpio;
 
 public:              
-	Controller(Gpio* gpio) : _gpio(gpio) {}
+	Controller(std::shared_ptr<Gpio> gpio) : _gpio(gpio) {}
 	~Controller(void) = default;
 
 	void initialize(void);
