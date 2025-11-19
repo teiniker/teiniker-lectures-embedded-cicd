@@ -18,7 +18,7 @@ TEST(RegexNumbers, ValidOctalNumberTest)
 
 TEST(RegexNumbers, InValidOctalNumberTest) 
 {
-    regex pattern("^0[0-7]+$");
+    regex pattern("0[0-7]+");
     string input = "0815";
 
     bool match = regex_match(input, pattern);
@@ -29,7 +29,7 @@ TEST(RegexNumbers, InValidOctalNumberTest)
 
 TEST(RegexNumbers, ValidDecimalNumberTest) 
 {
-    regex pattern("^[-+]?[0-9]+$");
+    regex pattern("[-+]?[0-9]+");
     string input = "-999";
 
     bool match = regex_match(input, pattern);
@@ -39,7 +39,7 @@ TEST(RegexNumbers, ValidDecimalNumberTest)
 
 TEST(RegexNumbers, InValidDecimalNumberTest) 
 {
-    regex pattern("^[-+]?[0-9]+$");
+    regex pattern("[-+]?[0-9]+");
     string input = "-99A9";
 
     bool match = regex_match(input, pattern);
@@ -50,7 +50,7 @@ TEST(RegexNumbers, InValidDecimalNumberTest)
 
 TEST(RegexNumbers, ValidHexadecimalNumberTest) 
 {
-    regex pattern("^0[xX][0-9a-fA-F]+$");
+    regex pattern("0[xX][0-9a-fA-F]+");
     string input = "0x1A3F";
 
     bool match = regex_match(input, pattern);
@@ -60,7 +60,7 @@ TEST(RegexNumbers, ValidHexadecimalNumberTest)
 
 TEST(RegexNumbers, InValidHexadecimalNumberTest) 
 {
-    regex pattern("^0[xX][0-9a-fA-F]+$");
+    regex pattern("0[xX][0-9a-fA-F]+");
     string input = "0x1G3F";
 
     bool match = regex_match(input, pattern);
@@ -70,7 +70,7 @@ TEST(RegexNumbers, InValidHexadecimalNumberTest)
 
 TEST(RegexNumbers, ValidBinaryNumberTest) 
 {
-    regex pattern("^0[bB][01]+$");
+    regex pattern("0[bB][01]+");
     string input = "0b101101";
 
     bool match = regex_match(input, pattern);
@@ -80,7 +80,7 @@ TEST(RegexNumbers, ValidBinaryNumberTest)
 
 TEST(RegexNumbers, InValidBinaryNumberTest) 
 {
-    regex pattern("^0[bB][01]+$");
+    regex pattern("0[bB][01]+");
     string input = "0b102101";
 
     bool match = regex_match(input, pattern);
@@ -90,7 +90,7 @@ TEST(RegexNumbers, InValidBinaryNumberTest)
 
 TEST(RegexNumbers, ValidFloatingPointNumberTest) 
 {
-    regex pattern("^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$");
+    regex pattern("[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?");
     string input = "-3.14e10";
 
     bool match = regex_match(input, pattern);
@@ -101,7 +101,7 @@ TEST(RegexNumbers, ValidFloatingPointNumberTest)
 TEST(RegexNumbers, InValidFloatingPointNumberTest) 
 {
     // Using a raw string literal
-    regex pattern(R"(^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$)");   
+    regex pattern(R"([-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?)");
     string input = "3.14.15";
 
     bool match = regex_match(input, pattern);
