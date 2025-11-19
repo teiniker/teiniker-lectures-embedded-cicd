@@ -86,9 +86,8 @@ In embedded systems, **return a `std::optional`** instead of throwing.
 
 
 ## Exception Handling
-
-Wenn der Übergebene Wert nicht valide ist, wird eine `std::invalid_argument`
-Exception geworfen und die Erstellung des Objekts verhindert.
+If the supplied value is invalid, a `std::invalid_argument` exception
+is thrown and object creation is prevented.
 
 _Example:_ Input validation using `std::invalid_argument` exception
 
