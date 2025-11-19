@@ -108,12 +108,17 @@ We can use `std::regex`, `std::regex_match`, `std::regex_search`, and
     bool found = regex_search(input, pattern);    
     ```
 
-* std::regex_replace — find and replace
+* `std::regex_replace`: Find and replace
     - Replace anything matching the pattern
 
-TODO: Example
+    _Example_: 
+    ```c++
+    regex pattern(R"([\n\r]+)");
+    string input = "bart\n2099-01-01 00:00:00,000 [main] INFO HACK!!!!";
+    string output = regex_replace(input, pattern, "_");
+    ```
 
-
+    In the output string, each `\n` and `\r` will be replaced by `_`.
 
 ## Techniques Used Together With Regular Expressions
 
@@ -143,12 +148,12 @@ considered valid.
 Whitelisting is used to enforce strict rules, allowing only well-defined 
 inputs and excluding all others.
 
-_Example:_ Whitelisting in Python
-```Python
-filename_regex = r"^[a-zA-Z0-9_]+\.(txt|jpg|png)$"
+_Example:_ Whitelisting using regular expressions
+```c++
+regex pattern(R"(^[a-zA-Z0-9_]{1,255}\.[a-zA-Z0-9]{0,3}$)");
 ```
 
-* Allows filenames like document.txt or image.png.
+* Allows filenames like `document.txt` or `image.png`.
 
 * Rejects filenames with special characters or unsupported extensions.
 
@@ -162,12 +167,13 @@ blacklisted patterns are rejected, while everything else is permitted.
 Blacklisting is useful when there is a specific set of known patterns 
 that must be avoided, such as special characters or malicious strings.
 
-_Example:_ Blacklisting Using RegEx
-```Python
-sql_injection_regex = r"(;|--|\b(OR|AND)\b)"
+_Example:_ Blacklisting using regular expressions
+```C++
+regex pattern("[<>]");
+string input = "<script>";
 
-if re.search(sql_injection_regex, user_input, re.IGNORECASE):
-    raise ValueError("Potential SQL injection detected")
+bool found = regex_search(input, pattern);
+EXPECT_TRUE(found);
 ```
 
 * Protects against specific threats or unwanted patterns.
