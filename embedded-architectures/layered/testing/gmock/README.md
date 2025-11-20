@@ -133,6 +133,7 @@ EXPECT_CALL(mock_object, method(matchers))
 The macro has two arguments: first the **mock object**, and then 
 the **method and its arguments**. 
 
+
 ### Matchers
 
 When a mock function takes arguments, we may specify what arguments we are expecting:
@@ -203,12 +204,92 @@ And many more...
 
 ### Cardinalities
 
+The first clause we can specify following an `EXPECT_CALL()` is `Times()`. 
+We call its argument a cardinality as it tells **how many times the call 
+should occur**. It allows us to repeat an expectation many times without 
+actually writing it as many times.
+
+An interesting special case is when we say `Times(0)`. Which means that 
+the **function shouldn’t be called with the given arguments at all**, 
+and gMock will report a googletest failure whenever the function is 
+called.
+
+If we omit `Times()`, gMock will infer the cardinality for us. 
+The rules are easy to remember:
+* If neither `WillOnce()` nor `WillRepeatedly()` is in the `EXPECT_CALL()`, 
+    the inferred cardinality is `Times(1)`.
+* If there are `n` `WillOnce()`’s but no `WillRepeatedly()`, where `n >= 1`, 
+    the cardinality is `Times(n)`.
+* If there are `n` `WillOnce()`’s and one `WillRepeatedly()`, where `n >= 0`, 
+    the cardinality is `Times(AtLeast(n))`.
+
 
 ### Actions
 
+We have to tell a mock object what to do when a method is invoked.
+
+* If the **return type** of a mock function is a **built-in type or a pointer**, 
+    the function has a **default action** (a void function will just return, 
+    a bool function will return false, and other functions will return 0). 
+    
+    In addition, in C++ 11 and above, a mock function whose return type has 
+    a default constructor, the default action is to return a default-constructed 
+    value. 
+
+* Second, we can specify the action to be taken each time the expectation 
+    matches using a series of `WillOnce()` clauses followed by an optional 
+    `WillRepeatedly()`.
+
+    _Example:_ When `readPin(BUTTON_UP_PIN)` is called once, it will return `true`.
+
+    ```C++
+    EXPECT_CALL(*mock, readPin(BUTTON_UP_PIN))
+        .WillOnce(Return(true));
+    ```
+
+    _Example:_ When `readPin(BUTTON_UP_PIN)` is called many times, first it 
+        will return `true`, next it will return `false` and from then it will 
+        always return `true`.
+
+    ```C++
+    EXPECT_CALL(*mock, readPin(BUTTON_UP_PIN))
+        .WillOnce(Return(true))
+        .WillOnce(Return(false))
+        .WillRepeatedly(Return(true));
+    ```
+
+
 ### Ordered Calls
 
+By **default**, an expectation can match a call even though an earlier 
+expectation hasn’t been satisfied. In other words, the **calls don’t 
+have to occur in the order the expectations are specified**.
 
+By creating an object of type `InSequence`, **all expectations in its 
+scope are put into a sequence** and have to occur sequentially.
+
+_Example:_ Verify expectations in a sequence
+
+```C++
+TEST(ControllerTest, ControllerControl_UpButton)
+{
+    // Setup
+    auto mock = std::make_shared<MockGpio>();
+    Controller controller(mock);
+
+    {
+        InSequence seq;
+
+        EXPECT_CALL(*mock, readPin(BUTTON_UP_PIN)).WillOnce(Return(true));  
+        EXPECT_CALL(*mock, writePin(MOTOR_IN1_PIN, true));                  
+        EXPECT_CALL(*mock, writePin(MOTOR_IN2_PIN, false));
+    }
+
+    // Exercise
+    controller.control();
+    // Verify: Expectations are verified on destruction of mock
+}
+```
 
 ## References
 
