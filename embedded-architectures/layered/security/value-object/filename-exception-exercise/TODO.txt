@@ -1,0 +1,29 @@
+Exercise: Value Object (with Exceptions) - Filename
+------------------------------------------------------------------------------
+
+Sie sollen ein Value Object mit dem Namen "Filename" implementieren 
+(filename.h und filename.cpp).
+
+A) Contructor
+Implementieren sie einen public Constructor der einen Filename String 
+bekommt und diesen mit Hilfe einer Regular Expression überprüft.
+Wenn der Filename ungültig ist, soll eine "std::invalid_argument"
+Exception geworfen werden. 
+
+Tipp: Siehe regex/egrep/README.md für die Regular Expression 
+
+B) Accessor Method 
+Implementieren Sie eine "value()" Methode, die den gespeicherten Filenamen 
+zurück gibt.
+
+C) Operatier Overloading 
+Stellen Sie sicher, dass die folgenden Operatoren mit Standardimplementierungen 
+vorhanden sind:
+- Copy Constructor 
+- Assignment Operator 
+- Spaceship Operator für die Vergleiche von Filename Objekten.
+
+Tipp: Verwenden Sie die Testfälle in "test.cpp" um Ihre Implementierungen 
+zu überprüfen.
+
+
