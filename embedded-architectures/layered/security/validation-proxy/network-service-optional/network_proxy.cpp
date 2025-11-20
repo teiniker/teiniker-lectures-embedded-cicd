@@ -10,18 +10,20 @@ using namespace std;
 optional<string> NetworkServiceProxy::resolve_hostname(const string& hostname) const 
 {
     // Validate hostname using regex
-    regex pattern(R"(^([a-zA-Z0-9\-]{1,63}\.)+[a-zA-Z]{2,63}$)");
-    if (!regex_match(hostname, pattern)) {
+    regex pattern(R"(([a-zA-Z0-9\-]{1,63}\.)+[a-zA-Z]{2,63})");
+    if (!regex_match(hostname, pattern)) 
+    {
         return nullopt;
     }
 
+    // Delegate to the actual service
     return service->resolve_hostname(hostname);
 }
 
 optional<bool> NetworkServiceProxy::connect(const string& address, int port)
 {
     // Validate IP address using regex
-    regex ip_pattern(R"(^([0-9]{1,3}\.){3}[0-9]{1,3}$)");
+    regex ip_pattern(R"(([0-9]{1,3}\.){3}[0-9]{1,3})");
     if (!regex_match(address, ip_pattern)) 
     {
         return nullopt;

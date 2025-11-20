@@ -8,7 +8,7 @@ public:
 
     int value() const { return value_;  }   
     
-    // Copy constructor and assignment operator
+    // Copy constructor 
     Percentage(const Percentage&) = default;
 
     // Assignment operator
