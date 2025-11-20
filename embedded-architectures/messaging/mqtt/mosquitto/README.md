@@ -10,17 +10,44 @@ Things messaging such as with low power sensors or mobile devices such as
 phones, embedded computers or microcontrollers.
 
 
+## Setup Mosquitto  
+
+```bash
+$ sudo apt update
+$ sudo apt install mosquitto mosquitto-clients
+```
+
+```bash
+$ sudo systemctl status mosquitto
+mosquitto.service - Mosquitto MQTT Broker
+     Loaded: loaded (/lib/systemd/system/mosquitto.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2024-01-03 17:33:14 CET; 18s ago
+```
+
+We don't want to start Mosquitto MQTT Message Broker automatically when the Linux boots.
+
+```bash
+$ sudo systemctl disable mosquitto
+// $ sudo systemctl enable mosquitto     // default setting 
+
+$ sudo systemctl start mosquitto
+$ sudo systemctl stop mosquitto
+```
+
+
 ## Using Mosquitto on the Command-Line
 
 The Mosquitto project also provides a **C library** for implementing MQTT 
 clients, and the very popular **mosquitto_pub** and **mosquitto_sub** 
 **command line MQTT clients**.
 
+
 ### Subscribing to Topics
 
 We will use the **mosquitto_sub** command-line utility included in Mosquitto 
 to generate a simple MQTT client that subscribes to a topic and prints all the 
 messages it receives.
+
 ```bash
 $ mosquitto_sub  -t sensors/distance -d
 
@@ -42,6 +69,7 @@ as they arrive from the MQTT server to the MQTT client.
 
 The client sends PINGREQ packets to the MQTT server and receives PINQRESP packets 
 from the MQTT server.
+
 ```bash
 Client (null) sending PINGREQ
 Client (null) received PINGRESP
@@ -74,51 +102,21 @@ specified after the `-t` option.
 After publishing the message, the client disconnects.
 
 
-## Setup: Debian  
-
-```
-$ sudo apt update
-$ sudo apt install mosquitto mosquitto-clients
-```
-
-```
-$ sudo systemctl status mosquitto
-mosquitto.service - Mosquitto MQTT Broker
-     Loaded: loaded (/lib/systemd/system/mosquitto.service; enabled; preset: enabled)
-     Active: active (running) since Wed 2024-01-03 17:33:14 CET; 18s ago
-```
-
-Don't start Mosquitto MQTT Message Broker automatically when the Linux boots
-```
-$ sudo systemctl disable mosquitto
-// $ sudo systemctl enable mosquitto     // default setting 
-
-$ sudo systemctl start mosquitto
-$ sudo systemctl stop mosquitto
-```
-The Mosquitto server will work with TCP port 1883.
-Check whether the Mosquitto MQTT server is listening at the default port, 1883:
-```
-$ netstat -an | grep 1883
-```
-
-If we want to interact with the Mosquitto server from a different device or computer, 
-we have to make sure that the firewall that is running on your computer has the 
-appropriate configuration for this port number.
-
 ### Accessing the Linux VM 
 
 In order to access the Linux VM from the local network, the network mode 
 of the VM must be set to **Bridged Networking** (the default setting is NAT).
 
 You can find out the IP address of the Linux VM with the following command:
-```
+
+```bash
 $ hostname -I
 192.168.0.38 
 ```
 
 For example, you can access the Linux VM from the Windows host:
-```
+
+```bash
 > ping 192.168.0.38
 
 Ping wird ausgeführt für 192.168.0.38 mit 32 Bytes Daten:
@@ -135,7 +133,8 @@ Ca. Zeitangaben in Millisek.:
 ```
 
 An SSH connection can also be established:
-```
+
+```bash
 > ssh student@192.168.0.38
 student@192.168.0.38's password:
 student@debian:~$
@@ -146,13 +145,15 @@ student@debian:~$
 UFW is a user-friently, secure, and flexible firewall for Debian Linux.
 
 First, update your APT repos and install any pending updates:
-```
+
+```bash
 $ sudo apt update
 $ sudo apt upgrade
 ```
 
 Next, we install UFW using the `apt` command:
-```
+
+```bash
 $ sudo apt install ufw
 
 $ sudo ufw version
@@ -162,7 +163,8 @@ Copyright 2008-2023 Canonical Ltd.
 ```
 
 Now, we can configure UFW to allow SSH, MQTT (HTTP, HTTPS, etc.) connections:
-```
+
+```bash
 $ sudo ufw allow ssh
 $ sudo ufw allow 1883/tcp
 
@@ -173,7 +175,8 @@ $ sudo ufw allow 8443/tcp
 ```
 
 We can confirm that ports are open:
-```
+
+```bash
 $ sudo ufw show added
 Added user rules (see 'ufw status' for running firewall):
 ufw allow 22/tcp
@@ -185,13 +188,15 @@ ufw allow 1883/tcp
 Finally, we are going to enabling UFW service in Debian 12.
 
 Let us see the firewall status:
-```
+
+```bash
 $ sudo ufw status
 Status: inactive
 ```
 
 Hence, enable UFW:
-```
+
+```bash
 $ sudo ufw enable
 
 $ sudo ufw status
@@ -216,7 +221,7 @@ We have successfully configured a firewall using UFW on Debian 12.
 Starting with the release of Mosquitto version 2.0.0 the default config 
 will only bind to `localhost` as a move to a more secure default posture.
 
-```
+```bash
 $ sudo vi /etc/mosquitto/mosquitto.conf
 
 # Place your local configuration in /etc/mosquitto/conf.d/
@@ -237,7 +242,7 @@ include_dir /etc/mosquitto/conf.d
 In order to enable remote access for unauthorized clients, the following 
 two entries must be made (this of course reduces security):
 
-```
+```bash
 listener 1883 0.0.0.0   # !!! enable remote clients 
 allow_anonymous true    # !!! enable clients without authentication
 ```
