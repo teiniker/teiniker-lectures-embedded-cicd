@@ -10,14 +10,13 @@ Things messaging such as with low power sensors or mobile devices such as
 phones, embedded computers or microcontrollers.
 
 
-
 ## Using Mosquitto on the Command-Line
 
 The Mosquitto project also provides a **C library** for implementing MQTT 
 clients, and the very popular **mosquitto_pub** and **mosquitto_sub** 
 **command line MQTT clients**.
 
-### Subscribing to topics
+### Subscribing to Topics
 
 We will use the **mosquitto_sub** command-line utility included in Mosquitto 
 to generate a simple MQTT client that subscribes to a topic and prints all the 
@@ -48,7 +47,7 @@ Client (null) sending PINGREQ
 Client (null) received PINGRESP
 ```
 
-### Publishing messages
+### Publishing Messages
 
 We will use the **mosquitto_pub** command-line utility included in Mosquitto to 
 generate a simple MQTT client that publishes a message to a topic.
@@ -73,7 +72,6 @@ the local MQTT server and then will make the client publish a message to the top
 specified after the `-t` option.
 
 After publishing the message, the client disconnects.
-
 
 
 ## Setup: Debian  
