@@ -1,0 +1,31 @@
+Exercise: gMock Tests - Motor Controller
+------------------------------------------------------------------------------
+
+We want to test a motor controller without hardware. 
+
+Do the following steps:
+
+A) MockCan Class
+
+Create a file named "can_mock.h" that defines a "MockCan" class.
+
+
+B) Test Cases
+
+Analyze the "MotorController" class and implement these tests for the SUT:
+
+- TEST(MotorControllerTest, MotorControllerSpeedUp)
+    Inject the Mock object into the MotorController instance.
+    The CAN message for speed provides 0 km/h.
+    Then the CAN message to the motor should set power to 100%.
+
+- TEST(MotorControllerTest, MotorControllerSpeedDown)
+    Inject the Mock object into the MotorController instance.
+    The CAN message for speed provides 70 km/h.
+    Then the CAN message to the motor should set power to 0%.
+
+- TEST(MotorControllerTest, MotorControllerSpeedConstant)
+    Inject the Mock object into the MotorController instance.
+    The CAN message for speed provides 50 km/h.
+    Then no message should be sent to the motor.
+
