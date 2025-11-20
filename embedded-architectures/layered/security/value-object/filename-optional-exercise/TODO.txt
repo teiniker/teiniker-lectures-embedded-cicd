@@ -1,12 +1,13 @@
-Exercise: Value Object (with Exceptions) - Filename
+Exercise: Value Object (with std::optional) - Filename
 ------------------------------------------------------------------------------
 
 Implement a Value Object named "Filename" (filename.h and filename.cpp).
 
-A) Constructor
-    Implement a public constructor that takes a filename string and
-    validates it using a regular expression. If the filename is invalid,
-    throw std::invalid_argument.
+A) Static Creation Method
+    Implement a public static make() method that takes a filename string and
+    validates it using a regular expression.
+    The class constructor should be private.
+    The return type of the make() method should be std::optional.
 
     Tip: See regex/egrep/README.md for the regular expression.
 
