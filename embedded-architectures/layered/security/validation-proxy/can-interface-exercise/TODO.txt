@@ -1,0 +1,18 @@
+Exercise: Validation Proxy - CAN Interface
+------------------------------------------------------------------------------
+
+We have a CanInterface given (can.h) as well as a fake implementation
+for this interface (can_impl.h and can_impl.cpp).
+
+A) Proxy Pattern
+Implement a CanProxy class (can_proxy.h and can_proxy.cpp) with constructor 
+injection.
+Each method of the CanProxy class should delegate to the implementation.
+
+B) Validation
+Implement in the method sendMessage() an input validation for the CanMessage:
+- The message id must be less than or equal to 0x7FF
+- The message length must be less than or equal to 8
+If parameters are invalid, throw std::invalid_argument.
+
+Tip: Use the test cases in test_proxy.cpp to verify your implementations.
