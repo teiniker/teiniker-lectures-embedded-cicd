@@ -9,7 +9,7 @@ public:
     // Accessor
     int value() const { return _value;  }   
     
-    // Copy constructor and assignment operator
+    // Copy constructor 
     Percentage(const Percentage&) = default;
 
     // Assignment operator
