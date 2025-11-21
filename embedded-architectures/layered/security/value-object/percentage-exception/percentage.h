@@ -3,10 +3,11 @@
 class Percentage 
 {
 public:
-    // Creation method
-    static Percentage make(int value);
+    // Constructor
+    Percentage(const int value);
 
-    int value() const { return value_;  }   
+    // Accessor
+    int value() const { return _value;  }   
     
     // Copy constructor and assignment operator
     Percentage(const Percentage&) = default;
@@ -18,7 +19,5 @@ public:
     auto operator<=>(const Percentage&) const = default;
 
 private:
-    // private constructor to enforce use of creation method
-    explicit Percentage(int v) : value_(v) {}
-    int value_;
+    int _value;
 };

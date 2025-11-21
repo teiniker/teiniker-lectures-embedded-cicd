@@ -5,18 +5,18 @@ using namespace std;
 
 TEST(PercentageTest, ValidValue) 
 {
-    auto p = Percentage::make(50);
+    Percentage p(50);
     ASSERT_EQ(50, p.value());
 }
 
 TEST(PercentageTest, InvalidValue) 
 {
-    ASSERT_THROW(Percentage::make(-10), invalid_argument);
+    ASSERT_THROW(Percentage(-10), invalid_argument);
 }
 
 TEST(PercentageTest, CopyConstructor) 
 {
-    Percentage a = Percentage::make(42);
+    Percentage a(42);
     Percentage b = a;  // copy constructor
 
     ASSERT_EQ(a, b);
@@ -24,8 +24,8 @@ TEST(PercentageTest, CopyConstructor)
 
 TEST(PercentageTest, AssignmentOperator) 
 {
-    Percentage a = Percentage::make(15);
-    Percentage b = Percentage::make(30);
+    Percentage a(15);
+    Percentage b(30);
 
     b = a;  // assignment operator
 
@@ -34,32 +34,32 @@ TEST(PercentageTest, AssignmentOperator)
 
 TEST(PercentageTest, ValuesEqual) 
 {
-    Percentage a = Percentage::make(7);
-    Percentage b = Percentage::make(7);
+    Percentage a(7);
+    Percentage b(7);
 
     ASSERT_TRUE(a == b);
 }
 
 TEST(PercentageTest, ValuesNotEqual) 
 {
-    Percentage a = Percentage::make(7);
-    Percentage b = Percentage::make(3);
+    Percentage a(7);
+    Percentage b(3);
 
     ASSERT_TRUE(a != b);
 }
 
 TEST(PercentageTest, LessThan) 
 {
-    Percentage a = Percentage::make(3);
-    Percentage b = Percentage::make(7);
+    Percentage a(3);
+    Percentage b(7);
 
     ASSERT_TRUE(a < b);
 }
 
 TEST(PercentageTest, GreaterThan) 
 {
-    Percentage a = Percentage::make(9);
-    Percentage b = Percentage::make(7);
+    Percentage a(9);
+    Percentage b(7);
 
     ASSERT_TRUE(a > b);
 }

@@ -5,14 +5,15 @@
 
 using namespace std;
 
-Percentage Percentage::make(int value) 
+Percentage::Percentage(const int value) 
 {
     // Input validation
     if (value < 0 || value > 100) 
     {
         throw invalid_argument("Invalid percentage value");
     }
-    return Percentage(value);
+
+    _value = value;
 }
 
 
