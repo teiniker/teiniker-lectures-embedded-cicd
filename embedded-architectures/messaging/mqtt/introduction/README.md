@@ -21,14 +21,16 @@ involved and connectivity is intermittent.
 In the publish-subscribe pattern, a client that publishes a message is decoupled 
 from the other client or clients that receive the message.
 
-The publish-subscribe pattern requires a server, also known as a broker. 
-All the clients establish a connection with the server. 
-A client that sends a message through the server is known as the **publisher**. 
-
 ![Publisher Subscriber Pattern](figures/Publisher-Subscriber.png)
 
-The server filters the incoming messages and distributes them to the clients that 
+The publish-subscribe pattern requires a server, also known as a **broker**. 
+All the clients establish a connection with the broker.
+
+A client that sends a message through the server is known as the **publisher**. 
+
+The Broker filters the incoming messages and distributes them to the clients that 
 are interested in that type of received messages. 
+
 Clients that register to the server as interested in specific types of messages are 
 known as **subscribers**.
 
@@ -39,17 +41,17 @@ they are subscribed.
 The data for a message is known as the **payload**. A message includes the topic to 
 which it belongs and the payload.
 
-The publisher-subscriber architecture results in the following properties:
+The **publisher-subscriber architecture** results in the following properties:
 * Publishers and subscribers are **decoupled in space** because they don't know each other. 
 * Publishers and subscribers are **decoupled in time** because don't have to run at the same time. 
     The publisher can publish a message and the subscriber can receive it later. 
 * The publish operation isn't synchronized with the receive operation.
 
 The publisher can **send a message as an asynchronous operation** to avoid being blocked 
-until the server receives the message.
+until the Broker receives the message.
 
 A publisher that requires sending a message to hundreds of clients can do it with a 
-single publish operation to a server.
+single publish operation to a Broker.
 
 Because publishers and subscribers are decoupled, the publisher doesn't know whether any 
 subscriber is going to listen to the messages it is going to send.
@@ -59,13 +61,14 @@ subscriber is going to listen to the messages it is going to send.
 
 Consider that **each message belongs to a topic**. 
 
-When a publisher requests the server to publish a message, it must specify both 
-the topic and the message. The server receives the message and delivers it to all 
+When a publisher requests the Broker to publish a message, it must specify both 
+the topic and the message. The Broker receives the message and delivers it to all 
 the subscribers that have subscribed to the topic to which the message belongs.
 
-The server doesn't need to check the payload for the message to deliver it to the 
+The Broker doesn't need to check the payload for the message to deliver it to the 
 corresponding subscribers. It just needs to check the topic for each message that 
-has arrived and needs to be filtered before publishing it to the corresponding subscribers.
+has arrived and needs to be filtered before publishing it to the corresponding 
+subscribers.
 
 **A subscriber can subscribe to more than one topic**.
 The server has to make sure that the subscriber receives messages that belong to all 
@@ -74,16 +77,16 @@ the topics to which it has subscribed.
 
 ## MQTT Connection
 
-The **MQTT server** (broker) is the central hub of the publish-subscribe model. 
-The MQTT server is responsible for the authentication and authorization of the 
+The **MQTT Broker** is the central hub of the publish-subscribe model. 
+The MQTT Broker is responsible for the authentication and authorization of the 
 MQTT clients that will be able to become publishers and/or subscribers after 
 they are authenticated and authorized. 
 
 So, the first thing that an MQTT client must do is to establish a connection 
-with the MQTT server.
+with the MQTT Broker.
 
 After a successful connection has been established between an MQTT client and an 
-MQTT server, the server will keep the connection open until the client loses the 
+MQTT Broker, the server will keep the connection open until the client loses the 
 connection or sends a DISCONNECT control packet to the server to close the connection.
 
 
@@ -91,22 +94,22 @@ connection or sends a DISCONNECT control packet to the server to close the conne
 ## Best Practices for Topics
 
 A publisher always has to specify the topic name to which a message will be published. 
-The easiest way to understand topic names in MQTT is to think about them as paths in a 
-file system.
+The easiest way to understand **topic names** in MQTT is to think about them as 
+**paths in a file system**.
 
 Instead of saving files in a path, we can think about publishing a message to a path 
 and using the same mechanism we use to organize files in paths to arrange messages in 
 topics.
 
 Instead of directories or folders, a topic has **topic levels**, specifically a hierarchy 
-of topic levels, and slashes (/) are used as delimiters, that is, topic-level separators.
+of topic levels, and slashes `/` are used as delimiters, that is, topic-level separators.
 **Topic names are case-sensitive**.
 
-_Example:_ device/sensors/distance
+_Example:_ `device/sensors/distance`
 
 We can use any UTF-8 character in topic names, with the exception of the two wildcard 
-characters that we will analyze later: the plus sign (+) and hash (#). 
-Hence, we must avoid + and # in the topic names.
+characters that we will analyze later: the plus sign `+` and hash `#`. 
+Hence, we must avoid `+` and `#` in the topic names.
 
 We should avoid creating topics starting with the dollar sign `$` because many MQTT 
 servers publish statistics data related to servers in topics that start with `$`.
@@ -125,41 +128,52 @@ consumption, network reliability, data payload size, and the specific
 requirements of the application. 
 
 * **Efficiency and Bandwidth Usage**:
-    * HTTP: This is a request-response protocol that can be more 
+    * **HTTP**: This is a request-response protocol that can be more 
     bandwidth-intensive. It is not as efficient for frequent, small 
     messages because of the overhead involved in setting up and 
     tearing down each connection.
-    * MQTT: A lightweight publish/subscribe messaging protocol, designed 
-    for low-bandwidth, high-latency networks. MQTT is more efficient for 
-    frequent and small messages due to its minimal protocol overhead.
+    
+    * **MQTT**: A lightweight publish/subscribe messaging protocol, 
+    designed for low-bandwidth, high-latency networks. MQTT is more 
+    efficient for frequent and small messages due to its minimal 
+    protocol overhead.
 
 * **Quality of Service (QoS)**:
-    * HTTP: Offers a basic level of reliability with acknowledgments for 
-    received messages. However, it doesn't have built-in support for 
+    * **HTTP**: Offers a basic level of reliability with acknowledgments 
+    for received messages. However, it doesn't have built-in support for 
     different levels of QoS.
-    * MQTT: Provides three levels of QoS for message delivery ("At most once", 
-    "At least once", and "Exactly once"). This makes it a more reliable choice 
-    for ensuring data is logged accurately.
+    
+    * **MQTT**: Provides three levels of QoS for message delivery 
+    ("At most once", "At least once", and "Exactly once"). 
+    This makes it a more reliable choice for ensuring data is logged 
+    accurately.
 
 * **Network Reliability**:
-    * HTTP: More sensitive to network interruptions. In an unstable network, 
+    * **HTTP**: More sensitive to network interruptions. In an unstable 
+    network, 
     HTTP can be less reliable due to its stateless nature.
-    * MQTT: Better suited for unstable or low-quality networks. Its keep-alive 
-    and clean session features help maintain connection stability and ensure 
-    message delivery even in challenging network conditions.
+    
+    * **MQTT**: Better suited for unstable or low-quality networks. 
+    Its keep-alive and clean session features help maintain connection 
+    stability and ensure message delivery even in challenging network 
+    conditions.
 
 * **Power Consumption**:
-    * HTTP: Typically consumes more power because of its higher bandwidth 
+    
+    * **HTTP**: Typically consumes more power because of its higher bandwidth 
     requirements and the need to establish a new connection for each request.
-    * MQTT: Designed for constrained devices and networks, hence it generally 
+
+    * **MQTT**: Designed for constrained devices and networks, hence it generally 
     consumes less power. It's more suitable for devices running on battery or 
     limited power sources.
 
 * **Use Case Specifics**:
-    * Real-time Monitoring: MQTT is generally better for real-time monitoring due 
-    to its low latency.
-    * Large Payloads: HTTP may be more suitable for larger payloads or where the 
-    interaction model fits the request-response pattern.
+
+    * **Real-time Monitoring**: MQTT is generally better for real-time 
+    monitoring due to its low latency.
+
+    * **Large Payloads**: HTTP may be more suitable for larger payloads 
+    or where the interaction model fits the request-response pattern.
 
 In summary, if your embedded system requires efficient, low-power communication 
 for small, frequent messages in potentially unreliable networks, MQTT is likely 
@@ -170,7 +184,6 @@ integrates directly with HTTP-based web services, HTTP might be more suitable.
 
 The final decision should be based on the specific needs and constraints of your 
 embedded system project.
-
 
 
 ## References
