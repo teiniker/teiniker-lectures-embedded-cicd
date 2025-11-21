@@ -17,12 +17,15 @@ involved and connectivity is intermittent.
 
 
 ## Publisher-Subscriber Pattern
+
 In the publish-subscribe pattern, a client that publishes a message is decoupled 
 from the other client or clients that receive the message.
 
 The publish-subscribe pattern requires a server, also known as a broker. 
 All the clients establish a connection with the server. 
 A client that sends a message through the server is known as the **publisher**. 
+
+![Publisher Subscriber Pattern](figures/Publisher-Subscriber.png)
 
 The server filters the incoming messages and distributes them to the clients that 
 are interested in that type of received messages. 
