@@ -1,4 +1,4 @@
-# Docker MQTT Broker  
+# Mosquitto MQTT Broker in a Docker Container  
 
 ## Dockerfile
 
