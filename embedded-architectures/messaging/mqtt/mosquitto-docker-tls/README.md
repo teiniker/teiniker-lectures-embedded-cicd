@@ -7,7 +7,7 @@ To establish a TLS connection, we need a digital certificate.
 For testing purposes, we use a self-signed certificate.
 
 
-## Generate TLS Certificate
+## Generate TLS Certificates
 
 We use **OpenSSL** to generate **self-signed certificates** for this example.
 
@@ -39,7 +39,7 @@ $ tree
 └── server.key  # Private key of your server
 ```
 
-## Start the Mosquitto Broker with Docker
+## Start the Mosquitto Broker with Docker Compose
 
 We use Docker Compose here because it simplifies the configuration  
 of the Docker container.
