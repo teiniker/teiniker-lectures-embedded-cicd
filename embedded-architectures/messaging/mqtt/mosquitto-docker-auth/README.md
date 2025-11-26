@@ -107,6 +107,9 @@ $ docker compose up -d
 
 # follow the live output (logs) of the mqtt-broker Docker container
 $ docker logs -f mqtt-broker
+
+# Stop all containers and remove them
+$ docker compose down       
 ```
 
 
