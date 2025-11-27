@@ -51,6 +51,7 @@ $ mkdir auth
 Create users and set their passwords:
 
 ```bash
+$ mkdir auth
 $ mosquitto_passwd -c auth/passwords homer
 $ mosquitto_passwd auth/passwords marge
 ```
