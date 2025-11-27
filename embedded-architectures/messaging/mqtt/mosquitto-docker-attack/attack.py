@@ -6,61 +6,47 @@ BROKER_HOST = "localhost"
 BROKER_PORT = 8883
 CA_CERT = "certs/ca.crt"
 
-def on_connect(client, userdata, flags, rc):
-    """
-    Callback for when the client receives a CONNACK response from the server.
-    """
-    print(f"[DEBUG] on_connect rc = {rc}")
-    userdata["connect_rc"] = rc   
-    userdata["connected"] = True
-
-def on_publish(client, userdata, mid):
-    """
-    Callback for when a message that was to be sent using the publish() 
-    call has completed transmission to the broker.
-    """
-    print(f"[DEBUG] Message published (mid={mid})")
 
 def login(username, password):
     """
-    Attempt to login to the MQTT broker with the given username and password.
+    Attempt to login to the MQTT broker with given username and password.
+    Returns True on success, False otherwise.
     """
-    userdata = {"connected": False, "connect_rc": None}
-    client = mqtt.Client(userdata=userdata)
+    result = {"rc": None}
+
+    def on_connect(client, userdata, flags, rc):
+        result["rc"] = rc
+
+    client = mqtt.Client()
     client.username_pw_set(username, password)
+
     client.tls_set(
         ca_certs=CA_CERT,
-        certfile=None,
-        keyfile=None,
         tls_version=ssl.PROTOCOL_TLS_CLIENT
     )
 
     client.on_connect = on_connect
-    client.on_publish = on_publish
 
-    print("[DEBUG] Connecting to broker...")
-    rc = client.connect(BROKER_HOST, BROKER_PORT, keepalive=60)
-    if rc != 0:
-        print(f"[DEBUG] TCP/TLS connect failed with rc={rc}")
+    # Only checks TCP/TLS layer (not auth)
+    if client.connect(BROKER_HOST, BROKER_PORT) != 0:
         return False
 
     client.loop_start()
 
-    # wait a bit for on_connect to run
-    timeout = time.time() + 5
-    while not userdata["connected"] and time.time() < timeout:
+    # wait up to 2 seconds for broker rc
+    for _ in range(20):
+        if result["rc"] is not None:
+            break
         time.sleep(0.1)
 
     client.loop_stop()
     client.disconnect()
-    print("[DEBUG] Disconnected.")
 
-    broker_rc = userdata["connect_rc"]
-    if broker_rc == 0:
-        return True
-    else:
-        print(f"[DEBUG] Broker refused connection, rc={broker_rc}")
-        return False
+    # MQTT broker rc:
+    #   0 = success
+    #   4 = bad username/password
+    #   5 = not authorized
+    return result["rc"] == 0
 
 
 if __name__ == "__main__":
