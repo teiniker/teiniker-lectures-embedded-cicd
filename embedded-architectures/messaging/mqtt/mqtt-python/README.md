@@ -6,7 +6,8 @@ publish/subscribe messaging protocol.
 
 ## Setup
 
-Wir verwenden eine Virtual Environment um die notwendigen Libraries zu installieren:
+We use a virtual environment to install the required libraries:
+
 ```bash
 # Activate environment
 $ python -m venv .venv
