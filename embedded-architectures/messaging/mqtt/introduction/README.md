@@ -1,4 +1,4 @@
-# Introduction to the MQTT Protocol
+# MQTT Protocol
 
 The MQTT protocol is a **machine-to-machine (M2M)** and IoT connectivity protocol. 
 
