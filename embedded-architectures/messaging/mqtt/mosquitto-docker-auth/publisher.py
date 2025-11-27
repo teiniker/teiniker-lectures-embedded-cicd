@@ -40,4 +40,3 @@ client.publish(TOPIC, MESSAGE)
 client.loop_stop()
 client.disconnect()
 print("[DEBUG] Disconnected.")
-

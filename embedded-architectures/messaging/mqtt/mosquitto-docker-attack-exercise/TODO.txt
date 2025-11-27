@@ -1,0 +1,51 @@
+Exercise: MQTT Authentication Attack 
+------------------------------------------------------------------------------
+
+You are given a docker-compose.yml file to start an MQTT broker.
+The broker uses TLS and authentication.
+
+A) Setup
+Create or copy the required certificates to enable the TLS connection:
+
+$ mkdir certs
+$ cd certs
+
+# Create a CA - Certificate Authority
+$ openssl genrsa -out ca.key 4096
+$ openssl req -x509 -new -nodes -key ca.key -sha256 -days 1024 -out ca.crt -subj "/CN=TestCA"
+
+# Create Server Certificate
+$ openssl genrsa -out server.key 4096
+$ openssl req -new -key server.key -out server.csr -subj "/CN=localhost"
+$ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 500 -sha256
+
+Start the MQTT Broker:
+
+# Create and run mqtt-broker as Docker container
+$ docker compose up -d
+
+# follow the live output (logs) of the mqtt-broker Docker container
+$ docker logs -f mqtt-broker
+
+Verify your configuration with the following command line calls:
+
+$ mosquitto_sub -h localhost -p 8883 --cafile certs/ca.crt -u marge -P marge -t sensors/distance -d
+$ mosquitto_pub -h localhost -p 8883 --cafile certs/ca.crt -u marge -P marge  -t sensors/distance -m "42cm" -d
+
+
+B) Wordlist Attack 
+Extend the Python script "attack.py".
+
+# Activate environment
+$ python -m venv .venv
+$ source .venv/bin/activate
+
+# Install libraries
+$ pip install -r requirements.txt
+
+Read the passwords line by line from the file wordlist.txt and use these
+strings as possible passwords for the user "homer".
+Stop the attempts when you have a valid login attempt.
+Print the password you found.
+
+
