@@ -111,6 +111,37 @@ We can use any UTF-8 character in topic names, with the exception of the two wil
 characters that we will analyze later: the plus sign `+` and hash `#`. 
 Hence, we must avoid `+` and `#` in the topic names.
 
+* **Single-Level Wildcard +**: Matches exactly one level of a topic hierarchy.
+
+    ```bash 
+    # Subscription topic
+    sensors/+/temperature
+
+    # Matches
+    sensors/livingroom/temperature
+    sensors/kitchen/temperature
+    ...
+    ```
+
+* **Multi-Level Wildcard #**: Matches **zero or more levels**, and must appear 
+    **only at the end** of the subscription string.
+
+    ```bash 
+    # Subscription topic
+    sensors/# 
+
+    # Matches
+    sensors/
+    sensors/kitchen
+    sensors/kitchen/temp
+    sensors/kitchen/temp/high
+    ...    
+    ```
+
+**MQTT does not allow wildcards in the topics used for publishing**.
+These characters are reserved **exclusively for subscriptions**.
+
+
 We should avoid creating topics starting with the dollar sign `$` because many MQTT 
 servers publish statistics data related to servers in topics that start with `$`.
 
@@ -118,6 +149,49 @@ We must maintain consistency when sending messages to different topic names as w
 when we save files in different paths.
 We have to take into account that we can subscribe to multiple topics by using topic 
 filters, and therefore it is very important to create topic names accordingly.
+
+
+## MQTT QoS Levels
+
+**Quality of Service (QoS)** defines how reliably a message is delivered between 
+clients and the broker. There are three levels: QoS 0, QoS 1, and QoS 2.
+
+* **QoS 0 - “At most once”**: Fire-and-forget.
+    - The message is delivered at most once, with no acknowledgment.
+    - No retries.
+    - Fastest and lightest, but least reliable.
+    - Use cases: sensor data sent frequently, where occasional loss is OK.
+
+* **QoS 1 — “At least once”**: Guaranteed delivery, but possible duplicates.
+    - Broker must acknowledge receipt (PUBACK).
+    - If the sender doesn't get PUBACK, it retries.
+    - Ensures the message arrives, but may arrive more than once.
+    - Use cases: Most IoT events where you want reliability but duplication is acceptable.
+
+* **QoS 2 — “Exactly once”**: Most reliable, ensures no duplicates.
+    - Uses a four-step handshake (PUBLISH > PUBREC > PUBREL > PUBCOMP).
+    - Heaviest in terms of bandwidth and latency.
+    - Use cases: Billing systems, financial transactions, mission-critical data.
+
+
+**Mosquitto’s command-line clients** (`mosquitto_pub` and `mosquitto_sub`) use: 
+    **QoS 0 (at most once)**
+
+We can use the **-q option** to specify the QoS level:
+
+```bash 
+# Subscribe with QoS 1
+$ mosquitto_sub -t "home/temperature" -q 1
+
+# Publish with QoS 1
+$ mosquitto_pub -t "home/temperature" -m "23" -q 1
+
+# Subscribe with QoS 2
+$ mosquitto_sub -t "home/temperature" -q 2
+
+# Publish with QoS 2
+$ mosquitto_pub -t "home/temperature" -m "23" -q 2
+```
 
 
 ## Logging Data From Embedded Systems: MQTT vs. HTTP 
