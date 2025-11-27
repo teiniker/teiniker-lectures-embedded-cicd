@@ -26,7 +26,7 @@ and troubleshoot network traffic.
     Displays the selected packet as a decoded protocol tree.
     Great for analyzing headers and finding misconfigurations.
 
-* **Packet Bytes Pane*:
+* **Packet Bytes Pane**:
     Shows the raw hexadecimal and ASCII representation of the packet.
 
 * **Display Filters**:
