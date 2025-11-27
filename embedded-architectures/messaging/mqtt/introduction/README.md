@@ -3,7 +3,7 @@
 The MQTT protocol is a **machine-to-machine (M2M)** and IoT connectivity protocol. 
 
 MQTT is a **lightweight messaging protocol** that works with a server-based 
-publish-subscribe mechanism and **runs on top of TCP/IP**.
+**publish-subscribe** mechanism and **runs on top of TCP/IP**.
 
 MQTT it is a very interesting option whenever we have to send and receive data 
 in **near-real time**.
