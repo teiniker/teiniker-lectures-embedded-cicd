@@ -39,7 +39,10 @@ $ tree
 We need a native Mosquitto installation on our host to use the `mosquitto_passwd` tool:
 
 ```bash
-$ sudo apt install mosquitto
+$ sudo apt install 
+
+# Stop Mosquitto service
+$ sudo systemctl start mosquitto
 ```
 
 Create the directory for the password file:
