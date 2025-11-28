@@ -42,7 +42,10 @@ We need a native Mosquitto installation on our host to use the `mosquitto_passwd
 $ sudo apt install mosquitto
 
 # Stop Mosquitto service
-$ sudo systemctl start mosquitto
+$ sudo systemctl stop mosquitto
+
+# Disable the Mosquitto service
+$ sudo systemctl disable mosquitto
 ```
 
 Create the directory for the password file:
