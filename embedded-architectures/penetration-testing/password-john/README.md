@@ -35,7 +35,7 @@ Session completed
 ## References
 * [John The Ripper Hash Formats](https://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats)
 
-* [Youtube: Password Cracking With John The Ripper](https://youtu.be/XjVYl1Ts6XI)
+* [Youtube: Cracking Passwords with John the Ripper... It’s Easier Than You Think](https://youtu.be/Hcjqdl0zW5U?si=ih7htY-9MT1pi9o3)
 
 * [John the Ripper Password Cracker](https://www.openwall.com/john/) 
 	
