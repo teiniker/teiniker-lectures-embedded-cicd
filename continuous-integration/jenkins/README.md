@@ -10,9 +10,9 @@ Install Jenkins directly on the Debian virtual machine, similar to how the
 Docker Engine was installed.
 
 ```bash
-sudo apt update
+$ sudo apt update
 
-sudo apt install fontconfig 
+$ sudo apt install fontconfig 
 
 # jdk21 is already installed
 $ java -version 
@@ -21,26 +21,28 @@ OpenJDK Runtime Environment (build 21+35-2513)
 OpenJDK 64-Bit Server VM (build 21+35-2513, mixed mode, sharing)
 
 
-sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+$ sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+$ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt update
+$ sudo apt update
 
-sudo apt install jenkins
+$ sudo apt install jenkins
 ```
 
-Configure Jenkins service (not enabled at Debian startup):
+Configure the Jenkins service (not enabled at Debian startup):
 
 ```bash
-sudo systemctl enable jenkins # default setting
-sudo systemctl disable jenkins
+$ sudo systemctl enable jenkins # default setting
+$ sudo systemctl disable jenkins
 
-sudo systemctl start jenkins
-sudo systemctl status jenkins
+$ sudo systemctl start jenkins
+$ sudo systemctl status jenkins
 
-sudo systemctl stop jenkins
+$ sudo systemctl stop jenkins
 ```
+
+Finally, access the Jenkins wep page:
 
 ```bash
 URL: http://localhost:8080
@@ -54,9 +56,18 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 root/root66
 
 # Install plugin: Docker Pipeline
+#  Go to Manage Jenkins → Manage Plugins → Available
+#    Install: Docker Pipeline
+```
 
+To allow Jenkins to access Docker, we need to add the `jenkins` 
+user to the `docker` group:
+
+```bash
 # Add jenkins to the docker group
 sudo usermod -aG docker jenkins
+
+# Restart Jenkins
 sudo systemctl restart jenkins
 ```
 
@@ -184,7 +195,9 @@ can be used for some non-trivial scenarios where flow control is needed.
 
 ## References
 
-* [Jenkins Homepage](https://www.jenkins.io/)
+* [YouTube: How to Setup Docker Containers As Build Agents for Jenkins](https://youtu.be/ymI02j-hqpU?si=rHKmVRh3_S4euWDG)
+
+* [Jenkins Homepage: Installing Jenkins](https://www.jenkins.io/doc/book/installing/linux/)
 
 
 _Egon Teiniker, 2025, GPL v3.0_
