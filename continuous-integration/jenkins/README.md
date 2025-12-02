@@ -110,7 +110,7 @@ pipeline
             steps 
             {
                 echo 'Test stage: run the test cases' 
-               	sh 'build/stack_test'
+                sh 'build/stack_test'
             }
         }
     }
