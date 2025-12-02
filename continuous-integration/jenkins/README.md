@@ -4,6 +4,63 @@
 > **continuous integration (CI)** and **continuous delivery (CD)**.
 
 
+## Setup Jenkins 
+
+Install Jenkins directly on the Debian virtual machine, similar to how the 
+Docker Engine was installed.
+
+```bash
+sudo apt update
+
+sudo apt install fontconfig 
+
+# jdk21 is already installed
+$ java -version 
+openjdk version "21" 2023-09-19
+OpenJDK Runtime Environment (build 21+35-2513)
+OpenJDK 64-Bit Server VM (build 21+35-2513, mixed mode, sharing)
+
+
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt update
+
+sudo apt install jenkins
+```
+
+Configure Jenkins service (not enabled at Debian startup):
+
+```bash
+sudo systemctl enable jenkins # default setting
+sudo systemctl disable jenkins
+
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+sudo systemctl stop jenkins
+```
+
+```bash
+URL: http://localhost:8080
+
+# Copy & paste this password as Administrator Password 
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+# Install suggested plugins
+
+# Create an admin user
+root/root66
+
+# Install plugin: Docker Pipeline
+
+# Add jenkins to the docker group
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+```
+
+
 ## Jenkins Pipeline
 
 Jenkins uses a `Jenkinsfile` which is part of a project to configure the 
