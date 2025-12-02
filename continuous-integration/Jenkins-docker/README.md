@@ -1,4 +1,4 @@
-# Jenkins Setup with Docker, JCasC & Build Tools
+# Jenkins Setup with Docker Compose
 
 This setup provides an automated, preconfigured Jenkins environment using:
 
@@ -113,9 +113,25 @@ URL: http://localhost:8080/
 ```
 
 
-### Configure a Jenkins Job
+### Jenkins Job Configuration
 
+_Example:_ [jenkins-pipeline-c](https://github.com/teiniker/jenkins-pipeline-c)
 
+We need the following settings for a new Jenkins job:
+
+* New Item 
+	- Pipeline
+    - Description (optional)
+    - Build Triggers 
+	    - Poll SCM: `H/1 * * * *`
+    - Pipeline / Definition: 
+      - Pipeleine: Pipeline Script from SCM: 
+        - SCM: Git 
+        - Repository URL: `https://github.com/teiniker/jenkins-pipeline-c.git` 
+        - Branches to build: `*/main` 
+      - Script Path: Jenkinsfile
+
+Save these settings.
 
 
 
