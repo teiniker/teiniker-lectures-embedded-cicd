@@ -22,6 +22,24 @@ A **cross-functional team** contains all the skills required to take an idea
 from concept all the way to production without needing to hand work off to 
 another team.
 
+Using cross-functional teams provides several powerful benefits:
+
+* **Faster Feedback and Problem Resolution**: 
+    - Issues uncovered in CI (failing builds, test failures, integration conflicts) 
+    can be addressed immediately by the right people.
+    - No waiting for handoffs between siloed departments.
+    - Bottlenecks are reduced because expertise is available inside the team.
+
+* **Better Quality Through Shared Ownership**:
+    - Tests are written early and run constantly.
+    - Code quality and integration stability are shared responsibilities.
+    - Developers are more aware of downstream impacts of changes.    
+
+* **Improved Communication and Transparency**:
+    - Early detection of integration problems
+    - Better understanding of priorities
+    - Faster knowledge sharing    
+
 
 ### Test-Driven Development 
 
@@ -169,37 +187,92 @@ development tasks.
 
 
 
-
-
-
 ## Commit Stage 
+
+The Commit Stage is where we get fast, efficient feedback on any changes, so 
+that the developer gets a high level of confidence that the code does what 
+they expect it to. 
+
+**The output of a successful Commit Stage is a Release Candidate**.
+
+The goal of the Commit Stage is to achieve a high level of confidence that our 
+changes are good enough to proceed, and to achieve that confidence as quickly 
+as we can.
+
+The Commit Stage is where we do the **fast unit and technical tests**, best 
+suited to getting **results in a few minutes**, and we leave other, more 
+complex and comprehensive tests to later in the Deployment Pipeline.
+
+There are other valuable tests that should be included:
+
+* Analysis to check whether our **coding standards** are met
+* **Compiler warnings** 
+* **Static code analysis** tools (linter, etc.)
+* **Dependency analysis** (library scanns)
+* ...
+
+> Commit Stage tests should provide quality feedback to the developer 
+> within 5 minutes.
+
+The Commit Stage is complete when all the technical, developer-centred 
+tests pass.
+Now the developer has a **high level (`>80%`) confidence** tht their code 
+does what they expect it to.
+
+We package the result of a successful Commit Stage to create a 
+**Release Candidate (RC)**.
+This should be the code that we will be deployed into production.
 
 
 ## Artifact Repository
 
+The Artifact Repository is the **cache of Release Candidates**. 
+The Deployable Units of software that are produced from a successful 
+Commit Stage are assembled and packaged into Release Candidates and 
+stored in the Artifact Repository. 
+
+There are excellent open source tools for this, but at its simplest, an Artifact 
+Repository only requires an **allocated Folder**.
+
+The Artifact Repository is the version of truth. **The Release Candidates 
+stored here are the exact bits and bytes that we intend to deploy into 
+production**.
+
+We will store successful outputs of the Commit Stage in the form that 
+they will be deployed into the rest of the Deployment Pipeline - the test 
+environment and into production. 
+
+We separate out any environment-specific configuration from the Release Candidate. 
+Modern **container systems** (such as Docker) make this easier. 
+**We use the same deployment mechanisms wherever we deploy**.
+
+When working well, we may produce Release Candidate every 10-15 minutes.
+But we only need to progress the **newest Release Candidate** and we can 
+discard any earlier, or failing versionfrom the Artifact Repository.
+
+Each Release Candidate will be assigned a **unique ID**. This is best 
+done as a simple sequence number, so we can easily identify which, of 
+several possible versions, is the newest.
 
 
-## Essential Practices
 
-* Don't check in on a broken build
+## Essential CI Practices
 
-* Always run all commit tests locally before commiting
+* Don't check in on a broken build.
 
-* Wait for commit tests to pass before moving on
+* Always run all commit tests locally before commiting.
 
-* Never go home on a broken build
+* Wait for commit tests to pass before moving on.
+
+* Never go home on a broken build.
 
 * Always be prepared to revert to the previous revision.
 
-* Time-box fixing before reverting 
+* Time-box (`<10` minutes) fixing before reverting. 
 
-* Don't comment out failing tests
+* Don't comment out failing tests.
 
-* Take responsibility for all breakages that result from your changes
-
-
-
-
+* Take responsibility for all breakages that result from your changes.
 
 
 ## References
