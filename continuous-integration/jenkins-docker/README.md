@@ -137,9 +137,11 @@ Save these settings.
 
 ## References 
 
-- [Github: Jenkins Configuration as Code (a.k.a. JCasC) Plugin](https://github.com/jenkinsci/configuration-as-code-plugin)
-- [Jenkins: Configuration as Code](https://www.jenkins.io/projects/jcasc/)
-- [Jenkins: Managing Plugins](https://www.jenkins.io/doc/book/managing/plugins/#installing-plugins)
+* [YouTube: How to Run Jenkins on Docker](https://youtu.be/QNZNfvrFBMo?si=Owyd6ULxQGzOT9jM)
+
+* [Github: Jenkins Configuration as Code (a.k.a. JCasC) Plugin](https://github.com/jenkinsci/configuration-as-code-plugin)
+* [Jenkins: Configuration as Code](https://www.jenkins.io/projects/jcasc/)
+* [Jenkins: Managing Plugins](https://www.jenkins.io/doc/book/managing/plugins/#installing-plugins)
 
 
 _Nicoletta Kähling, Egon Teiniker, 2025, GPL v3.0_
