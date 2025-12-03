@@ -116,9 +116,9 @@ pipeline
     }
     post 
     {
-        always 
+        success 
         {
-            echo 'I will always execute this!'
+            archiveArtifacts artifacts: 'build/stack_test', fingerprint: true
         }
     }
 }
