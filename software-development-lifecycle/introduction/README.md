@@ -72,9 +72,64 @@ are well understood and unlikely to change radically during system development**
 
 ## V-Model
 
+The V-Model (Verification and Validation Model) is an extension of 
+the Waterfall Model that emphasizes a parallel **relationship between 
+development phases and testing phases**.
+
+![V-Model](figures/V-Model.png)
+
+Its name comes from its V-shaped diagram: the **left side represents verification** 
+(planning and designing), and the **right side represents validation** 
+(testing and evaluation).
+
+**Left Side: Verification Phases (Planning & Design)**
+
+* **Requirements Analysis**: 
+    - Define and document user needs.
+    - Corresponds to Acceptance Testing on the right side.
+
+* **System Design**: 
+    - Define the overall system architecture and components. 
+    - Corresponds to System Testing.
+
+* **High-Level Design (HLD)**:
+    - Break system into modules, define interfaces and data flow.
+    - Corresponds to Integration Testing.
+
+* **Low-Level Design (LLD)**:
+    - Detailed design of each module and its logic.
+    - Corresponds to Unit Testing.
+
+
+**Right Side: Validation Phases (Testing)**
+
+* **Unit Testing**:
+    - Tests individual modules based on the Low-Level Design.
+
+* **Integration Testing**:
+    - Ensures modules work together as defined in the High-Level Design.
+
+* **System Testing**:
+    - Validates the entire system against the System Design.
+
+* **Acceptance Testing**:
+    - Checks the system against user requirements before release.
+
+The V-Model offers a clear, systematic approach with **early test planning** 
+that helps reduce defects, making it especially **effective for projects 
+with stable, well-defined requirements**. 
+Its strong emphasis on verification and validation ensures high-quality outcomes.
+
+The V-Model is **inflexible** because changes are difficult once phases 
+are completed and it **requires fully defined requirements from the start**, 
+making it slow and less suitable for complex or evolving projects.
 
 
 ## Agile Methods
+
+Agile methods in software engineering focus on **iterative development**, 
+where work is completed in small increments that allow for 
+**frequent feedback** and adaptation. 
 
 
 ### Agile Manifesto 
@@ -147,40 +202,9 @@ The **Principles** of the Agile Manifesto:
     and collaboration.
 
 
-### Scrum 
-
-> **Scrum** is a management and control process that cuts through complexity 
-> to focus on building software that meets business needs.
-
-Using Scrum, teams develop products **incrementally and empirically**.
-
-
-
-### Extreme Programming 
-
-> **Extreme Programming (XP)** is a lightweight methodology for 
-> small-to-medium-sized teams developing software in the face of 
-> vague or rapidly changing requirements.
-
-XP is designed to work with projects that can be built by teams 
-of **two to ten programmers**.
-
-
-
-### Kanban
-
-
 
 ## References
 
-* Scrum
-    - Ken Schwaber, Mike Beedle. **Agile Software Development with Scrum**. Prentice Hall, 2002
-    - Ken Schwaber. **Agile Project Management with Scrum**. Microsoft Press, 2004
-
-
-* XP
-    - Kent Beck. **Extreme Programming Explained**. Addison-Wesley, 2000
-    - Kent Beck, Martin Fowler. **Planning Extreme Programming**. Addison-Wesley, 2001
 
 * Agile Methods 
     - [Manifesto for Agile Software Development](https://agilemanifesto.org/)
