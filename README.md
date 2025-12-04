@@ -6,8 +6,8 @@ This repository contains examples and documentation for using Continuous Integra
 
 * [Software Building and Packaging](build-process/)
 * [Embedded Architectures](embedded-architectures/)
-* Software Development Lifecycle
-* Continuous Integration
+* [Software Development Lifecycle](software-development-lifecycle/README.md)
+* [Continuous Integration](continuous-integration/)
 * Continuous Delivery
 
 

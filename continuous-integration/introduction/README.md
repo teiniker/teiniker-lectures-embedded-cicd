@@ -1,4 +1,4 @@
-# Continuous Integration 
+# Introduction to Continuous Integration 
 
 > **Continuous Integration (CI)** is a software development practice where 
 > members of a team integrate their work frequently, usually each person 
