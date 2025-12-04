@@ -111,17 +111,6 @@ left to right across the board.
 * Agile (Scrum) 
     - Planing and working is done for an iteration 
 
-Kanban is more flexible, Agile is bound to the iteration cycles 		
-Kanban fits best with CI/CD pipeline. 
-
-Fokus auf Features und Durchsatz 
-
-Frage: Wie passt das mit HW zusammen 
-
-TODO: vgl. Toyota Stoy (wenn es für Toyota funktioniert, sollte 
-es auch für HW funktionieren)
-
-
 
 ## Kanban and the CI/CD Pipeline
 
@@ -130,7 +119,8 @@ Delivery) pipeline** than Scrum.
 
 CI/CD is all about **frequent, incremental changes** and **continuous flow 
 of work** through development, testing, and deployment.
- Kanban naturally supports this with:
+
+Kanban naturally supports this with:
 
 * **Continuous Flow over Time-boxed Sprints**
     - **CI/CD** doesn’t rely on fixed-length iterations. It thrives on 
