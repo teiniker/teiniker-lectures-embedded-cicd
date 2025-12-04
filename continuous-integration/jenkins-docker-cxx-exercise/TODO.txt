@@ -1,0 +1,40 @@
+Exercise: Jenkins in Docker Container with C++ Build Tools
+-------------------------------------------------------------------------------
+
+We want to setup a Docker container which contains Jenkins and the needed C++ 
+build tools. The container should be started with Docker compose and accessed
+via a Browser (http://localhost:8080).
+
+The given "docker-compose.yaml" and "jenkins.yaml" files can be used without 
+changes.
+
+Complete the "Dockerfile" file:
+
+A) C++ Build Tools 
+Install the required C++ build tools.
+
+Tip: The base image is based on Debian Linux, so we have to use the 
+"apt" package manager.
+
+B) Google Test framework
+In order to build and run the test cases, we have to install the Google 
+Test framework as well.
+
+Tip: clone https://github.com/google/googletest
+
+C) Verify 
+Start the Docker container:
+$ docker-compose up -d 
+
+If we make changes to the Dockerfile we can rebuild the image:
+$ docker-compose build
+
+Finally, we access the Jenkins web GUI:
+
+URL: http://localhost:8080/
+
+and setup a Job to build the following projekt:
+
+https://github.com/teiniker/jenkins-pipeline-cxx
+
+
