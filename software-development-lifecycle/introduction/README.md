@@ -1,4 +1,4 @@
-# Software Development Lifecycle
+# Introduction to Software Development Lifecycle
 
 A **software process** is a set of activities (requirements specification, 
 design, implementation, verification, evolution) and associated results that 
@@ -88,15 +88,13 @@ Its name comes from its V-shaped diagram: the **left side represents verificatio
     - Define and document user needs.
     - Corresponds to Acceptance Testing on the right side.
 
-* **System Design**: 
+* **Analysis and Architecture**: 
     - Define the overall system architecture and components. 
     - Corresponds to System Testing.
-
-* **High-Level Design (HLD)**:
     - Break system into modules, define interfaces and data flow.
     - Corresponds to Integration Testing.
 
-* **Low-Level Design (LLD)**:
+* **Design**:
     - Detailed design of each module and its logic.
     - Corresponds to Unit Testing.
 
@@ -104,15 +102,13 @@ Its name comes from its V-shaped diagram: the **left side represents verificatio
 **Right Side: Validation Phases (Testing)**
 
 * **Unit Testing**:
-    - Tests individual modules based on the Low-Level Design.
+    - Tests individual modules based on the Design.
 
 * **Integration Testing**:
-    - Ensures modules work together as defined in the High-Level Design.
-
-* **System Testing**:
-    - Validates the entire system against the System Design.
+    - Ensures modules work together as defined in the Architecture.
 
 * **Acceptance Testing**:
+    - Validates the entire system against the System Design.
     - Checks the system against user requirements before release.
 
 The V-Model offers a clear, systematic approach with **early test planning** 
