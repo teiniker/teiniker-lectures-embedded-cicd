@@ -39,7 +39,7 @@ in **Lean manufacturing** but was adapted and popularized in tech much later.
 1. **Visualize the Workflow**  
    - Use a **Kanban board** to represent the process.
    - Work items are represented as **cards**, and columns represent 
-    **steps in the process** (e.g., To Do, In Progress, Done).
+    **steps in the process** (e.g., ToDo, In Progress, Done).
 
 2. **Limit Work in Progress (WIP)**  
    - Set limits on how many items can be in each stage at a time.
@@ -69,7 +69,7 @@ in **Lean manufacturing** but was adapted and popularized in tech much later.
 A basic Kanban board might look like:
 
 ```
-| To Do | In Progress | Code Review | Testing | Done |
+| ToDo | In Progress | Code Review | Testing | Done |
 ```
 
 Each work item (e.g., a user story or task) is a **card** that moves from 
