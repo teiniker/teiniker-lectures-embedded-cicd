@@ -17,14 +17,6 @@ Different types of systems need different development processes:
 > Process models may include activities that are part of the software process 
 > and the roles of people involved in software engineering.
 
-There are general paradigms of software development:
-- **The waterfall approach**: This takes the fundamental process activities and 
-    represents them as separate process phases. 
-- **Iterative development**: This approach interleaves the activities of specification, 
-    development and validation. 
-- **Component-based software development**: This approach is based on the existence 
-    of a significant number of reusable components.
-
 
 ## Waterfall Model
 
@@ -78,11 +70,10 @@ development phases and testing phases**.
 
 ![V-Model](figures/V-Model.png)
 
-Its name comes from its V-shaped diagram: the **left side represents verification** 
-(planning and designing), and the **right side represents validation** 
-(testing and evaluation).
+Its name comes from its V-shaped diagram: the **left side represents planning 
+and designing** , and the **right side represents testing and evaluation**.
 
-**Left Side: Verification Phases (Planning & Design)**
+**Left Side: Planning & Design**
 
 * **Requirements Analysis**: 
     - Define and document user needs.
@@ -99,7 +90,7 @@ Its name comes from its V-shaped diagram: the **left side represents verificatio
     - Corresponds to Unit Testing.
 
 
-**Right Side: Validation Phases (Testing)**
+**Right Side: Testing**
 
 * **Unit Testing**:
     - Tests individual modules based on the Design.
@@ -201,6 +192,7 @@ The **Principles** of the Agile Manifesto:
 
 ## References
 
+* Ian Sommerville. **Software Engineering**. Addison-Wesley, global edition 2015
 
 * Agile Methods 
     - [Manifesto for Agile Software Development](https://agilemanifesto.org/)
