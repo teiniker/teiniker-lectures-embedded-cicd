@@ -30,6 +30,25 @@ $ sudo apt update
 $ sudo apt install jenkins
 ```
 
+* `echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" https://pkg.jenkins.io/debian-stable binary/`: Prints a line of text to standard output
+    - `deb`: defines a binary package repository.
+    - `[signed-by=/etc/apt/keyrings/jenkins-keyring.asc]`: tells APT: Use this specific key file to verify packages from this repo.
+    - `https://pkg.jenkins.io/debian-stable`: URL of the Jenkins APT repository.
+    - `binary/`: The distribution/component part (like stable main, but in this case binary/).
+
+* `sudo tee /etc/apt/sources.list.d/jenkins.list`
+    - `tee`: Reads from standard input and writes it to:
+        - a file (here: /etc/apt/sources.list.d/jenkins.list)
+        - and also to standard output (normally).    
+
+* > `/dev/null`: takes the standard output of tee and discards it
+    - The file still gets written.
+    - You just don’t see any output from tee.
+
+Note that we can't use shell redirection (>) because it happens before sudo is applied.
+Instead we use `tee` and `/dev/null`.
+
+
 Configure the Jenkins service (not enabled at Debian startup):
 
 ```bash
