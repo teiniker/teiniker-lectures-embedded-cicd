@@ -6,6 +6,8 @@ what the users of the software want it to do.
 
 ![CD Process](figures/CD-Process.png)
 
+_Figure: Continuous delivery part of the pipeline (Farley, 2021)_ 
+
 We carry out evaluations from the **perspective of the external users** of the 
 system, until we achieve enough confidence that we are ready to release.
 
