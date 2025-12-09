@@ -37,4 +37,4 @@ and setup a Job to build the following projekt:
 
 https://github.com/teiniker/jenkins-pipeline-cxx
 
-
+Tip: Use the "Jenkinsfile-any" file.
