@@ -64,27 +64,58 @@ in **Lean manufacturing** but was adapted and popularized in tech much later.
    experimentation.
 
 
-## How a Kanban Board Works
+## Kanban Board
 
-A basic Kanban board might look like:
+A Kanban board is a **visual workflow management tool** used to track work 
+as it moves through different stages of a process. 
 
-```
-| ToDo | In Progress | Code Review | Testing | Done |
-```
+It helps teams **limit work-in-progress (WIP)**, improve flow, and 
+**make bottlenecks immediately visible**.
 
-Each work item (e.g., a user story or task) is a **card** that moves from 
+![Kanban board](figures/Kanban-board.jpg)
+
+_Figure: A basic Kanban board_
+
+* **ToDo**:
+    - This is the **backlog of tasks** that are ready to be worked on next.
+    - Items here are typically **prioritized**.
+    - A team member pulls the next task from this column when they have capacity.
+
+* **In Progress**:
+    - Tasks in this column are **actively being worked on** right now.
+    - Teams usually set a **WIP limit** to avoid taking on too many tasks at once.
+    - Limiting WIP improves focus and reduces multitasking.
+
+* **Testing**:
+    - Tasks that have been completed but need **quality checks**, review, 
+        QA testing, or validation go here.
+    - This stage ensures work meets **acceptance criteria** before release.
+    
+* **Done**:
+    - **Completed tasks** go here once they have passed all previous stages.
+    - Represents **finalized work**, nothing more needs to be done.
+
+Sometimes a **Story** column is added to the board where work items are shaped before 
+they’re ready to enter the actual workflow.
+You can treat it as a space where **ideas are refined**: they gather acceptance 
+criteria, are clarified, and become ready to be pulled into ToDo.
+
+Each **work item** (e.g., a user story or task) is a **card** that moves from 
 left to right across the board.
 
 
 ## Benefits of Kanban
 
-- **Flexibility**: You can change priorities and work items on the fly.
-- **Improved Focus**: Limiting WIP encourages completing tasks before starting new ones.
-- **Visual Clarity**: Everyone can see what’s being worked on and what’s blocked.
-- **Better Flow**: Helps teams identify bottlenecks and inefficiencies.
+* **Flexibility**: We can change priorities and work items on the fly.
+
+* **Improved Focus**: Limiting WIP encourages completing tasks before starting new ones.
+
+* **Visual Clarity**: Everyone can see what’s being worked on and what’s blocked.
+
+* **Better Flow**: Helps teams identify bottlenecks and inefficiencies.
 
 
-## Kanban vs Scrum (Quick Comparison)
+## Kanban vs Scrum
 
 | Feature         | Kanban                        | Scrum                        |
 |-----------------|-------------------------------|------------------------------|
@@ -93,29 +124,14 @@ left to right across the board.
 | Planning        | On-demand                     | Sprint planning              |
 | Metrics         | Lead time, Cycle time         | Velocity, Burndown charts    |
 
-* [YouTube (Dave Farley): Agile vs Kanban: Which is Better? GOTO 2022](https://youtu.be/N9coClM4qf8?si=IFNKwU5xnEEzYCIb)
+* See: [YouTube (Dave Farley): Agile vs Kanban: Which is Better? GOTO 2022](https://youtu.be/N9coClM4qf8?si=IFNKwU5xnEEzYCIb)
 
-* Flatten cost of change curve 
-    - Optimize for Learning 
-    - Proceed in samll steps 
-    - Assume you are probably wrong 
-
-* Kanban 
-    - Kanban is a flow-based process - no release plan 
-    - The unit of work is a single feature 
-    - Break down the work into features 
-    - Prioritize features 
-    - Developers pick the next most important feature 
-    - They work on this feature (only) until it is finished 
-
-* Agile (Scrum) 
-    - Planing and working is done for an iteration 
 
 
 ## Kanban and the CI/CD Pipeline
 
 **Kanban often fits better with a CI/CD (Continuous Integration/Continuous 
-Delivery) pipeline** than Scrum. 
+Delivery) pipeline than Scrum**. 
 
 CI/CD is all about **frequent, incremental changes** and **continuous flow 
 of work** through development, testing, and deployment.
@@ -138,28 +154,7 @@ Kanban naturally supports this with:
 
 * **Faster Feedback Loops**
     - Since work is flowing continuously, developers get quicker feedback from 
-    builds, tests, and users — aligning well with DevOps practices.
-
-
-## Scrum in CI/CD? Still Useful, But…
-
-Scrum can work with CI/CD, but it’s usually a better fit for teams that:
-
-- Need structure and predictable planning cycles.
-- Are working on features that benefit from Sprint-style time-boxed delivery.
-- Prefer regular cadence over continuous delivery.
-
-The potential friction is that **Scrum batches work** into sprints, while 
-**CI/CD encourages shipping whenever something is done** — which matches Kanban's 
-just-in-time philosophy better.
-
-|             | Kanban                        | Scrum                         |
-|-------------|-------------------------------|-------------------------------|
-| Flow        | Continuous, pull-based        | Sprint-based, time-boxed      |
-| CI/CD Fit   | ⭐⭐⭐⭐ (Great match)            | ⭐⭐ (Possible, but may need tweaks) |
-| Feedback    | Fast, ongoing                 | At sprint end (unless adjusted) |
-
-If we are building with CI/CD regularly, **Kanban is a natural companion**. 
+    builds, tests, and users, aligning well with CI/CD practices.
 
 
 ## References
