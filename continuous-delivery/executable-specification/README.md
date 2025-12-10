@@ -10,7 +10,7 @@ In the context of Agile development, a user story is a short,
 simple description of a feature or requirement told from the 
 perspective of the end user. 
 
-> A User Story is a chunk of functionality (feature) that is of 
+> A **User Story** is a chunk of functionality (feature) that is of 
 > value to the customer.
 
 It helps the development team remember what the user wants and 
