@@ -37,6 +37,17 @@ $ sudo apt install openjdk-21-jdk -y
 
 ## Setup Linux VM Agent
 
+Try to **connect to the Raspi via SSH**:
+
+```bash
+$ ssh <username>@<ip address>
+password: <password>
+
+$ exit 
+```
+
+With SSH connectivity verified, we can proceed to **configure the Jenkins agent**:
+
 **Add a new Jenkins agent** (node):
 
 * On the Jenkins web UI:	
@@ -52,8 +63,8 @@ $ sudo apt install openjdk-21-jdk -y
 		- Labels: 
 		- Usage: `Use this node as much as possible`
 		- Launch method: ` Launch agents via SSH`
-			- Host: 10.225.32.110
-			- Credentials: student / student 
+			- Host: <ip address>
+			- Credentials: <username> / <password>> 
 				- Add Credentials
 					- Domain: Global credentials 
 					- Kind: Username with password 
