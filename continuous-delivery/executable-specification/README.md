@@ -131,8 +131,8 @@ There are explicit BDD frameworks, like [Cucumber](https://cucumber.io/)
 that define their own language (**External DSL**).
 
 In practice, however, abstractions such as the **Page Object Pattern** 
-are often used, which are implemented within an existing programming 
-language (**Internal DSL**).
+and the **Service Connector Pattern** are often used, which are implemented 
+within an existing programming language (**Internal DSL**).
 
 
 ## Executable Specifications
