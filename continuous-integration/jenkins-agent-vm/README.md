@@ -74,7 +74,7 @@ We use the `jenkins-pipeline-cxx` with `Jenkinsfile-agent-vm`:
 
 
 
-_Egon Teiniker, 2025, GPL v3.0_    
+_Nicoletta Kähling, Egon Teiniker, 2025, GPL v3.0_    
 
 
 
