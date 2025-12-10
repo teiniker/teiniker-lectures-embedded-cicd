@@ -53,7 +53,7 @@ The CD pipeline is defined by the `Jenkinsfile-cd` file and contains the
 following stages:
 
 * `download wheel`: The wheel file stored in the Jenkins archive (Artifactory) 
-    is downloaded. For this, the Jenkins "copyArtifacts" plugin must be installed.
+    is downloaded. For this, the Jenkins **copyArtifacts** plugin must be installed.
 
 * `install wheel`: The wheel file, and therefore the application under test, 
     is installed into a virtual environment. 
