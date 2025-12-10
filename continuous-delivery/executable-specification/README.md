@@ -115,11 +115,11 @@ They are two **complementary views of the same requirement**:
 
 ## Behavior-Driven Development 
 
-A **Domain-Specific Language (DSL)** can play a major role in bridging the 
-gap between Acceptance Test Cases and their implementation. 
-
 In **Behavior-Driven Development (BDD)**, where tests express behavior in 
 business language, but must still be executable by software.
+
+A **Domain-Specific Language (DSL)** can play a major role in bridging the 
+gap between Acceptance Test Cases and their implementation. 
 
 * A DSLs provide a structured format that can be automatically mapped to code.
 
