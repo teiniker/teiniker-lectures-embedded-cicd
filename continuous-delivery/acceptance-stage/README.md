@@ -181,6 +181,8 @@ developer's work.
 
 ## References
 
+* [YouTube (Dave Farley): 14 Step Continuous Delivery Checklist](https://youtu.be/8x2bZMtaUp4?si=ak4BKncHLIbigkL_)
+
 * Jez Humble, Davis Farley. **Continuous Delivery**. Addison-Wesley, 2010
 * Davis Farley. **Continuous Delivery Pipelines**. Independently published, 2021
 
