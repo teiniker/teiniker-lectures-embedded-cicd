@@ -163,6 +163,16 @@ $ vim .bashrc
     add $PYTHON_LOCAL/bin to the PATH environemnt variable 
 ```
 
+### Programming Java 
+
+* [Raspberry Pi: Installing Java](https://youtu.be/jhPnCCwhnKo?si=WqM9V0R6S8ELM9Nb)
+
+```Bash
+$ sudo apt install openjdk-21-jdk -y
+$ sudo update-alternatives --config java 
+```
+
+
 ### Embedded Development 
 
 ```Bash
