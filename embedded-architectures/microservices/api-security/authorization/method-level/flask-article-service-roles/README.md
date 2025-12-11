@@ -6,12 +6,12 @@ on HTTP method level.
 
 ## Setup 
 ```
-$ pip3 install Flask-HTTPAuth
+$ pip install Flask-HTTPAuth
 ```
 
 We start the web service from the command line:
 ```
-$ python3 article_service.py
+$ python article_service.py
 ```
 
 ## Implementation Details
@@ -245,3 +245,5 @@ Date: Wed, 27 Dec 2023 10:28:44 GMT
 Content-Type: text/html; charset=utf-8
 Connection: close
 ```
+
+_Egon Teiniker, 2025, GPL v3.0_

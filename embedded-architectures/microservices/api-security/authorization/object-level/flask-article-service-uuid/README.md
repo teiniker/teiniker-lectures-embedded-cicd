@@ -21,7 +21,7 @@ To convert a UUID into a string representation, we can use `str(uuid.uuid4())`.
 
 We start the web service from the command line:
 ```
-$ python3 article_service.py
+$ python article_service.py
 ```
 
 
@@ -128,3 +128,4 @@ Content-Type: text/html; charset=utf-8
 Connection: close
 ```
 
+_Egon Teiniker, 2025, GPL v3.0_
