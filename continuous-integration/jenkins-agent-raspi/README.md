@@ -79,7 +79,7 @@ With SSH connectivity verified, we can proceed to **configure the Jenkins agent*
 
 ## Configure Jenkins Job
 
-We use the `jenkins-pipeline-cxx` with `Jenkinsfile-agent-vm`:
+We use the `jenkins-pipeline-cxx` with `Jenkinsfile-agent-raspi`:
 
 * New Item
     - Enter an item Name "**C++ Pipeline (Raspi Agent)**"
