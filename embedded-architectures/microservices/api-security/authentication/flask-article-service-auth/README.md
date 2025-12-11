@@ -5,12 +5,12 @@ In this example, we can see how simple a RESTful service can be implemented with
 
 ## Setup 
 ```
-$ pip3 install Flask-HTTPAuth
+$ pip install Flask-HTTPAuth
 ```
 
 We start the web service from the command line:
 ```
-$ python3 article_service.py
+$ python article_service.py
 ```
 
 ## Flask-HTTPAuth
@@ -132,4 +132,4 @@ Connection: close
 
 * [Flask-HTTPAuth](https://flask-httpauth.readthedocs.io/en/latest/)
 
-*Egon Teiniker, 2020-2023, GPL v3.0*
+*Egon Teiniker, 2025, GPL v3.0*
