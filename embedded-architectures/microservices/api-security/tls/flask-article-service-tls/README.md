@@ -7,7 +7,7 @@ In this example, we can see how simple a RESTful service can be implemented with
 
 We start the web service from the command line:
 ```
-$ python3 article_service.py
+$ python article_service.py
 ```
 
 ## Access the REST Service
@@ -108,3 +108,5 @@ Connection: close
 
 ## References
 * [Python-API-Development-Fundamentals: Lesson01](https://github.com/TrainingByPackt/Python-API-Development-Fundamentals/blob/master/Lesson01/Activity02/basic-api/app.py)
+
+_Egon Teiniker, 2025, GPL v3.0_
