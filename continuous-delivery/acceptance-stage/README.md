@@ -179,6 +179,20 @@ It may be better to think about Manual Testing **running in parallel** with the
 developer's work.
 
 
+## Security Tests 
+
+During the acceptance stage, security- and penetration testing ensure that 
+every code change is evaluated for vulnerabilities before it is considered 
+release-ready. 
+
+**Security testing** validates that the system meets security requirements (e.g., 
+authentication, authorization, data protection)
+
+* **Penetration testing** simulates real-world attacks to uncover exploitable 
+weaknesses, both typically automated and integrated into the pipeline so 
+that insecure builds are blocked from progressing.
+
+
 ## References
 
 * [YouTube (Dave Farley): 14 Step Continuous Delivery Checklist](https://youtu.be/8x2bZMtaUp4?si=ak4BKncHLIbigkL_)
