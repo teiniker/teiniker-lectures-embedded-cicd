@@ -1,12 +1,71 @@
 # Authentication 
 
-To enforce authentication for our REST services, we must decide which 
-authentication protocol to use.
+In REST services, we can use several **authentication methods** depending 
+on your security needs, client types, and deployment environment.
 
-Most service infrastructures support the following mechanisms:
-* Basic Authentication
-* Digest Authentication
-* Authentication using X.509 certificates.
+* **HTTP Basic Authentication**: The client sends a `username:password` pair 
+    encoded in Base64 in the Authorization header.
+    - Simple to implement
+    - Supported by almost all HTTP clients
+    - Must be used **only over HTTPS**
+    
+    _Example:_ HTTP header for basic authentication 
+
+    ```HTTP
+    Authorization: Basic dXNlcjpwYXNz
+    ```
+
+* **Token-Based Authentication**: Client authenticates once and receives a 
+    token, which is sent with each request.
+    - Simple and scalable
+    - Token management is custom
+
+* **JSON Web Tokens (JWT)**: Client logs in, server issues a signed JWT,  
+    client sends it with every request.   
+    - Supports expiration & claims
+    - Widely used in REST APIs
+    - Tokens must be protected on the client
+
+   _Example:_ HTTP header for JWT authentication 
+
+    ```HTTP
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
+    ```
+
+* **API Key Authentication**: Client sends a unique API key in headers 
+    or query params.
+    - Easy to use
+    - Good for internal or partner APIs
+    - No user identity
+    - Harder to rotate securely
+
+   _Example:_ HTTP header for API key authentication 
+
+    ```HTTP
+    X-API-Key: abc123xyz
+    ```
+
+* **OAuth 2.0**: Delegated authorization framework (used by Google, 
+    GitHub, etc.).
+    - Industry standard
+    - Secure and flexible
+    - Ideal for third-party integrations
+    - Overkill for simple APIs
+
+* **Mutual TLS (mTLS)**: Both client and server authenticate using TLS certificates.
+    - Very strong security
+    - No tokens or passwords
+    - Complex setup
+    - Mostly for internal microservices
+
+The choice of authentication mechanism depends on the specific use case. 
+
+Here are some recommendations:
+
+* **Learning / testing**: Basic Auth
+* **Small / internal API**: JWT or API Key
+* **Microservices**: mTLS or JWT
+* **Public API**: OAuth 2.0 or JWT
 
 
 ## Basic Authentication 

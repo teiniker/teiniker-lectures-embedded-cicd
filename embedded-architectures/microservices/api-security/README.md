@@ -12,7 +12,8 @@ interact with them.
     - Example: [article-service-client-tls](tls/article-service-client-tls/)
 
 * Authentication
-    - [Basic Authentication](authentication/introduction/README.md)
+    - [Introduction](authentication/introduction/README.md)
+    - [Basic Authentication](authentication/introduction/BasicAuthentication.md)
     - Example: [flask-article-service-auth](authentication/article-service-auth/)
     - Example: [article-service-client-auth](authentication/article-service-client-auth/)
     - Exercise: [flask-book-service](authentication/book-service-exercise/)
