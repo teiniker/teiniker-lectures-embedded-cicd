@@ -13,16 +13,16 @@ interact with them.
 
 * Authentication
     - [Basic Authentication](authentication/introduction/README.md)
-    - Example: [flask-article-service-auth](authentication/flask-article-service-auth/)
-    - Example: [article-service-client-auth](authentication/article-service-auth-client/)
-    - Exercise: [flask-book-service](authentication/flask-book-service-exercise/)
-        ([Model Solution](authentication/flask-book-service/))
+    - Example: [flask-article-service-auth](authentication/article-service-auth/)
+    - Example: [article-service-client-auth](authentication/article-service-client-auth/)
+    - Exercise: [flask-book-service](authentication/book-service-exercise/)
+        ([Model Solution](authentication/book-service/))
 
 * Authorization
     - [Role Based Authorization](authorization/introduction/README.md)
     - Method Level Authorization
-        - Example: [flask-articla-service-roles](authorization/method-level/flask-article-service-roles/)
+        - Example: [flask-articla-service-roles](authorization/method-level/article-service-roles/)
     - Object Level Authorization
-        - Example: [flask-article-service-uuid](authorization/object-level/flask-article-service-uuid/)    
+        - Example: [flask-article-service-uuid](authorization/object-level/article-service-uuid/)    
 
 _Egon Teiniker, 2025, GPL v3.0_
