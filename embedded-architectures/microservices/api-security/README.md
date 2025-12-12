@@ -8,8 +8,8 @@ interact with them.
     - [OWASP API-Security Top10](introduction/OWASP-API-Security-Top10.md)
 
 * Transport Layer Security  
-    - Example: [flask-article-service-tls](tls/flask-article-service-tls/)
-    - Example: [article-service-client-tls](tls/article-service-tls-client/)
+    - Example: [flask-article-service-tls](tls/article-service-tls/)
+    - Example: [article-service-client-tls](tls/article-service-client-tls/)
 
 * Authentication
     - [Basic Authentication](authentication/introduction/README.md)
