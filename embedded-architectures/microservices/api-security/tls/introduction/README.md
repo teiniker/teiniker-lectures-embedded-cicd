@@ -18,7 +18,7 @@ Using TLS (HTTPS) for REST services is fundamental to security:
 * **TLS ensures message integrity**:
     Without TLS, attacker can modify requests or responses.
 
-**In practice, we should use TLS for every REST interaction!****
+**In practice, we should use TLS for every REST interaction!**
 
 ## References
 
