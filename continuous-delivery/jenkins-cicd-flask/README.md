@@ -36,6 +36,11 @@ We use the `jenkins-pipeline-flask` with `Jenkinsfile-ci`:
 
 ## CD Pipeline
 
+### Install Copy Artifact Plugin
+
+The Jenkins Copy Artifact plugin (`copyArtifacts`) is a commonly used plugin that allows 
+one job or pipeline to retrieve build artifacts produced by another job or by earlier stages/builds.
+
 ### Configure Jenkins Job (CD Pipeline)
 
 * New Item
