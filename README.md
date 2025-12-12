@@ -5,11 +5,14 @@ This repository contains examples and documentation for using Continuous Integra
 ![CI/CD Process](figures/CICD-Process.png)
 
 * [Software Building and Packaging](build-process/README.md)
-* [Embedded Architectures](embedded-architectures/)
-* [Software Development Lifecycle](software-development-lifecycle/README.md)
-* [Continuous Integration](continuous-integration/README.md)
-* Continuous Delivery
 
+* [Embedded Architectures](embedded-architectures/)
+
+* [Software Development Lifecycle](software-development-lifecycle/README.md)
+
+* [Continuous Integration](continuous-integration/README.md)
+
+* [Continuous Delivery](continuous-delivery/)
 
 ## References
 
