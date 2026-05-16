@@ -43,12 +43,12 @@ Good and effective User Stories have the following **characteristics**:
 
 * **Valuable**: Each story should increase product value
 
-* **Estimable**: User Storiy can be sized by the team 
+* **Estimable**: User Story can be sized by the team 
 
-* **Small**: A small increment in the behaviour of the system, complete 
+* **Small**: A small increment in the behavior of the system, complete 
     within an iteration
 
-* **Testable**: A User Story shoul be testable as a black box (in a 
+* **Testable**: A User Story should be testable as a black box (in a 
     binary way) 
 
 
@@ -69,7 +69,7 @@ stories:
         - Risk / Uncertainty 
 
 
-### Common Mistakes In User Stories
+### Common Mistakes in User Stories
 
 The following **common mistakes** can occur when using user stories:: 
 
@@ -88,7 +88,7 @@ of each other.
 
 The relationship between User Stories (US) and Acceptance Tests is tight and intentional. 
 
-They are two **complementary views of the same requirement**:
+There are two **complementary views of the same requirement**:
 
 * **A User Story expresses what the user needs and why**
     - It is a short, human-readable description of a requirement.
