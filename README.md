@@ -4,11 +4,14 @@ This repository contains examples and documentation for using Continuous Integra
 
 ![CI/CD Process](figures/CICD-Process.png)
 
+* [Introduction](introduction/README.md)
+    - [Software Development Lifecycle](introduction/software-development-lifecycle/README.md)
+    - [Trunk-Based Development](introduction/trunk-based-development/README.md)
+    - [Agentic Software Engineering](introduction/agentic-engineering/README.md)
+
 * [Software Building and Packaging](build-process/README.md)
 
 * [Embedded Architectures](embedded-architectures/)
-
-* [Software Development Lifecycle](software-development-lifecycle/README.md)
 
 * [Continuous Integration](continuous-integration/README.md)
 
