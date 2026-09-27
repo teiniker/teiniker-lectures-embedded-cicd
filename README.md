@@ -10,6 +10,13 @@ This repository contains examples and documentation for using Continuous Integra
 
 * [Continuous Delivery](continuous-delivery/)
 
+
+## Use of Coding Agents
+This repository was developed using coding agents to assist with design 
+discussions, implementation, and documentation. 
+All materials have been manually reviewed and verified.
+
+
 ## References
 
 * Martin Fowler. [**Continuous Integration**](http://martinfowler.com/articles)
