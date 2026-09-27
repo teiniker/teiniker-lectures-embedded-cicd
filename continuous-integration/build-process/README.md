@@ -1,0 +1,13 @@
+# Build Process for Embedded Systems 
+
+In this section, we provide an overview of common build and distribution 
+techniques used in embedded systems development. Given the wide variety 
+of concepts and tools available, this section aims to introduce key 
+approaches and best practices rather than cover every detail.
+
+* [C/C++ Build Process for Embedded Systems](cxx/README.md)
+
+* [Yocto Project ](yocto/README.md)
+
+
+*Egon Teiniker, 2025-2026, GPL v3.0*
