@@ -57,8 +57,7 @@ consistent structure. It illustrates the problems a template avoids.
 Let's use the agent to turn this prose into structured, reviewable
 user stories:
 
-_claude>_ **Given
-    agentic-engineering/examples/requirements-analysis/specification.md,
+_claude>_ **Given introduction/agentic-engineering/examples/requirements-analysis/specification.md,
     extract user stories (as a/i want to/so that) and acceptance
     criteria (given/when/then) and store them in a userstories.md
     file.**
