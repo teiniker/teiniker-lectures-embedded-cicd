@@ -36,7 +36,7 @@ document what really comes back, not to invent example output.
 ## Generating the Documentation
 
 _claude>_ **Extend (and rephrase) the
-    agentic-engineering/examples/documentation/SpringBoot-BookService/README.md
+    introduction/agentic-engineering/examples/documentation/book-service/README.md
     file - follow the TODOs.**
 
 Given this one instruction, the agent starts the service, runs the

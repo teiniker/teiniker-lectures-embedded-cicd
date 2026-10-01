@@ -1,12 +1,12 @@
-# SpringBoot REST - BookService 
+# REST - BookService 
 
-TODO: In 3 to 5 sentences, give an overview about the example: A REST service implemented with SpringBoot.
+TODO: In 3 to 5 sentences, give an overview about the example: A REST service implemented with Flask.
 
-See: agentic-engineering/examples/documentation/SpringBoot-BookService
+See: book-service
 
 ## Setup 
 
-TODO: Explain how to start this SpringBoot example.
+TODO: Explain how to start this Flask example.
 
 ## Accessing the API via curl
 
@@ -53,6 +53,9 @@ TODO: Generate a Mermaid class diagram from the given code.
 
 TODO: Give an overview about the implementation of this service (including code snippets).
 
+## Improvements
+
+TODO: Describe weaknesses in the implementation and how these weaknessen can be fixed.
 
 
-*Egon Teiniker, 2016 - 2026, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
