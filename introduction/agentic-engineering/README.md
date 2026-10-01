@@ -16,7 +16,6 @@
     - Demo: [refactoring](examples/refactoring/)
 
 * Agentic Workflows
-    - [Extreme Programming with Agents](xp-agents/README.md)
     - [AI Collaboration Patterns](ai-collaboration-patterns/README.md)
 
 * [Lessons Learned](lessons-learned/README.md)
