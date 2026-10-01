@@ -11,17 +11,16 @@ into a concrete implementation plan. A plan is cheap to read and cheap
 to correct; code built on a wrong assumption is not, so this is where
 we want to catch problems first.
 
-_claude>_ **In agentic-engineering/examples/development read the
+_claude>_ **In introduction/agentic-engineering/examples/development read the
     userstories.md file and create an implementation plan. Ask me if
     you need information. Compare your plan with
-    services/api-styles/SpringBoot-BookService-JPA. Store the plan in
-    Plan.md.**
+    introduction/agentic-engineering/examples/documentation/book-service. 
+    Store the plan in Plan.md.**
 
 - Tell the agent explicitly to generate a plan and store it in a
     file, rather than jumping straight to code.
-- Point the agent at a comparable, already-reviewed example
-    (`SpringBoot-BookService-JPA`), so it has a concrete pattern to
-    follow instead of inventing its own conventions.
+- Point the agent at a comparable, already-reviewed example, so it has 
+    a concrete pattern to follow instead of inventing its own conventions.
 
 
 ## Manually Review the Plan
@@ -29,9 +28,6 @@ _claude>_ **In agentic-engineering/examples/development read the
 We read the generated `Plan.md` and correct it before any code
 exists, while a correction is still a one-line edit to a document
 instead of a rewrite spread across several source files.
-
-_claude>_ **In the plan, change ddl-auto=update to create. Remove 6.
-    Error Handling: Story 7 from the plan.**
 
 
 ## Implement Step by Step
@@ -65,29 +61,19 @@ what builds enough confidence in the agent's output to consider
 running it with less supervision, which is exactly the trade-off the
 Ralph Loop below makes.
 
-_claude>_ **Implement Story 1 first.**
+_claude>_ **From introduction/agentic-engineering/examples/development/Plan.md implement Step 1.**
 
 Manually review the code, run curl tests, commit changes.
 
-_claude>_ **Implement Story 2 next.**
+_claude>_ **Implement Step 2.**
 
 Manually review the code, run curl tests, commit changes.
 
-_claude>_ **Implement Story 3 next.**
+_claude>_ **Implement Step 3.**
 
 Manually review the code, run curl tests, commit changes.
 
-_claude>_ **Implement Story 4 next.**
-
-Manually review the code, run curl tests, commit changes.
-
-_claude>_ **Implement Story 5 next.**
-
-Manually review the code, run curl tests, commit changes.
-
-_claude>_ **Implement Story 6 next.**
-
-Manually review the code, run curl tests, commit changes.
+And so on...
 
 _claude>_ **Write the README.md**
 
@@ -116,4 +102,4 @@ Manually review the text, commit changes.
     throughput, once that pace has already shown that the agent gets
     individual stories right when someone is watching.
 
-*Egon Teiniker, 2026, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
