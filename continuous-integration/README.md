@@ -3,8 +3,8 @@
 * [Introduction](introduction/README.md)
 
 * Pre-Commit Stage
-    - [Development Practices](development-practices/trunk-based-development/README.md)
-    - Embedded Linux Development
+    - [Development Practices](development-practices/README.md)
+    - [Embedded Linux Development](https://github.com/teiniker/teiniker-embedded-linux)
     - [Embedded Architectures](embedded-architectures/)
 
 * Commit Stage
