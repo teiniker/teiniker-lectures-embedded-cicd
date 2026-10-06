@@ -129,51 +129,51 @@ learning**, and **accelerate development**. It embodies the principles of Extrem
 Programming by emphasizing teamwork, feedback, and continuous improvement.
 
 
-### GenAI Integration 
+### Generative AI Integration 
 
-From the practical perspective, we have to integrate GenAI into the 
+From the practical perspective, we have to integrate Generative AI into the 
 **Software Development Cycle (SDL)**.
 
-A promising approach is to use **GenAI as a programming pair**:
+A promising approach is to use **Generative AI as a programming pair**:
 
-**GenAI can play both roles in the context of pair programming**, albeit with 
-some adjustments and considerations: 
+**Generative AI can play both roles in the context of pair programming**, 
+albeit with some adjustments and considerations: 
 
 * **As the Driver**
-    * **Writing Code**: GenAI can generate code snippets based on specific 
+    * **Writing Code**: Generative AI can generate code snippets based on specific 
         instructions, similar to a human driver. You can ask it to write functions, 
         debug code, or implement algorithms.
     * **Implementing Solutions**: It can take a set of requirements and turn them 
         into a working piece of code, offering various solutions or alternatives 
         when possible.
-    * **Following Directions**: Just as a human driver would, GenAI can follow 
+    * **Following Directions**: Just as a human driver would, Generative AI can follow 
         the navigator's strategic directions, implementing the ideas and feedback 
         it receives.
 
 * **As the Navigator**
-    * **Reviewing Code**: While GenAI can review code to some extent, its ability 
+    * **Reviewing Code**: While Generative AI can review code to some extent, its ability 
         to catch complex bugs or understand deep implications of certain implementations 
         in real-time is limited compared to a human expert. 
         It can, however, suggest best practices and identify simple syntax or logical errors.
     * **Providing Feedback**: It can offer insights on code optimization, readability, 
-        and adherence to programming standards. GenAI can also suggest improvements or 
+        and adherence to programming standards. Generative AI can also suggest improvements or 
         alternative approaches to a problem.
-    * **Research and Documentation**: GenAI can provide explanations, documentation 
+    * **Research and Documentation**: Generative AI can provide explanations, documentation 
         references, and examples for a wide range of programming concepts and languages, 
         aiding in the research part of the navigator's role.
 
 * **Limitations and Considerations**
-    * **Real-Time Collaboration**: GenAI’s static nature means it cannot dynamically 
+    * **Real-Time Collaboration**: Generative AI’s static nature means it cannot dynamically 
         interact in real-time like a human pair. The feedback loop is slower, as you need 
         to input queries and wait for responses.
     * **Contextual Understanding**: While it can understand and retain context to a degree 
         within a conversation, its ability to keep track of an evolving codebase or project 
         intricacies in real-time is limited compared to a human.
     * **Complex Debugging**: For more complex debugging tasks, especially those that require 
-        understanding of the broader system or external dependencies, GenAI's capabilities 
+        understanding of the broader system or external dependencies, Generative AI's capabilities 
         may not be as effective as a human expert's.
 
-GenAI can play roles akin to both the driver and the navigator in pair programming, 
+Generative AI can play roles akin to both the driver and the navigator in pair programming, 
 providing a valuable resource for coding, learning, and problem-solving. 
 However, **its effectiveness is maximized when used as a complement to human expertise**, 
 rather than a complete substitute, due to the dynamic and complex nature of software 
