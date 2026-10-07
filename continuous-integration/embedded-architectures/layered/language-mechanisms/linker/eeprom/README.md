@@ -1,32 +1,29 @@
-# Example: Link-Time Polymorphism
+# Example: EEPROM
 
-Link-time selection of implementation means that **multiple compiled 
-versions of the same API** (same headers, same symbols) exist, and 
-the build system decides which implementation’s object files or 
-libraries are linked into the final executable.
+This example implements the same **64 Kbit (8K x 8) parallel EEPROM**
+(`AT28C64B`) as the [pre-processor example](../../pre-processor/eeprom/),
+but instead of `#ifdef` blocks inside one source file, each target gets
+its **own implementation file**.
 
-No code changes, no `#ifdef`, no runtime logic—only a build-time switch.
+```
+eeprom/
+├── CMakeLists.txt          // Project settings and target selection
+├── include/eeprom.h        // Common interface (class declaration)
+├── src-target-1/eeprom.cpp // Implementation for target 1 (Atmel)
+├── src-target-2/eeprom.cpp // Implementation for target 2 (Microchip)
+└── test/test.cpp           // GoogleTest unit tests
+```
 
+## Link-Time Polymorphism
 
-## Common Interface (same public API)
+The header file `include/eeprom.h` defines the **interface** that is shared
+by all targets. The client code (here `test/test.cpp`) only includes this
+header and does not know which implementation it will use:
 
-We define the API using header files.
-Ensure header files contain no implementation-specific code.
-
-```c++
-#ifndef _EEPROM_H_
-#define _EEPROM_H_
-
-#include <string>
-#include <cstdint>
-
+```C++
 class EEPROM 
 {
-	private:
-		std::string _type;
-		size_t _size; 
-		uint8_t* _memory;
- 
+	// ...
 	public:
 		EEPROM(void);
 		~EEPROM(); 
@@ -36,82 +33,75 @@ class EEPROM
 		
 		uint8_t read(const uint32_t address) const;
 		void write(const uint32_t address, const uint8_t value);		
- };
-
-#endif /*_EEPROM_H_ */
+};
 ```
 
-The advantage of this approach is that it also works in C.
+There are **two implementations** of this class, one per target. They
+define exactly the same methods; only the platform-specific parts differ:
 
-
-## Implementation Variants
-
-Each implementation directory (`src-target-1` and `src-target-2`) contains the
-variant `.cpp` files for that target.
-
-```c++
-// src-target-1/eeprom.cpp
+_Example_: `src-target-1/eeprom.cpp`
+```C++
 std::string EEPROM::vendor(void) const
 {
 	return "Atmel";
 }
 ```
 
-```c++
-// src-target-2/eeprom.cpp
+_Example_: `src-target-2/eeprom.cpp`
+```C++
 std::string EEPROM::vendor(void) const
 {
 	return "Microchip";
 }
 ```
 
-These variants can be implemented completely differently, as long as they
-conform to the requirements specified in the header files.
+The compiler translates the client code against the declarations in the
+header only. Calls like `eeprom.vendor()` remain **unresolved symbols**
+in the object file. It is the **linker** that finally binds these symbols
+to the implementation it is given - this is why we call it
+**link-time polymorphism**.
 
+Since both implementations define the same symbols, only **one of them**
+may be linked into an executable; otherwise the linker reports
+`multiple definition` errors.
 
-## Implementation Selection at Link-Time
+Compared to conditional compilation:
 
-We use the following project layout: 
+* **No `#ifdef` clutter**: each implementation file is plain, readable code.
+* **No runtime overhead**: unlike virtual functions (runtime polymorphism),
+    there is no vtable and no indirect call - the binding happens at build time.
+* **Clear separation**: platform-specific code lives in its own directory,
+    new targets are added by adding a new directory.
+* **One variant per build**: as with conditional compilation, we still need
+    a separate build for each target.
 
-```bash
-├── README.md
-├── CMakeLists.txt
-├── include
-│   └── eeprom.h
-├── src-target-1
-│   ├── CMakeLists.txt
-│   └── eeprom.cpp
-├── src-target-2
-│   ├── CMakeLists.txt
-│   └── eeprom.cpp
-└── test
-    ├── CMakeLists.txt
-    └── test.cpp
+## Selecting the Target
+
+Each implementation directory contains its own `CMakeLists.txt` which builds
+a static library with the **same name** `eeprom`:
+```CMake
+# Create a library 
+add_library(eeprom STATIC eeprom.cpp) 
 ```
 
-* `include`: contains the header files that define the **common API**. 
-    These headers are provided for all target platforms and form the 
-    interface used by the test client.
+The test executable simply links against `eeprom`, without knowing which
+implementation is behind it (`test/CMakeLists.txt`):
+```CMake
+target_link_libraries(test PRIVATE eeprom gtest gtest_main pthread)
+```
 
-* `src-target-1`: Implementation of the common API for target platform 1.
-
-* `src-target-2`: Implementation of the common API for target platform 2.
-
-* `test`: Test cases that use the common API.
-
-
-We must tell CMake which implementation to build and link into the
-test executable.
-Add a selection in the top-level `CMakeLists.txt` file:
-
-```cmake
+The top-level `CMakeLists.txt` decides which directory is added to the build.
+For this, it defines a **cache variable** `USE_IMPL` with the default value
+`target-1`. `set_property(... STRINGS ...)` lists the valid values (used by
+GUI tools like `ccmake` or `cmake-gui` to offer a drop-down list):
+```CMake
 # Define a string cache variable with two valid values
 set(USE_IMPL "target-1" CACHE STRING "Choose implementation: target-1 or target-2")
 set_property(CACHE USE_IMPL PROPERTY STRINGS target-1 target-2)
+```
 
-# Add subdirectories
-
-# Conditionally add the appropriate source directory based on the variable
+Depending on its value, only one of the implementation directories is added:
+```CMake
 if(USE_IMPL STREQUAL "target-1")
     add_subdirectory(src-target-1)
 elseif(USE_IMPL STREQUAL "target-2")
@@ -121,54 +111,74 @@ else()
 endif()
 ```
 
-When invoking CMake, we can **choose whether to build for target-1
-or target-2**.
-If we omit the `-DUSE_IMPL` option, the **default variant** ("target-1") is
-built.
-If you specify an **invalid variant**, CMake will emit an error message.
-
-```bash
-# Build for target 1
-$ cmake -S . -B build -DUSE_IMPL=target-1
-
-# Build for target 2
+The value can be set on the command line using `-D`:
+```
 $ cmake -S . -B build -DUSE_IMPL=target-2
-
-# Build for target 1 (default)
-$ cmake -S . -B build 
-
-# Invalid variant
-$ cmake -S . -B build -DUSE_IMPL=target-X
-CMake Error at CMakeLists.txt:28 (message):
-  Invalid value for USE_IMPL: target-X.  Valid options are 'target-1' or 'target-2'.
 ```
 
-## Benefits of Link-Time Polymorphism
+An invalid value stops the configuration step:
+```
+$ cmake -S . -B build -DUSE_IMPL=target-3
+CMake Error at CMakeLists.txt:28 (message):
+  Invalid value for USE_IMPL: target-3.  Valid options are 'target-1' or
+  'target-2'.
+```
 
-* **Zero Runtime Overhead**
-    - No virtual function tables
-    - No function-pointer indirection
-    - The compiler can inline, optimize, and dead-strip code
-    - This can outperform runtime polymorphism significantly—important 
-    in embedded systems, real-time applications, or tight loops.
+Note that cache variables are **stored** in `build/CMakeCache.txt`.
+Once set, the value is kept for subsequent `cmake` calls on the same build
+directory until it is changed explicitly with `-DUSE_IMPL=...`.
 
-* **Small, Predictable Binary**
-    - Only one implementation is linked
-    - Unused code is not even compiled (depending on setup)
-    - No plugins or dynamic loaders
-    - Ideal for firmware, constrained systems, or controlled deployments.
 
-* **No `#ifdef` Pollution in Code**
-    - The implementation switch happens in the build system, 
-        not in source files.
+## Build and Test
 
-Link-time polymorphism trades runtime flexibility for performance, 
-simplicity, and clean separation. It’s ideal where speed and binary 
-minimalism matter, and less ideal where users expect runtime 
-configurability.
+The example uses **CMake** to generate the build system and **GoogleTest**
+for the unit tests (`find_package(GTest REQUIRED)`).
 
-## References
+Build and test the default implementation (`target-1`):
+```
+$ cmake -S . -B build       # Generate the build system in ./build
+$ cd build
+$ make                      # Build the eeprom library and the test executable
+$ ./test/test               # Run the unit tests
+```
 
-* [Designing a HAL in C++](https://blog.mbedded.ninja/programming/languages/c-plus-plus/designing-a-hal-in-cpp/)
+The output shows which implementation has been linked:
+```
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from EEPROMTest
+[ RUN      ] EEPROMTest.PrintVendorTest
+EEPROM Vendor: Atmel
+[       OK ] EEPROMTest.PrintVendorTest (0 ms)
+[ RUN      ] EEPROMTest.ReadWriteTest
+[       OK ] EEPROMTest.ReadWriteTest (0 ms)
+[----------] 2 tests from EEPROMTest (0 ms total)
 
-_Egon Teiniker, 2025, GPL v3.0_
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 2 tests.
+```
+
+To switch to the other implementation, reconfigure and rebuild:
+```
+$ cmake -S . -B build -DUSE_IMPL=target-2
+$ cmake --build build
+$ ./build/test/test
+...
+EEPROM Vendor: Microchip
+...
+```
+
+Because the client code does not change, only the selected library is
+compiled and the test executable is **re-linked**.
+
+To build and test both targets in parallel (e.g. in a CI pipeline), we can
+use **separate build directories**:
+```
+$ cmake -S . -B build-target-1 -DUSE_IMPL=target-1
+$ cmake -S . -B build-target-2 -DUSE_IMPL=target-2
+$ cmake --build build-target-1 && ./build-target-1/test/test
+$ cmake --build build-target-2 && ./build-target-2/test/test
+```
+
+_Egon Teiniker, 2025-2026, GPL v3.0_
