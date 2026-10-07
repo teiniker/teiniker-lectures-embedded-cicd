@@ -4,6 +4,8 @@
 
 * Implementation Strategies 
     - [Language Mechanisms](language-mechanisms/)
+        - [Conditional Compilation](language-mechanisms/pre-processor/)
+        - [Link-Time Polymorphism](language-mechanisms/linker/)
     - [Design Patterns](design-patterns/)
 
 * [Testing Concepts](layered/testing/)

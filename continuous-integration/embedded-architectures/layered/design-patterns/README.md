@@ -1,6 +1,5 @@
 # Design Patterns in Layered Architectures
 
-
 The following design patterns help to implement a layered architecture:
 
 
@@ -49,4 +48,4 @@ The following design patterns help to implement a layered architecture:
 
 * E. Gamma, R. Helm, R. Johnson, J. Vlissides. **Design Patterns, Elements of Reusable Object-Oriented Software**. Addison-Wesley, 1995
 
-_Egon Teiniker, 2025, GPL v3.0_
+_Egon Teiniker, 2025-2026, GPL v3.0_

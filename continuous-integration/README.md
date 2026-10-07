@@ -4,8 +4,8 @@
 
 * Pre-Commit Stage
     - [Development Practices](development-practices/README.md)
-    - [Embedded Linux Development](https://github.com/teiniker/teiniker-embedded-linux)
     - [Embedded Architectures](embedded-architectures/)
+    - [Embedded Linux Development](https://github.com/teiniker/teiniker-embedded-linux)
 
 * Commit Stage
     * [Build Process](build-process/)
