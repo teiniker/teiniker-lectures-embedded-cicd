@@ -14,8 +14,8 @@ set(CMAKE_BUILD_TYPE Debug)
 find_package(GTest REQUIRED)
 
 # Target selection (using pre-processor definitions)
-#add_definitions(-DLCD_DISPLAY)
-add_definitions(-DOLED_DISPLAY)
+#add_compile_definitions(LCD_DISPLAY)
+add_compile_definitions(OLED_DISPLAY)
 
 # Add subdirectories
 add_subdirectory(src)

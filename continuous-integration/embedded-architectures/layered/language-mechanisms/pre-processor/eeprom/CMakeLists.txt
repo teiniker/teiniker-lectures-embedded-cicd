@@ -9,8 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # Target selection (using pre-processor definitions)
-#add_definitions(-DTARGET_1)
-add_definitions(-DTARGET_2)
+add_compile_definitions(TARGET_1)
+# add_compile_definitions(TARGET_2)
 
 
 # Enable compiler warnings globally, activate debugging, and check for gtest

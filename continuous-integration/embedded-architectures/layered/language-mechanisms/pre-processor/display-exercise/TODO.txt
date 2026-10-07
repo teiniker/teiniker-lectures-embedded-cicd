@@ -4,7 +4,7 @@ Exercise: Conditional Compilation - Display
 You have an implementation of the Strategy pattern that can switch
 between two display variants at runtime: LCD and OLED.
 
-See: layered/design-patterns-strategy/display
+See: layered/design-patterns/strategy/display
 
 Selecting variants at runtime is not sensible for an embedded system,
 so adapt this example so the selection is performed by the pre-processor.
@@ -34,8 +34,4 @@ Use the following macros to mark the two variants in the implementation file:
 C) Build Configuration 
 
 Configure the top-level CMakeLists.txt so that the following build
-options are available:
-
-#add_definitions(-DLCD_DISPLAY)
-add_definitions(-DOLED_DISPLAY)
-
+options are available.
