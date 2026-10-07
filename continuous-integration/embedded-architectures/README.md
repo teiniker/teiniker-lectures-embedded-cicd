@@ -1,24 +1,13 @@
 # Embedded Architectures 
 
-* **Layered Architectures** 
-    - [Introduction](https://github.com/teiniker/teiniker-lectures-embedded-softwaredesign/blob/master/architectures/layered/README.md)
-    - [Clean Embedded Architecture](layered/introduction/README.md)
-    - Implementation Strategies 
-        - [Language Mechanisms](layered/language-mechanisms/)
-        - [Design Patterns](layered/design-patterns/)
-    - [Testing Concepts](layered/testing/)
-    - [Security Aspects](layered/security/)
+* [Introduction to Architectural Styles](https://github.com/teiniker/teiniker-lectures-embedded-softwaredesign/tree/master/architectures)
 
-* **Message-Oriented Architectures**
-    - [Introduction](https://github.com/teiniker/teiniker-lectures-embedded-softwaredesign/blob/master/architectures/message-oriented/README.md)
-    - [MQTT Protocol](messaging/mqtt/introduction/README.md)
-    - [Mosquitto MQTT Broker](messaging/mqtt/mosquitto/README.md)
-    - Security Aspects
-        - [TLS](messaging/mqtt/mosquitto-docker-tls/)
-        - [Authentication](messaging/mqtt/mosquitto-docker-attack/)
+* [Layered Architectures](layered/) 
 
-* **Microservice Architectures**
-    - [Introduction](https://github.com/teiniker/teiniker-lectures-embedded-softwaredesign/blob/master/architectures/microservices/README.md)
-    - [Security Aspects](microservices/api-security/)
+* [Message-Oriented Architectures](messaging/)
 
-_Egon Teiniker, 2025, GPL v3.0_   
+* [Microservice Architectures](microservices/)
+
+* [Client-Server Architectures](client-server/)
+
+_Egon Teiniker, 2025-2026, GPL v3.0_   
