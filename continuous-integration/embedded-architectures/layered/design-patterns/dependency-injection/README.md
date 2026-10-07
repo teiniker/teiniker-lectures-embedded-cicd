@@ -114,4 +114,4 @@ differences in functionality and application emerge.
 * Martin Fowler: [**Inversion of Control Containers and the Dependency Injection Pattern**](https://martinfowler.com/articles/injection.html). 2004 
 * Robert C. Martin. **Clean Architecture: A Craftsman's Guide to Software Structure and Design**. Addison-Wesley, 2017
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
