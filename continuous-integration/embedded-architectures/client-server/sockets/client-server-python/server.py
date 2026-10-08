@@ -3,6 +3,9 @@ import socket
 # Create a TCP/IP socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+# Allow restarting the server immediately (no "Address already in use")
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
 # Bind the socket to a local address and a port
 server_address = ('localhost', 9090)
 server_socket.bind(server_address)
