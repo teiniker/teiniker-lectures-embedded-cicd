@@ -8,7 +8,7 @@ are performed inside the proxy via its constructor and destructor.
 
 
 A) Dependency Injection 
-Refactor the "FileServiceProxy" class so the dependency on
+Refactor the "FileServiceProxy" class so that the dependency to
 "FileServiceImpl" is provided via constructor injection.
 Use "shared_ptr<>" for your implementation.
 
