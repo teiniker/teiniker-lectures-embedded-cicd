@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Temperature Measurement</title>
+    <meta charset="UTF-8">
+    <style>
+        body   { font-family: sans-serif; margin: 2em; }
+        #value { font-size: 2em; font-weight: bold; color: #c0392b; }
+        canvas { border: 1px solid #ccc; max-width: 100%; }
+    </style>
+</head>
+<body>
+    <h2>Temperature Measurement</h2>
+
+    <p>
+        Current Temperature:
+        <span id="value">{{ measurement.temperature if measurement else '--' }}</span> &deg;C
+        (<span id="time">{{ measurement.time if measurement else '--:--:--' }}</span>)
+    </p>
+
+    <canvas id="chart" width="800" height="400"></canvas>
+
+    <script src="{{ url_for('static', filename='chart.js') }}"></script>
+    <script>
+        startLiveChart("{{ url_for('measurements') }}", 1000);
+    </script>
+</body>
+</html>
