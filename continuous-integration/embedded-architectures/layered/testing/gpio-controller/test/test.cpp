@@ -19,7 +19,7 @@ TEST(ControllerTest, ControllerInitialize)
 {
     // Setup
     auto mock = std::make_shared<MockGpio>();
-    Controller controller(mock);
+    Controller controller(mock);    // Dependency Injection
 
     EXPECT_CALL(*mock, setPinMode(BUTTON_UP_PIN, PinMode::INPUT));
     EXPECT_CALL(*mock, setPinMode(BUTTON_DOWN_PIN, PinMode::INPUT));
