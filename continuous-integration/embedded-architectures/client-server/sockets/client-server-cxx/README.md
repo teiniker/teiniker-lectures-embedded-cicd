@@ -51,3 +51,5 @@ Received: Hello from server!
 
 Both servers set `SO_REUSEADDR`, so you can stop one server and start the 
 other one immediately without getting `Address already in use`.
+
+_Egon Teiniker, 2025-2026, GPL v3.0_   

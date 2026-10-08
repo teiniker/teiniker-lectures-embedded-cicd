@@ -1,41 +1,4 @@
-# Web Application
-
-Flask used tue Model-View-Controller (MVC) architectural pattern 
-to implement a web application.
-
-## Model-View-Controller Pattern
-
-The Model-View-Controller (MVC) pattern is a widely-used architectural 
-design pattern for building software applications, particularly web 
-applications. It organizes code into three interconnected components:
-
-* **Model (M)**: Data and business logic.
-    - Represents data and business logic.
-    - Manages how data is structured, manipulated, stored, and validated.
-    - Does not directly interact with the user interface or handle UI-specific logic.
-
-    _Example_: A database or data classes that represent entities (e.g., User, Product).
-
-* **View (V)**: User interface elements.
-    - Presents data (user interface) to users.
-    - Responsible solely for the presentation layer, rendering data 
-        provided by the Controller.
-    - Does not contain business logic; receives processed data from 
-        Controllers.
-
-    _Example_: HTML templates, web pages, or user interface screens.
-
-
-* **Controller (C)**: Manages interactions between Model and View, 
-    responding to user input.
-    - Handles user requests and user interactions.
-    - Acts as an intermediary between Model and View:
-        - Receives input from users.
-        - Invokes business logic on the Model.  
-        - Passes the processed data to the View for presentation.
-
-    _Example_: Flask routes handlers that process requests and return responses.
-
+# Example: Translator
 
 ## Setup 
 
@@ -144,13 +107,4 @@ The example uses a Jinja2 HTML template to display the translation result.
     named `'index'`.
 
 
-The following table shows the mapping of MVC components to the Flask code:
-
-| MVC Component | Flask Code |
-|---------------|------------|
-| **Model**     | `TranslatorServiceGerman`, `TranslatorServiceFrench` (external logic) |
-| **View**      | `index.html`, `translation.html` (HTML templates) |
-| **Controller**| Flask route functions: `index()`, `translate()` |
-
-
-*Egon Teiniker, 2020-2026, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
