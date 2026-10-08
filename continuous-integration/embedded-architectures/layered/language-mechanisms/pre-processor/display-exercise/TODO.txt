@@ -23,8 +23,8 @@ Use one source directory to implement the two variants in a single file:
         CMakeLists.txt
         display.cpp
 
-Implement the respective attributes and operations (for I2C and
-SPI) directly in the .cpp file.
+Implement the respective attributes and operations (for I2C and SPI) 
+directly in the .cpp file.
 
 Use the following macros to mark the two variants in the implementation file:
     LCD_DISPLAY
