@@ -375,12 +375,13 @@ Fast integration and thorough review can coexist:
 
 ## References
 
+* [YouTube (Modern Software Engineering): Continuous Integration vs Feature Branch Workflow](https://youtu.be/v4Ijkq6Myfc?si=ULj4_tieLH4DlEAF)
+
 * Jez Humble, David Farley. **Continuous Delivery**. Addison-Wesley, 2010
 * David Farley. **Continuous Delivery Pipelines**. Independently published, 2021
 * Nicole Forsgren, Jez Humble, Gene Kim. **Accelerate**. IT Revolution, 2018
-* Paul Hammant et al. [**trunkbaseddevelopment.com**](https://trunkbaseddevelopment.com/)
+
 * Martin Fowler. [**Patterns for Managing Source Code Branches**](https://martinfowler.com/articles/branching-patterns.html)
 * Martin Fowler. [**FeatureToggle**](https://martinfowler.com/bliki/FeatureToggle.html)
-* Martin Fowler. [**BranchByAbstraction**](https://martinfowler.com/bliki/BranchByAbstraction.html)
 
 _Egon Teiniker, 2025-2026, GPL v3.0_
