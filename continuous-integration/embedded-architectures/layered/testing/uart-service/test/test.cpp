@@ -25,7 +25,7 @@ TEST(UartServiceTest, SetUartParameters)
     mock.init(BaudRate::BR_115200, DataBits::EIGHT, Parity::NONE, StopBits::ONE);
 
     // Verify
-//    EXPECT_EQ(115200, mock.baudRate());
+    EXPECT_EQ(115200, mock.baudRate());
     EXPECT_EQ(8, mock.dataBits());
     EXPECT_EQ(0, mock.parity());
     EXPECT_EQ(1, mock.stopBits());
