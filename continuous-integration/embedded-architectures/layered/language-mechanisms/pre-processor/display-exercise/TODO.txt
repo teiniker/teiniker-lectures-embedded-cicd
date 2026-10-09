@@ -17,7 +17,7 @@ Include the constructor and destructor as well.
 
 
 B) Implementation Variants 
-Use one source directory to implement the two variants in a single file:
+Use the source directory to implement the two variants in a single file:
 
     src/
         CMakeLists.txt

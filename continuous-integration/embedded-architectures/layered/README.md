@@ -9,6 +9,6 @@
 
     - [Design Patterns](design-patterns/)
 
-* [Testing Concepts](layered/testing/)
+* [Testing Concepts](testing/)
 
 _Egon Teiniker, 2025-2026, GPL v3.0_ 
