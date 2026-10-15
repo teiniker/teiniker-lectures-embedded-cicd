@@ -11,8 +11,8 @@ using namespace testing;
 TEST(MotorControllerTest, MotorControllerSpeedUp)
 {
     // Setup
-    auto mock = std::make_shared<MockCan>();
-    MotorController controller(mock);
+    auto mock = std::make_shared<MockCan>();    
+    MotorController controller(mock);      // Dependency Injection 
 
     uint8_t speed_data[1] = {0};
     uint8_t motor_data[1] = {100};
@@ -34,7 +34,7 @@ TEST(MotorControllerTest, MotorControllerSpeedDown)
 {
     // Setup
     auto mock = std::make_shared<MockCan>();
-    MotorController controller(mock);
+    MotorController controller(mock);       // Dependency Injection 
 
     uint8_t speed_data[1] = {70};
     uint8_t motor_data[1] = {0};
