@@ -106,22 +106,6 @@ The `static_assert` is checked for every instantiation: `RingBuffer<uint8_t,
 100>` causes a **compile error**, not a runtime error.
 
 
-### Template Specialization
-
-For specific template arguments, we can provide a completely different
-implementation, a **specialization**. This is often used to attach
-compile-time information to a type:
-
-```C++
-template <typename Target> struct EepromTiming;	// primary template
-
-template <> struct EepromTiming<Atmel>
-{
-	static constexpr uint32_t write_cycle_ms = 10;
-};
-```
-
-
 ### Template Instantiation
 
 Templates have some properties that differ from ordinary code:
@@ -302,60 +286,6 @@ TEST(Eeprom24C02Test, Read)
 
 This is the template-based counterpart of dependency injection with
 interfaces, without the run-time overhead of virtual functions.
-
-
-### Static Interfaces (CRTP)
-
-With the **Curiously Recurring Template Pattern** (CRTP), a base class
-template gets the derived class as its template argument. The base class
-implements common functionality and calls the target-specific methods of the
-derived class via `static_cast`, without virtual functions:
-
-```C++
-template <typename Derived>
-class Uart
-{
-	public:
-		void print(const char* text)
-		{
-			while (*text)
-				static_cast<Derived*>(this)->put(*text++);
-		}
-};
-
-class Stm32Uart : public Uart<Stm32Uart>
-{
-	public:
-		void put(const char c) { /* write c to the data register */ }
-};
-```
-
-
-### Specifying Requirements with Concepts
-
-Templates make **implicit** assumptions about their arguments: `EEPROM`
-expects that `Target::vendor` exists. Since C++20, **concepts** make these
-requirements explicit and act as the "interface" of a template-based HAL:
-
-```C++
-template <typename T>
-concept EepromTarget = requires
-{
-	{ T::vendor } -> std::convertible_to<const char*>;
-};
-
-template <EepromTarget Target, std::size_t Size = 1024*8>
-class EEPROM { /* ... */ };
-```
-
-A target class that does not satisfy the concept is rejected at the point of
-use, with a clear error message:
-
-```
-error: template constraint failure for '... class EEPROM'
-note: constraints not satisfied
-note: the required expression 'T::vendor' is invalid
-```
 
 
 ## Comparison of HAL Implementation Techniques
