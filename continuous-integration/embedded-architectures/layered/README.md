@@ -4,10 +4,11 @@
 
 * Implementation Strategies 
     - Language Mechanisms
-        - [Conditional Compilation](language-mechanisms/pre-processor/)
+        - [Conditional Compilation (C Pre-Processor)](language-mechanisms/pre-processor/)
         - [Link-Time Polymorphism](language-mechanisms/linker/)
+        - [C++ Templates](language-mechanisms/templates/)
 
-    - [Design Patterns](design-patterns/)
+    - [Run-Time Polymorphism (Design Patterns)](design-patterns/)
 
 * [Testing Concepts](testing/)
 
