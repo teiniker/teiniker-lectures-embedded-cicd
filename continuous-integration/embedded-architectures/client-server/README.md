@@ -3,16 +3,22 @@
 ## Socket Programming
 
 * [Introduction](sockets/introduction/)
-* [Demo: client-server (Python)](sockets/client-server-python/)
-* [Demo: client-server (C++)](sockets/client-server-cxx/)
-* [Exercise: remote-logger](sockets/remote-logger-exercise/) ([Model Solution](sockets/remote-logger/))
-* [Demo: http-server](sockets/http-server/)
+
+* Examples:
+    - [Demo: client-server (Python)](sockets/client-server-python/)
+    - [Demo: client-server (C++)](sockets/client-server-cxx/)
+    - [Exercise: remote-logger](sockets/remote-logger-exercise/) ([Model Solution](sockets/remote-logger/))
+    - [Demo: http-server](sockets/http-server/)
 
 
 ## Web Applications
 
 * [Introduction](web-applications/introduction/README.md)
-* [translator](web-applications/translator/)
 
+* [HTML](web-applications/html/README.md)
+
+* Examples:
+    - Demo: [translator](web-applications/translator/)
+    - Demo: [measurement](web-applications/measurement/)
 
 _Egon Teiniker, 2025-2026, GPL v3.0_   

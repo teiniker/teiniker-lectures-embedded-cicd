@@ -35,106 +35,6 @@ user), it must be transferred with each request, typically using
 **cookies** or **tokens**.
 
 
-### Uniform Resource Locator (URL)
-
-Each resource is identified by a URL:
-
-```
-http://localhost:8080/translator?word=cat&lang=de
-\__/   \_______/ \__/ \________/ \______________/
-scheme   host    port    path         query
-```
-
-
-### HTTP Request
-
-An HTTP request consists of a **request line**, **header fields**, an
-empty line, and an optional **body**:
-
-```
-POST /translator HTTP/1.1                           <- request line: method, path, version
-Host: localhost:8080                                <- header fields
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 25
-                                                    <- empty line
-word=cat&language=Deutsch                           <- body
-```
-
-The **HTTP method** defines what the client wants to do with the resource:
-
-| Method     | Description                                          | Body |
-|------------|------------------------------------------------------|------|
-| `GET`      | Read a resource (should not change server state)     | no   |
-| `POST`     | Send data to the server (e.g. submit a form, create) | yes  |
-| `PUT`      | Replace a resource                                   | yes  |
-| `PATCH`    | Partially modify a resource                          | yes  |
-| `DELETE`   | Delete a resource                                    | no   |
-| `HEAD`     | Like `GET`, but returns only the headers             | no   |
-
-
-### HTTP Response
-
-An HTTP response consists of a **status line**, **header fields**, an
-empty line, and an optional **body**:
-
-```
-HTTP/1.1 200 OK                                     <- status line: version, status code, reason
-Content-Type: text/html; charset=utf-8              <- header fields
-Content-Length: 252
-                                                    <- empty line
-<!DOCTYPE html>                                     <- body
-<html> ... </html>
-```
-
-The **status code** tells the client the result of the request:
-
-| Range | Meaning       | Examples                                              |
-|-------|---------------|-------------------------------------------------------|
-| `1xx` | Informational | `101 Switching Protocols`                             |
-| `2xx` | Success       | `200 OK`, `201 Created`, `204 No Content`             |
-| `3xx` | Redirection   | `301 Moved Permanently`, `302 Found`, `304 Not Modified` |
-| `4xx` | Client error  | `400 Bad Request`, `401 Unauthorized`, `404 Not Found` |
-| `5xx` | Server error  | `500 Internal Server Error`, `503 Service Unavailable` |
-
-
-### Important Header Fields
-
-| Header           | Description                                                  |
-|------------------|--------------------------------------------------------------|
-| `Host`           | Host name and port of the server (mandatory in HTTP/1.1)     |
-| `Content-Type`   | Media type of the body (`text/html`, `application/json`, ...) |
-| `Content-Length` | Size of the body in bytes                                    |
-| `Accept`         | Media types the client can handle                            |
-| `Cookie` / `Set-Cookie` | Transfer state between client and server              |
-| `Authorization`  | Credentials of the client (e.g. Basic Auth, Bearer token)    |
-
-
-We can watch the HTTP messages using `curl -v`:
-
-```bash
-$ curl -v http://localhost:8080/
-> GET / HTTP/1.1
-> Host: localhost:8080
-> User-Agent: curl/7.88.1
-> Accept: */*
->
-< HTTP/1.1 200 OK
-< Content-Type: text/html; charset=utf-8
-< Content-Length: 1160
-<
-<html>
-...
-```
-
-Lines starting with `>` are sent by the client, lines starting with `<`
-are received from the server.
-
-**HTTP versions**: HTTP/1.1 is text-based and still the most common version
-on embedded devices. HTTP/2 and HTTP/3 use binary framing and multiplexing to
-improve performance, but keep the same semantics (methods, status codes,
-headers).
-
-
 ## MVC Architectural Pattern
 
 > The **Model-View-Controller (MVC)** pattern separates an interactive
@@ -223,8 +123,10 @@ Limitations and things to consider:
 * The built-in development server (`app.run()`) is **not intended for
   production**. On a device, use a WSGI server such as `waitress` or
   `gunicorn` (optionally behind `nginx`).
+
 * Never enable `debug=True` on a deployed device: the interactive debugger
   allows **remote code execution**.
+
 * Flask requires a full Python interpreter and an operating system. On
   **microcontrollers** (MicroPython on ESP32, Raspberry Pi Pico W),
   Flask-like frameworks such as [Microdot](https://github.com/miguelgrinberg/microdot)
