@@ -23,6 +23,8 @@ sqlite> select * from messages;
 1123|2|voltage=3.4V
 1124|2|voltage=1.3V
 1125|1|voltage=-1.7V
+
+sqlite> .quit
 ```
 
 ```bash
