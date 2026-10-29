@@ -6,6 +6,7 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Connect the socket to the server's address and port
 server_address = ('localhost', 9090)
 client_socket.connect(server_address)
+
 try:
     # Send data to the server
     message = "Hello from client!"
