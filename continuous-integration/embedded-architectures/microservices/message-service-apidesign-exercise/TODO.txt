@@ -1,0 +1,39 @@
+Exercise: API Design (Versioning, Swagger) - Message 
+-------------------------------------------------------------------------------
+
+Given an existing implementation of a Message Service (see: README.md), you 
+should improve the API design.
+
+A) Versioning 
+Add a "v1" version to the path, so that all requests look like:
+$ curl -i http://localhost:8080/v1/messages 
+$ curl -i http://localhost:8080/v1/messages/1124
+$ curl -i -X POST localhost:8080/v1/messages -H "Content-Type: application/json" -d '{"address": 1127, "priority": 3, "data":"voltage=5.0V"}'
+$ curl -i -X PUT localhost:8080/v1/messages/1124 -H "Content-Type: application/json" -d '{"priority": 9, "data":"voltage=1.0V"}'
+$ curl -i -X DELETE http://localhost:8080/v1/messages/1124
+
+
+B) Swagger UI 
+Add the Swagger UI to this REST service so that we can use the 
+Swagger web application the test the API.
+
+* `http://localhost:8080/openapi.json`: OpenAPI description (JSON)
+* `http://localhost:8080/docs`: interactive API documentation (Swagger UI)
+
+Note that we have to implement explicit datastructure types to specify 
+all parameters and return types of the REST operations:
+
+class MessageIn(Schema):
+    priority = Integer(required=True)
+    data = String(required=True)
+
+class MessageCreateIn(MessageIn):
+    address = Integer(required=True)
+
+class MessageOut(Schema):
+    address = Integer()
+    priority = Integer()
+    data = String()
+
+class MessagesOut(Schema):
+    data = List(Nested(MessageOut))
