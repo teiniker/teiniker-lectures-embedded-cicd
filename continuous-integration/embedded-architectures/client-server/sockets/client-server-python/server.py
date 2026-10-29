@@ -10,9 +10,8 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server_address = ('localhost', 9090)
 server_socket.bind(server_address)
 
-# Listen for incoming connections (backlog of 1 connection - queue size)
+# Listen for incoming connections (backlog of 10 connection - queue size)
 server_socket.listen(10)
-print(f"Server listening on {server_address[0]}:{server_address[1]}...")
 
 while True:
     # Wait for a connection
