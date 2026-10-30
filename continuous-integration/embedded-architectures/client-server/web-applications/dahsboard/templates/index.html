@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Climate Dashboard</title>
+    <meta charset="UTF-8">
+    <style>
+        body   { font-family: sans-serif; margin: 2em; }
+        canvas { border: 1px solid #ccc; max-width: 100%; }
+    </style>
+</head>
+<body>
+    <h2>Climate Dashboard</h2>
+
+    <h3>Temperature</h3>
+    <canvas id="temperature-chart" width="800" height="300"></canvas>
+
+    <h3>Humidity</h3>
+    <canvas id="humidity-chart" width="800" height="300"></canvas>
+
+    <script src="{{ url_for('static', filename='chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+    <script>
+        startDashboard("{{ url_for('measurements') }}", 1000);
+    </script>
+</body>
+</html>
