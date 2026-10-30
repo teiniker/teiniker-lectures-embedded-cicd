@@ -1,0 +1,10 @@
+Exercise: Implement Web Application using Coding Agent 
+-------------------------------------------------------------------------------
+
+Implement a web application using Flask. 
+The web application shoult be a dashboard for measured 
+(simulated values in the application) temperature and 
+humidity over the time.
+
+
+
