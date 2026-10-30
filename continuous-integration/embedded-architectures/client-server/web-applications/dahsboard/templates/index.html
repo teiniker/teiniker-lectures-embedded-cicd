@@ -6,16 +6,23 @@
     <style>
         body   { font-family: sans-serif; margin: 2em; }
         canvas { border: 1px solid #ccc; max-width: 100%; }
+        /* Charts side by side; they wrap below each other on narrow screens */
+        .charts { display: flex; flex-wrap: wrap; gap: 2em; }
     </style>
 </head>
 <body>
     <h2>Climate Dashboard</h2>
 
-    <h3>Temperature</h3>
-    <canvas id="temperature-chart" width="800" height="300"></canvas>
-
-    <h3>Humidity</h3>
-    <canvas id="humidity-chart" width="800" height="300"></canvas>
+    <div class="charts">
+        <div>
+            <h3>Temperature</h3>
+            <canvas id="temperature-chart" width="600" height="300"></canvas>
+        </div>
+        <div>
+            <h3>Humidity</h3>
+            <canvas id="humidity-chart" width="600" height="300"></canvas>
+        </div>
+    </div>
 
     <script src="{{ url_for('static', filename='chart.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard.js') }}"></script>

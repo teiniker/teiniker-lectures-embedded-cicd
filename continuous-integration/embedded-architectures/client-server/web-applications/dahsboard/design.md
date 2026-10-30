@@ -209,11 +209,16 @@ dashboard works on a device without internet access (User Story 5).
 ```html
 <h2>Climate Dashboard</h2>
 
-<h3>Temperature</h3>
-<canvas id="temperature-chart" width="800" height="300"></canvas>
-
-<h3>Humidity</h3>
-<canvas id="humidity-chart" width="800" height="300"></canvas>
+<div class="charts">
+    <div>
+        <h3>Temperature</h3>
+        <canvas id="temperature-chart" width="600" height="300"></canvas>
+    </div>
+    <div>
+        <h3>Humidity</h3>
+        <canvas id="humidity-chart" width="600" height="300"></canvas>
+    </div>
+</div>
 
 <script src="{{ url_for('static', filename='chart.js') }}"></script>
 <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
@@ -222,6 +227,8 @@ dashboard works on a device without internet access (User Story 5).
 </script>
 ```
 
+* The two charts are placed side by side (CSS flexbox with
+    `flex-wrap`); on narrow screens they wrap below each other.
 * The page contains no measurement data; all values are loaded via the
     JSON API. `url_for()` keeps the API URL in one place (the
     controller).
