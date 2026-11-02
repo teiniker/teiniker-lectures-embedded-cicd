@@ -1,11 +1,13 @@
 # Message-Oriented Architectures
 
-## Message Queuing Telemetry Transport (MQTT)
+* [Publisher-Subscriber](publisher-subscriber/README.md)
 
-* [MQTT Overview](mqtt/introduction/README.md)
+* Message Queuing Telemetry Transport (MQTT)
 
-* [Mosquitto MQTT Broker](mqtt/mosquitto/README.md)
+    * [MQTT Overview](mqtt/introduction/README.md)
 
-* [MQTT Clients in Python](mqtt/mqtt-python/)
+    * [Mosquitto MQTT Broker](mqtt/mosquitto/README.md)
+
+    * [MQTT Clients in Python](mqtt/mqtt-python/)
 
 _Egon Teiniker, 2025-2026, GPL v3.0_ 
