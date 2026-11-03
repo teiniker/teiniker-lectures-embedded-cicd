@@ -16,6 +16,21 @@ This protocol works better than HTTP 1.1 and HTTP/2 when unreliable networks are
 involved and connectivity is intermittent.
 
 
+## MQTT Connection
+
+The **MQTT Broker** is the central hub of the publish-subscribe model. 
+The MQTT Broker is responsible for the authentication and authorization of the 
+MQTT clients that will be able to become publishers and/or subscribers after 
+they are authenticated and authorized. 
+
+So, the first thing that an MQTT client must do is to establish a connection 
+with the MQTT Broker.
+
+After a successful connection has been established between an MQTT client and an 
+MQTT Broker, the server will keep the connection open until the client loses the 
+connection or sends a DISCONNECT control packet to the server to close the connection.
+
+
 ## Message Filtering
 
 Consider that **each message belongs to a topic**. 
@@ -32,22 +47,6 @@ subscribers.
 **A subscriber can subscribe to more than one topic**.
 The server has to make sure that the subscriber receives messages that belong to all 
 the topics to which it has subscribed.
-
-
-## MQTT Connection
-
-The **MQTT Broker** is the central hub of the publish-subscribe model. 
-The MQTT Broker is responsible for the authentication and authorization of the 
-MQTT clients that will be able to become publishers and/or subscribers after 
-they are authenticated and authorized. 
-
-So, the first thing that an MQTT client must do is to establish a connection 
-with the MQTT Broker.
-
-After a successful connection has been established between an MQTT client and an 
-MQTT Broker, the server will keep the connection open until the client loses the 
-connection or sends a DISCONNECT control packet to the server to close the connection.
-
 
 
 ## Best Practices for Topics
@@ -128,16 +127,6 @@ requirements of the application.
     efficient for frequent and small messages due to its minimal 
     protocol overhead.
 
-* **Quality of Service (QoS)**:
-    * **HTTP**: Offers a basic level of reliability with acknowledgments 
-    for received messages. However, it doesn't have built-in support for 
-    different levels of QoS.
-    
-    * **MQTT**: Provides three levels of QoS for message delivery 
-    ("At most once", "At least once", and "Exactly once"). 
-    This makes it a more reliable choice for ensuring data is logged 
-    accurately.
-
 * **Network Reliability**:
     * **HTTP**: More sensitive to network interruptions. In an unstable 
     network, 
@@ -156,6 +145,16 @@ requirements of the application.
     * **MQTT**: Designed for constrained devices and networks, hence it generally 
     consumes less power. It's more suitable for devices running on battery or 
     limited power sources.
+
+* **Quality of Service (QoS)**:
+    * **HTTP**: Offers a basic level of reliability with acknowledgments 
+    for received messages. However, it doesn't have built-in support for 
+    different levels of QoS.
+    
+    * **MQTT**: Provides three levels of QoS for message delivery 
+    ("At most once", "At least once", and "Exactly once"). 
+    This makes it a more reliable choice for ensuring data is logged 
+    accurately.
 
 * **Use Case Specifics**:
 
