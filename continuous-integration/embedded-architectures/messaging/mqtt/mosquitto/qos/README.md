@@ -1,4 +1,4 @@
-# MQTT QoS Levels
+# QoS Levels
 
 **Quality of Service (QoS)** defines how reliably a message is delivered between 
 clients and the broker. There are three levels: QoS 0, QoS 1, and QoS 2.
@@ -26,19 +26,26 @@ clients and the broker. There are three levels: QoS 0, QoS 1, and QoS 2.
 
 We can use the **-q option** to specify the QoS level:
 
+_Example:_ QoS 1
+
 ```bash 
 # Subscribe with QoS 1
-$ mosquitto_sub -t "home/temperature" -q 1
+$ mosquitto_sub -t "home/temperature" -d -q 1
 
 # Publish with QoS 1
-$ mosquitto_pub -t "home/temperature" -m "23" -q 1
+$ mosquitto_pub -t "home/temperature" -m "23" -d -q 1
+```
 
+_Example:_ QoS 2
+
+```bash 
 # Subscribe with QoS 2
-$ mosquitto_sub -t "home/temperature" -q 2
+$ mosquitto_sub -t "home/temperature" -d -q 2
 
 # Publish with QoS 2
-$ mosquitto_pub -t "home/temperature" -m "23" -q 2
+$ mosquitto_pub -t "home/temperature" -m "23" -d -q 2
 ```
+
 
 ## References
 * Gaston C. Hillar.

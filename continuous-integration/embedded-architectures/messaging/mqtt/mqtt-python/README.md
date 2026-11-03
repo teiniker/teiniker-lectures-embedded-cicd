@@ -9,25 +9,12 @@ publish/subscribe messaging protocol.
 We use a virtual environment to install the required libraries:
 
 ```bash
-# Activate environment
-$ python -m venv .venv
-$ source .venv/bin/activate
-
-# Install libraries
-$ pip install -r requirements.txt
-
-$ pip list
-Package   Version
---------- -------
-paho-mqtt 2.1.0
-pip       25.1.1
-
-# Deactivate environment
-$ deactivate
+$ pip install paho-mqtt
 ```
 
 
 ## Publisher 
+
 With the Paho library, you can quickly implement an MQTT publisher that  
 connects to a broker and publishes messages (for example, strings) to a 
 specific topic.
@@ -143,4 +130,4 @@ client.loop_forever()
 
 * [paho](https://eclipse.dev/paho/)
 
-_Egon Teiniker, 2025, GPL v3.0_
+_Egon Teiniker, 2025-2026, GPL v3.0_

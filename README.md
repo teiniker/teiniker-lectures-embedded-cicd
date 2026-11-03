@@ -17,6 +17,25 @@ discussions, implementation, and documentation.
 All materials have been manually reviewed and verified.
 
 
+## Python Examples 
+
+To use the Python examples in this repository, we must create a virtual 
+environment and install the necessary libraries.
+
+```bash
+# Activate environment
+$ python -m venv .venv
+$ source .venv/bin/activate
+
+# Install libraries
+$ pip install -r requirements.txt
+
+$ pip list
+
+# Deactivate environment
+$ deactivate
+```
+
 ## References
 
 * Martin Fowler. [**Continuous Integration**](http://martinfowler.com/articles)
