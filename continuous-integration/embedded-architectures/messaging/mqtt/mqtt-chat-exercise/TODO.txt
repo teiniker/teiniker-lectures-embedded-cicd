@@ -1,0 +1,14 @@
+Exercise: MQTT Chat 
+-------------------------------------------------------------------------------
+
+Implement an MQTT subscriber that prints all messages for the topic "mqtt/chat"
+to the console with a timestamp.
+
+Example:
+[18:32:10] Hello everybody!
+[18:34:10] Alice: Hello Bob!
+
+Test the implementation on the command line:
+$ mosquitto_pub -h 127.0.0.1 -t mqtt/chat -m "Alice: Hello Bob!"
+
+
