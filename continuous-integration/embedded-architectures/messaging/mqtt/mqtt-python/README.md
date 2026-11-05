@@ -45,7 +45,7 @@ client.disconnect()
 * `on_connect()`: This is a callback function invoked automatically 
     when the client connects to the broker.
     - client: the MQTT client instance
-    - userdata: custom data you can attach (usually not needed)
+    - userdata: custom data we can attach (usually not needed)
     - flags: response flags from the broker
     - rc: connection result code (0 means success, non-zero means 
         some problem (auth error, broker unavailable, etc.)
@@ -69,7 +69,6 @@ client.disconnect()
 
 Using the Paho library, you can also easily implement a subscriber  
 that reads data from a specific topic.
-
 
 ```Python
 import paho.mqtt.client as mqtt
