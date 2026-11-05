@@ -1,51 +1,42 @@
 #include <iostream>
 #include <string>
 
-#include <mqtt/async_client.h>
+#include <mqtt/client.h>
+
+using namespace std;
 
 // mosquitto_pub -h 127.0.0.1 -t sensors/distance -m "10cm"
-const std::string SERVER_URI = "tcp://127.0.0.1:1883";
-const std::string CLIENT_ID = "cxx-publisher";
-
-// Event handler: the library calls these methods on its own thread.
-class PublisherCallback : public mqtt::callback
-{
-public:
-    void connected(const std::string&) override
-    {
-        std::cout << "Connected to " << SERVER_URI << std::endl;
-    }
-};
+const string SERVER_URI = "tcp://127.0.0.1:1883";
+const string CLIENT_ID = "cxx-publisher";
 
 int main()
 {
     try
     {
-        mqtt::async_client client(SERVER_URI, CLIENT_ID);
-
-        PublisherCallback callback;
-        client.set_callback(callback);
+        mqtt::client client(SERVER_URI, CLIENT_ID);
 
         auto options = mqtt::connect_options_builder()
-                           .keep_alive_interval(std::chrono::seconds(60))
+                           .keep_alive_interval(chrono::seconds(60))
                            .clean_session()
                            .finalize();
 
-        client.connect(options)->wait();
+        // Every call blocks until the operation has completed.
+        client.connect(options);
+        cout << "Connected to " << SERVER_URI << endl;
 
         // Publish the message
-        const std::string TOPIC = "sensors/distance";
-        const std::string MESSAGE = "7cm";
-        client.publish(TOPIC, MESSAGE)->wait();
-        std::cout << "Published '" << MESSAGE << "' to topic '" << TOPIC
-                  << "'" << std::endl;
+        const string TOPIC = "sensors/distance";
+        const string MESSAGE = "7cm";
+        client.publish(mqtt::make_message(TOPIC, MESSAGE));
+        cout << "Published '" << MESSAGE << "' to topic '" << TOPIC
+             << "'" << endl;
 
         // Disconnect cleanly
-        client.disconnect()->wait();
+        client.disconnect();
     }
     catch (const mqtt::exception& e)
     {
-        std::cerr << "MQTT error: " << e.what() << std::endl;
+        cerr << "MQTT error: " << e.what() << endl;
         return 1;
     }
     return 0;
