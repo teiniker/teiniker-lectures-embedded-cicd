@@ -15,10 +15,10 @@ We can:
 * Understand compiler behavior without needing a local toolchain setup.
 
 
-
-
 ## References
 
 * [YouTube (Matt Godbolt): What’s New in Compiler Explorer? 2024 Update - C++Online 2024](https://youtu.be/28Gp3TTQYp0?si=1QCteU2WkTsu_Zau)
 
 * [Compiler Explorer Wiki](https://github.com/compiler-explorer/compiler-explorer/wiki)
+
+*Egon Teiniker, 2025-2026, GPL v3.0* 
