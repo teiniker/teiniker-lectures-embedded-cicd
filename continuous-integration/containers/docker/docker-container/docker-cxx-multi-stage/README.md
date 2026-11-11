@@ -81,7 +81,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 The created image still exists locally:
 
 ```bash 
- docker image ls -a                                               
+$ docker image ls -a                                               
 REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
 hello-cmake   latest    9e114682ce5c   12 seconds ago   303MB
 ```
@@ -100,4 +100,4 @@ $ docker image rm hello-cmake
 
 * [Multi-stage builds](http://docs.docker.com/build/building/multi-stage/)
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

@@ -1,8 +1,6 @@
 # Building Docker Images
 
-Docker Build is one of Docker Engine's most used features. 
-
-Whenever we are creating an image we are using Docker Build. 
+Whenever we are creating an image we are using **docker build**. 
 Build is a key part of your software development life cycle allowing 
 us to package and bundle our code and ship it anywhere.
 
@@ -71,7 +69,7 @@ Layering is made possible by **content-addressable storage** and **union filesys
 When the union filesystem is created, in addition to the image layers, 
 a **directory is created specifically for the running container**. 
 This allows the container to make **filesystem changes** while allowing the 
-original image layers to remain untouched. This enables you to run multiple 
+original image layers to remain untouched. This enables us to run multiple 
 containers from the same underlying image.
 
 
@@ -200,4 +198,4 @@ resulting image.
     * [Dockerfile best practices](https://docs.docker.com/build/building/best-practices/)
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

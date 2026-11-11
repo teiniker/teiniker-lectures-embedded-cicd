@@ -16,9 +16,6 @@ Either we build a Docker image or pull the already pre-built Docker image
 from a **Docker registry**. The Docker registry stores Docker images. 
 The default Docker registry is **Docker Hub**.
 
-To create a Docker image, we create a **Dockerfile** which contains all 
-the other images, dependencies, and commands.
-
 
 ## Using Docker Containers
 
@@ -156,4 +153,4 @@ alpine/dfimage      reverse Docker images into Dockerfiles          70
 * [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

@@ -150,4 +150,4 @@ store and reuse parts of images.
 ## References
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

@@ -76,4 +76,4 @@ Deleted: sha256:80e840de630d08a6a1e0ee30e7c8378cf1ed6a424315d7e437f54780aee6bf5a
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

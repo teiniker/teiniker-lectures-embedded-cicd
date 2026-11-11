@@ -116,7 +116,7 @@ We can restore the image from the tar archive by loading it back
 into Docker:
 
 ```bash 
-# load the image from the tar archive
+# load the image from the input (-i) tar archive
 $ docker load -i hello-cmake.tar
 
 # list images to confirm the image was restored
@@ -156,4 +156,4 @@ $ rm -f hello-cmake.tar
 
 * Jeff Nickoloff. **Docker in Action**. Manning, 2016 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
