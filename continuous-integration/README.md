@@ -8,7 +8,7 @@
     - [Embedded Linux Development](https://github.com/teiniker/teiniker-embedded-linux)
 
 * Commit Stage
-    * [Build Process](build-process/)
+    * [Build Process](build-process/cxx/)
     * [Containers](containers/)
     * [CI Infrastructure](ci-infrastructure/)
 
