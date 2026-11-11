@@ -69,4 +69,4 @@ Hello world using CMake!
 
 With this, we have created our first program using a cross compiler.
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

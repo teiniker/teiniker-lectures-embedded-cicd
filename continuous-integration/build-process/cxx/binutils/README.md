@@ -3,18 +3,22 @@
 **GNU Binutils** (short for *binary utilities*) is a collection of low-level 
 tools for working with object files, libraries, and executables.
 
-They form a core part of any toolchain — whether native (x86\_64 on our PC) 
+They form a core part of any toolchain - whether native (x86\_64 on our PC) 
 or cross (AArch64 for Raspberry Pi).
 
 When you write code in C/C++:
 
 1. **Compiler (GCC/Clang)** turns source into assembly or object code (`.o`).
+
 2. **Assembler (`as`)** converts assembly into machine instructions.
-3. **Linker (`ld`)** combines object files + libraries into the final executable (`a.out`, ELF binary).
+
+3. **Linker (`ld`)** combines object files + libraries into the final executable 
+    (`a.out`, ELF binary).
+
 4. **Binutils tools** (like `objdump`, `nm`) let us inspect/debug those binaries.
 
-The **Binutils = essential low-level binary tools** (assembler, linker, object inspectors)
-sit between the compiler (GCC/Clang) and the final executable.
+The **Binutils = essential low-level binary tools** (assembler, linker, object 
+inspectors) sit between the compiler (GCC/Clang) and the final executable.
 Without binutils, GCC couldn’t produce runnable programs.
 
 
@@ -71,7 +75,7 @@ Here are the most important tools we will encounter:
     _Example:_
 
     ```bash
-    $ $objcopy -O binary hello.elf hello.bin
+    $ objcopy -O binary hello.elf hello.bin
     ```
 
 ### **objdump**
@@ -113,4 +117,4 @@ Here are the most important tools we will encounter:
 * [YouTube (Jacob Sorber): How to Inspect Compiled Binaries (binutils, objdump)](https://youtu.be/bWMIpHVRFUo?si=a39rPSsaZV-F2-yc)
 * [YouTube (LinuxConf): Binutils for fun and profit: understanding Linux binaries](https://youtu.be/htepUJY8nH8?si=E9IzhniADTLLq1aD)
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

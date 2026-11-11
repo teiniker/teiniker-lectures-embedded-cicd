@@ -6,7 +6,7 @@ it into the toolchain’s sysroot so our projects can find headers/libs when
 cross-building.
 
 ```bash
-$ cd Downloads 
+$ mkdir tmp && cd tmp 
 $ git clone https://github.com/google/googletest.git
 $ cd googletest/
 $ cmake -S . -B build \
@@ -32,4 +32,4 @@ Note that libraries installed under `aarch64-rpi5-linux-gnu/aarch64-rpi5-linux-g
 are found automatically by the cross-compiler.
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

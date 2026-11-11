@@ -11,43 +11,49 @@ A toolchain is a collection of programming tools used to develop software for
 a target system. A cross compiler toolchain specifically allows you to build 
 code on one system (the host) that will run on a different system (the target).
 
-Components of a Toolchain:
+### Components of a Cross Compiler Toolchain
 
-* Compiler (e.g., GCC)
+* **Compiler** (e.g., GCC):
     Converts source code into machine code for the target architecture.
 
-* Assembler
+* **Assembler**: 
     Translates assembly language into target machine instructions.
 
-* Linker
+* **Linker**: 
     Combines object files into executables or libraries for the target.
 
-* C library (e.g., glibc, musl, uClibc)
+* **Libraries** (e.g., glibc, musl, uClibc):
     Provides standard runtime functions (I/O, memory management, etc.) for the target.
 
-* Binutils
+* **Binutils**:
     Includes tools like as (assembler), ld (linker), objdump, readelf, etc.
 
 
 ## Crosstool-NG Framework
 
-crosstool-NG is an open-source framework for building custom cross-compilation toolchains. 
+**Crosstool-NG** is an open-source framework for building custom cross-compilation toolchains. 
 It automates the otherwise tedious process of downloading, configuring, and building all 
 components of a toolchain.
 
 Crosstool-NG provides:
-* Menu-based configuration (like Linux kernel menuconfig) to select:
+
+* **Menu-based configuration** (like Linux kernel menuconfig) to select:
     * Target architecture (ARM, MIPS, RISC-V, etc.)
     * C library (glibc, uClibc, musl)
     * GCC version, binutils version, kernel headers, etc.
 
-* Automatic fetching and building of sources (GCC, binutils, libraries).
-* Reproducibility: You can export and share configuration files.
-* Flexibility: Useful for embedded Linux, bare-metal development, or cross compiling applications.
+* **Automatic fetching and building of sources** (GCC, binutils, libraries).
 
-_Example:_ Build a cross compiler toolchain for a Rspberry Pi 5
+* **Reproducibility**: We can export and share configuration files.
+
+* **Flexibility**: Useful for embedded Linux, bare-metal development, or cross compiling applications.
+
 
 ### 1. Build Crosstool-NG 
+
+Crosstool-NG is already installed in the Virtual Lab (Debian Linux).
+
+If you are using a different environment, install Crosstool-NG as follows:
 
 ```bash
 $ cd Downloads
@@ -79,6 +85,8 @@ There is NO WARRANTY, to the extent permitted by law.
 
 ### 2. Build a Raspberry Pi 5 Toolchain
 
+This Raspberry Pi 5 Toolchain is also in the Virtual Lab (Debian Linux).
+
 ```bash
 $ mkdir -p Downloads/raspi5-toolchain
 $ cd Downloads/raspi5-toolchain
@@ -97,28 +105,27 @@ configurator tool provided by Crosstool-NG.
 $ ct-ng menuconfig
 ```
 
-
 Here is an overview about the generated tool chain:
 
 ```bash
 /opt/x-tools/aarch64-rpi5-linux-gnu
 │
-├── bin/                <-- Cross-compiler frontends you run
+├── bin/                        <-- Cross-compiler frontends you run
 │   ├── aarch64-rpi5-linux-gnu-gcc
 │   ├── aarch64-rpi5-linux-gnu-ld
 │   ├── aarch64-rpi5-linux-gnu-as
 │   └── ...
 │
-├── lib/                <-- Host-side support libs for GCC/binutils
+├── lib/                        <-- Host-side support libs for GCC/binutils
 │   └── libgcc.a, compiler plugins, etc.
 │
-├── libexec/            <-- Internal GCC programs (cc1, collect2...)
+├── libexec/                    <-- Internal GCC programs (cc1, collect2...)
 │
-├── include/            <-- Host headers needed by GCC itself
+├── include/                    <-- Host headers needed by GCC itself
 │
-├── share/              <-- Architecture-independent data (man pages, specs)
+├── share/                      <-- Architecture-independent data (man pages, specs)
 │
-└── aarch64-rpi5-linux-gnu/   <-- Target files system including sysroot 
+└── aarch64-rpi5-linux-gnu/     <-- Target files system including sysroot 
 ```
 
 * **aarch64-rpi5-linux-gnu/** This folder usually mirrors the target **root filesystem** structure.
@@ -131,7 +138,7 @@ Here is an overview about the generated tool chain:
     - aarch64-rpi5-linux-gnu-as
     - aarch64-rpi5-linux-gnu-strip
 
-    This is the directory we add to our $PATH environment variable.
+    This is the directory we add to our `$PATH` environment variable.
 
 * **include/** Host-side include files that the compiler itself needs.
     Mostly headers used by GCC internals and the toolchain runtime, not the target’s headers 
@@ -156,7 +163,7 @@ Notice the separation of **Host vs Target**:
 * **Host-side** stuff (`bin/, lib/, libexec/, include/, share/`): Needed to make the compiler 
     itself work on your PC.
 
-* **Target-side** stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Pi’s filesystem and contains 
+* **Target-side** stuff (`aarch64-rpi5-linux-gnu/`): Mimics the Raspi’s filesystem and contains 
     the target headers & libraries used to build ARM64 binaries.
 
 The **sysroot** is the logical target **root directory** for headers and libraries where gcc 
@@ -224,4 +231,4 @@ Finally, we can transfer `hello` to our Raspberry Pi 5 and run it.
 * [GCC online documentation](https://gcc.gnu.org/onlinedocs/)
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

@@ -45,6 +45,6 @@ $ scp build/test student@xxx.xxx.xxx.xxx:/home/student/Downloads
 ```
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
 
 
