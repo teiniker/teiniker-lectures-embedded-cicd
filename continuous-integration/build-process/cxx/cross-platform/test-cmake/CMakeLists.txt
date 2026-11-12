@@ -14,7 +14,7 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Check for Google Test
-#find_package(GTest REQUIRED)
+find_package(GTest REQUIRED)
 
 add_executable(test test.cpp)
 

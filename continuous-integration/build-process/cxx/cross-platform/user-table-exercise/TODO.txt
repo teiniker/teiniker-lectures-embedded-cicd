@@ -1,0 +1,13 @@
+Exercise: Cross-Compiler Using CMake and GTest - UserTable
+-------------------------------------------------------------------------------
+
+Given the implementation of a Usertable --[*]-> User example.
+
+A) CMakeList.txt
+Write the missing CMakeList.txt to compile and test the given example un your 
+host machine.
+
+B) Cross-Platform build
+Change the usage of cmake, so that you create an ARM exacutable which can 
+run on your Raspberry Pi 5.
+Copy the "test" exacutable to your Raspi and execute these tests.
