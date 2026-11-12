@@ -31,7 +31,7 @@ bin    dev    etc    home   lib    lib64  proc   root   sys    tmp    usr    var
 / # exit
 ```
 
-We can now work with this interactive shell and we can **stop the container** bei typing `exit`.
+We can now work with this interactive shell and we can **stop the container** by typing `exit`.
 
 The whole **size of this image** is around 4MB:
 
