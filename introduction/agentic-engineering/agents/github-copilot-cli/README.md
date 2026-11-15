@@ -5,6 +5,17 @@ the command line**. Instead of digging through man pages, Stack Overflow,
 or documentation to remember obscure flags, we can interact with an AI 
 agent right inside our terminal.
 
+## Setup 
+
+Install with the install script (macOS and Linux):
+
+```bash
+$ curl -fsSL https://gh.io/copilot-install | bash
+
+$ copilot
+```
+
+
 ## Prompt Processing
 
 The core concept behind Copilot CLI is **execution-focused AI**.
@@ -135,7 +146,10 @@ in the current, or future, sessions.
 
 ## References
 
-* Custom Instructions
-    - [YouTube (Net Ninja): Copilot CLI Tutorial - Custom Instructions](https://youtu.be/oA1LDB9tdZU?si=HnVYRYWroRBwnH1k)
+* [Free GitHub Pro account for verified learners](https://github.com/education/students)
 
-    - [GitHub Copilot Documentation: Adding custom instructions for GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions)
+* [Ultimate GitHub Copilot CLI tutorial for beginners](https://youtu.be/rheqk-L7Yes?si=98Twm8yaGpGwNsd0)
+
+* [Copilot CLI Crash Course](https://youtube.com/playlist?list=PL4cUxeGkcC9iA2_S2wIeolG6GoOvIPvw3&si=Q6WGMyymze-lWknj)
+
+_Egon Teiniker, 2025-2026, GPL v3.0_
