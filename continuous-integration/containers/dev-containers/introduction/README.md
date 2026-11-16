@@ -161,6 +161,9 @@ $ docker image ls
 
 
 ## References
+
+* [YouTube (Visual Studio Code): Run Your AI Coding Agent in Dev Containers - Complete Beginner's Guide](https://youtu.be/w3kI6XlZXZQ?si=E65hB18XnYtQqEd3)
+
 * [Development Containers](https://containers.dev/)
 * [Dev Container metadata reference](https://containers.dev/implementors/json_reference/)
 * [VS Code: Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
