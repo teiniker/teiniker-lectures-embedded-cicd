@@ -97,8 +97,12 @@ $ ./some-arm64-binary
 ```
 
 We can test ARM64 container images locally:
+
 ```bash
-$ docker run --platform=linux/arm64 arm64v8/alpine 
+$ docker run -it --rm --platform=linux/arm64 alpine sh
+/ # uname -m
+aarch64
+/ # exit
 ```
 
 
