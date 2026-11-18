@@ -6,22 +6,22 @@ deployment process.
 * **Docker Container** 
     - Using Docker Containers    
         - [Introduction](docker-container/introduction/README.md)
-        - Demo: [Creating and Starting a Container](docker-container/docker-nginx/)
-        - Demo: [Running Interactive Containers](docker-container/docker-busybox/)
+        - Demo: [docker-nginx](docker-container/docker-nginx/)
+        - Demo: [docker-busybox](docker-container/docker-busybox/)
     
     - Building Docker Images
         - [Introduction](docker-container/docker-build/README.md)
-        - Demo: [Python Docker Image](docker-container/docker-python/)
-        - Demo: [Flask Docker Image](docker-container/docker-flask/)
-        - Demo: [C++ Docker Image](docker-container/docker-cxx/)
-        - Demo: [C++ Multi-Stage Docker Image](docker-container/docker-cxx-multi-stage/)
+        - Demo: [docker-python](docker-container/docker-python/)
+        - Demo: [docker-flask](docker-container/docker-flask/)
+        - Demo: [docker-cxx](docker-container/docker-cxx/)
+        - Demo: [docker-cxx-multi-stage](docker-container/docker-cxx-multi-stage/)
 
     - Docker Bind Mounts  
-        - [Flask Bind Mount Image](docker-container/docker-flask-mount/)       
+        - Demo: [docker-flask-mount](docker-container/docker-flask-mount/)       
 
     - Docker Volumes 
         - [Introduction ](docker-container/docker-volumes/)
-        - Demo: [MariaDB Server](docker-container/docker-mariadb)
+        - Demo: [docker-mariadb](docker-container/docker-mariadb)
 
 
 * **Docker Compose**

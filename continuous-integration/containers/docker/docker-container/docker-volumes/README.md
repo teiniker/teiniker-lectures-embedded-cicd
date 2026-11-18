@@ -21,13 +21,10 @@ command, or Docker can create a volume during container or service creation:
 
 ```bash
 # Create a named volume
-$ docker volume create mydata
+$ docker volume create mysql-db
 
 # List volumes
-$  docker volume ls
-
-# Pass a named volume to a starting container
-$ docker run -d -v mydata:/var/lib/mysql mysql
+$ docker volume ls
 ```
 
 If we start a container and specify a volume which does not already exist, 
@@ -40,6 +37,7 @@ functionality of the host machine**.
 
 While bind mounts are dependent on the directory structure and OS of the 
 host machine, volumes are completely managed by Docker. 
+
 
 ## Anonymous Volumes
 
@@ -55,7 +53,7 @@ more containers, we must mount the anonymous volume using the random volume ID.
 We create a container named `mysql`:
 
 ```bash
-$ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root66 mysql:9.5.0
+$ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root66 -p 3306:3306 mysql
 
 $ docker container inspect mysql
 	"Mounts": [
@@ -95,6 +93,18 @@ $ docker volume inspect  55eda1e315665d3b5d832424951e1b69dba665cf0225e1d7ceebd97
 ]
 ```
 
+We can use a local `mysql` client to access the database server in the docker container:
+
+```bash
+$ mysql -h 127.0.0.1 -P 3306 -u root -proot66
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 26.10.0 MySQL Community Server - GPL
+
+MySQL [(none)]> SHOW DATABASES;
+MySQL [(none)]> quit
+```
+
 Starting a new MySQL container creates an anonymous volume automatically. 
 **Stopping and removing the container does not remove that volume**, volumes persist to keep data. 
 
@@ -124,7 +134,7 @@ for example `-v mysql-db:/var/lib/mysql`, which creates (or reuses) a persistent
 named volume stored outside the container. 
 
 ```bash
-$ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root66 -v mysql-db:/var/lib/mysql mysql:9.5.0
+$ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root66 -v mysql-db:/var/lib/mysql -p 3306:3306 mysql
 
 $ docker volume ls
 DRIVER    VOLUME NAME
@@ -148,6 +158,75 @@ $ docker container inspect mysql
 
 Now we have a persistent named volume with a human-readable name.
 
+Again, we use the local `mysql` client to access the database server in the docker container:
+
+```bash
+$ mysql -h 127.0.0.1 -P 3306 -u root -proot66
+
+-- Create the database and switch to it
+CREATE DATABASE testdb;
+USE testdb;
+
+-- Create the table
+CREATE TABLE users (
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50)  NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Insert test users
+INSERT INTO users (username, password) VALUES
+    ('alice', 'alice123'),
+    ('bob',   'bob123'),
+    ('carol', 'carol123');
+
+-- Check the result
+SELECT * FROM users;
++----+----------+----------+
+| id | username | password |
++----+----------+----------+
+|  1 | alice    | alice123 |
+|  2 | bob      | bob123   |
+|  3 | carol    | carol123 |
++----+----------+----------+
+
+MySQL [testdb]> quit
+```
+
+After inserting data in our database, let's stop and remove the container - then start it again:
+
+```bash
+$ docker container ls -a
+$ docker container stop mysql
+$ docker container rm mysql
+```
+
+Our docker volume is still there:
+
+```bash
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     mysql-db
+```
+
+Let's restart the container with the same volume:
+```bash
+$ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root66 -v mysql-db:/var/lib/mysql -p 3306:3306 mysql
+
+$ mysql -h 127.0.0.1 -P 3306 -u root -proot66
+MySQL [(none)]> USE testdb;
+
+MySQL [testdb]> select * from users;
++----+----------+----------+
+| id | username | password |
++----+----------+----------+
+|  1 | alice    | alice123 |
+|  2 | bob      | bob123   |
+|  3 | carol    | carol123 |
++----+----------+----------+
+```
+
+We can use our database table as before.
 
 
 ## References
@@ -157,4 +236,4 @@ Now we have a persistent named volume with a human-readable name.
 * [DockerHub: mysql](https://hub.docker.com/_/mysql)
 
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
