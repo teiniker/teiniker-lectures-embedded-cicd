@@ -124,4 +124,4 @@ $ docker image rm hello-cmake:raspi5
 
 * [Multi-stage builds](http://docs.docker.com/build/building/multi-stage/)
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*
