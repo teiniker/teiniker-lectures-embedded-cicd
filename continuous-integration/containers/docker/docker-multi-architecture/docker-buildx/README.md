@@ -20,7 +20,7 @@ multiple platforms, such as `linux/amd64`, `linux/arm64`, and `windows/amd64`.
 
 
 ## Docker Buildx
-Docker Buildx is an extended build tool for Docker that adds powerful 
+Docker buildx is an extended build tool for Docker that adds powerful 
 features on top of the standard docker build command.
 
 We can build Docker images for multiple CPU platforms from one machine, 
@@ -33,7 +33,7 @@ $ docker buildx create --name multiarch --use
 $ docker buildx ls         
 ```
 
-* `docker buildx create`: Creates a new Buildx builder instance.
+* `docker buildx create`: Creates a new buildx builder instance.
     - Buildx uses “builder instances” to control how and where images are built
     - A builder can be local, remote, multi-node, or connect to Docker 
         drivers like docker-container or kubernetes
@@ -101,35 +101,9 @@ We can test ARM64 container images locally:
 $ docker run --platform=linux/arm64 arm64v8/alpine 
 ```
 
-We can **build ARM64 Docker images** using Buildx:
-
-```bash
-$ docker buildx build --platform linux/arm64 -t hello-cmake:raspi5 --load .
-```
-
-* `docker buildx build`: Uses Buildx, Docker’s advanced builder (BuildKit-powered).
-    Supports multi-architecture builds, caching, and parallel builds.
-
-* `--platform linux/arm64`: Tells Buildx to produce an image whose CPU/OS target is:
-    - OS: Linux
-    - Architecture: ARM64 (aka aarch64)
-
-    This is what Raspberry Pi 5 uses when running a 64-bit OS.
-
-* `-t hello-cmake:raspi5`: Tags the resulting image so Docker can refer to it by name:
-    - repository: hello-cmake
-    - tag: raspi5
-
-* `--load`: Converts the built image into a format the regular Docker daemon can 
-    use and loads it into the local image store. 
-    - Without it, Buildx would not load the image into our local Docker
-    - Buildx normally stores images in its own cache or pushes to a registry
-
-
-
 
 ## References
 
 * [Docker - Multi-platform builds](https://docs.docker.com/build/building/multi-platform/)
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

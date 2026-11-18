@@ -58,6 +58,25 @@ tonistiigi/binfmt   latest            c97f15e717f7   7 weeks ago     83.3MB
 $ docker image history hello-cmake:raspi5
 ```
 
+* `docker buildx build`: Uses Buildx, Docker’s advanced builder (BuildKit-powered).
+    Supports multi-architecture builds, caching, and parallel builds.
+
+* `--platform linux/arm64`: Tells Buildx to produce an image whose CPU/OS target is:
+    - OS: Linux
+    - Architecture: ARM64 (aka aarch64)
+
+    This is what Raspberry Pi 5 uses when running a 64-bit OS.
+
+* `-t hello-cmake:raspi5`: Tags the resulting image so Docker can refer to it by name:
+    - repository: hello-cmake
+    - tag: raspi5
+
+* `--load`: Converts the built image into a format the regular Docker daemon can 
+    use and loads it into the local image store. 
+    - Without it, Buildx would not load the image into our local Docker
+    - Buildx normally stores images in its own cache or pushes to a registry
+
+
 We have built a **Docker image suitable for the Raspberry Pi** 
 (linux/arm64 architecture).
 
@@ -140,4 +159,4 @@ $ docker image rm hello-cmake:raspi5
 
 * [Docker - Multi-platform builds](https://docs.docker.com/build/building/multi-platform/)
 
-*Egon Teiniker, 2025, GPL v3.0*
+*Egon Teiniker, 2025-2026, GPL v3.0*

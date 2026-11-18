@@ -32,8 +32,8 @@ deployment process.
         - Demo: [Flask + Redis](docker-compose/compose-flask/)
 
 * **Multi-Architecture Images**
-    - [Introduction](docker-container/docker-buildx/README.md)
-    - Demo: [C++ Docker Image for ARM64](docker-container/docker-cxx-arm64/)
-    - Demo: [C++ Multi-Stage Docker Image for ARM64](docker-container/docker-cxx-multi-stage-arm64/)
+    - [Introduction](docker-multi-architecture/docker-buildx/README.md)
+    - Demo: [C++ Docker Image for ARM64](docker-multi-architecture/docker-cxx-arm64/)
+    - Demo: [C++ Multi-Stage Docker Image for ARM64](docker-multi-architecture/docker-cxx-multi-stage-arm64/)
 
 *Egon Teiniker, 2025-2026, GPL v3.0*
