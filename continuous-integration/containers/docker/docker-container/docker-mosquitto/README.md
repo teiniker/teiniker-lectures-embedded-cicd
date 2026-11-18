@@ -68,10 +68,10 @@ $ mosquitto_pub -h 127.0.0.1 -t sensors/distance -m "10cm" -d
 
 ```bash
 # Subscriber
-docker exec -it mqtt-broker mosquitto_sub -t sensors/distance -d
+$ docker exec -it mqtt-broker mosquitto_sub -t sensors/distance -d
 
 # Publisher
-docker exec -it mqtt-broker mosquitto_pub -t sensors/distance -m "10cm" -d
+$ docker exec -it mqtt-broker mosquitto_pub -t sensors/distance -m "10cm" -d
 ``` 
 
 ## Clean Up 
@@ -89,7 +89,7 @@ $ docker container rm mqtt-broker
 * [Mosquitto Documentation](https://mosquitto.org/documentation/)
 * [DockerHub: eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto)
 
-_Nicoletta Kähling, Egon Teiniker, 2025, GPL v3.0_
+_Nicoletta Kähling, Egon Teiniker, 2025-2026, GPL v3.0_
 
 
 

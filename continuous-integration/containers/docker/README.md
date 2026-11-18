@@ -8,6 +8,7 @@ deployment process.
         - [Introduction](docker-container/introduction/README.md)
         - Demo: [docker-nginx](docker-container/docker-nginx/)
         - Demo: [docker-busybox](docker-container/docker-busybox/)
+        - Demo: [docker-mosquitto](docker-container/docker-mosquitto/)
     
     - Building Docker Images
         - [Introduction](docker-container/docker-build/README.md)
