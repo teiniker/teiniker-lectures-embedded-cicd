@@ -14,40 +14,27 @@ $ sudo apt update
 
 $ sudo apt install fontconfig 
 
-# jdk21 is already installed
-$ java -version 
-openjdk version "21" 2023-09-19
-OpenJDK Runtime Environment (build 21+35-2513)
-OpenJDK 64-Bit Server VM (build 21+35-2513, mixed mode, sharing)
+# Install OpenJDK 21 System-Wide 
+$ sudo apt install -y openjdk-21-jre fontconfig
+$ /usr/lib/jvm/java-21-openjdk-amd64/bin/java -version
+openjdk version "21.0.13" 2026-10-20
+OpenJDK Runtime Environment (build 21.0.13+9-1-deb13u2-Debian)
+OpenJDK 64-Bit Server VM (build 21.0.13+9-1-deb13u2-Debian, mixed mode, sharing)
 
+# Create the keyrings directory and download the Jenkins GPG key:
+$ sudo mkdir -p /etc/apt/keyrings
+$ sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
 
-$ sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-$ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
+# Add the Jenkins LTS repository to your APT sources:
+$ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | \
+  sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+# Verify: Refresh your package lists to confirm APT reads the repository without GPG signature errors:
 $ sudo apt update
 
 $ sudo apt install jenkins
 ```
-
-* `echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" https://pkg.jenkins.io/debian-stable binary/`: Prints a line of text to standard output
-    - `deb`: defines a binary package repository.
-    - `[signed-by=/etc/apt/keyrings/jenkins-keyring.asc]`: tells APT: Use this specific key file to verify packages from this repo.
-    - `https://pkg.jenkins.io/debian-stable`: URL of the Jenkins APT repository.
-    - `binary/`: The distribution/component part (like stable main, but in this case binary/).
-
-* `sudo tee /etc/apt/sources.list.d/jenkins.list`
-    - `tee`: Reads from standard input and writes it to:
-        - a file (here: /etc/apt/sources.list.d/jenkins.list)
-        - and also to standard output (normally).    
-
-* > `/dev/null`: takes the standard output of tee and discards it
-    - The file still gets written.
-    - You just don’t see any output from tee.
-
-Note that we can't use shell redirection (>) because it happens before sudo is applied.
-Instead we use `tee` and `/dev/null`.
-
 
 Configure the Jenkins service (not enabled at Debian startup):
 
@@ -219,4 +206,4 @@ can be used for some non-trivial scenarios where flow control is needed.
 * [Jenkins Homepage: Installing Jenkins](https://www.jenkins.io/doc/book/installing/linux/)
 
 
-_Egon Teiniker, 2025, GPL v3.0_
+_Egon Teiniker, 2025-2026, GPL v3.0_
