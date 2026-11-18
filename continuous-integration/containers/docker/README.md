@@ -31,9 +31,6 @@ deployment process.
         - Demo: [MariaDB + mysql Client](docker-compose/compose-mariadb)
         - Demo: [Flask + Redis](docker-compose/compose-flask/)
 
-* **Docker on Raspberry Pi 5**
-    - [Setup Docker on Raspi5](docker-raspi5/README.md)
-
 * **Multi-Architecture Images**
     - [Introduction](docker-container/docker-buildx/README.md)
     - Demo: [C++ Docker Image for ARM64](docker-container/docker-cxx-arm64/)
