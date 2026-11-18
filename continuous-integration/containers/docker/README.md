@@ -21,7 +21,6 @@ deployment process.
 
     - Docker Volumes 
         - [Introduction ](docker-container/docker-volumes/)
-        - Demo: [docker-mariadb](docker-container/docker-mariadb)
 
 
 * **Docker Compose**
