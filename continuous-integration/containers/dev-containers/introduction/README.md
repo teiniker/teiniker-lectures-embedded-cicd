@@ -69,36 +69,26 @@ VS Code splits itself into two parts when working with a Dev Container:
 
 ![Dev Container Architecture](figures/dev-container-architecture.png)
 
+
 ### Setup
 
 We need three things on the host:
 
-1. **Docker**
-    * Linux: Docker Engine. To use Docker without `sudo`, add the user to
-        the `docker` group and log in again:
-        ```bash
-        $ sudo usermod -aG docker $USER
-        ```
-    * Windows and macOS: Docker Desktop (on Windows with the WSL 2 backend).
+1. **Docker**: Make sure the Docker Engine is up and running
 
-    Check that Docker works:
     ```bash
-    $ docker run --rm hello-world
+    $ sudo systemctl status docker
     ```
 
-2. **VS Code**
+2. **VS Code** must be installed
 
 3. The VS Code extension **Dev Containers**
-    (`ms-vscode-remote.remote-containers`). Install it from the Extensions
-    view (`Ctrl+Shift+X`) or from the command line:
-    ```bash
-    $ code --install-extension ms-vscode-remote.remote-containers
-    ```
 
-![Dev Container Extension](figures/DevContainerExtension.png)
+    ![Dev Container Extension](figures/DevContainerExtension.png)
 
 After the installation, a **Remote Indicator** appears in the bottom left
 corner of the status bar. Clicking on it shows all Dev Container commands.
+
 
 ### Working with Dev Containers
 
