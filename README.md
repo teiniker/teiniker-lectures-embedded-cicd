@@ -6,10 +6,12 @@ This repository contains examples and documentation for using Continuous Integra
 
 * [Introduction](introduction/README.md)
 
-* [Continuous Integration](continuous-integration/)
+* Continuous Integration
+    - [Introduction](continuous-integration/introduction/README.md)
     - Pre-Commit Stage
         - [Development Practices](continuous-integration/development-practices/README.md)
         - [Embedded Architectures](continuous-integration/embedded-architectures/)
+        - [Embedded Linux Development](https://github.com/teiniker/teiniker-lectures-embedded-linux)
     - Commit Stage
         - [Build Process](continuous-integration/build-process/cxx/)
         - [Containers](continuous-integration/containers/docker/)
@@ -18,7 +20,7 @@ This repository contains examples and documentation for using Continuous Integra
 * [Continuous Delivery](continuous-delivery/)
     - Acceptance Stage
     - Production Stage
-    
+
 
 ## Use of Coding Agents
 This repository was developed using coding agents to assist with design 
