@@ -10,16 +10,8 @@ Install Jenkins directly on the Debian virtual machine, similar to how the
 Docker Engine was installed.
 
 ```bash
-$ sudo apt update
-
-$ sudo apt install fontconfig 
-
 # Install OpenJDK 21 System-Wide 
-$ sudo apt install -y openjdk-21-jre fontconfig
-$ /usr/lib/jvm/java-21-openjdk-amd64/bin/java -version
-openjdk version "21.0.13" 2026-10-20
-OpenJDK Runtime Environment (build 21.0.13+9-1-deb13u2-Debian)
-OpenJDK 64-Bit Server VM (build 21.0.13+9-1-deb13u2-Debian, mixed mode, sharing)
+$ sudo apt install openjdk-25-jre fontconfig
 
 # Create the keyrings directory and download the Jenkins GPG key:
 $ sudo mkdir -p /etc/apt/keyrings
@@ -32,7 +24,6 @@ $ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkin
 
 # Verify: Refresh your package lists to confirm APT reads the repository without GPG signature errors:
 $ sudo apt update
-
 $ sudo apt install jenkins
 ```
 
@@ -74,6 +65,33 @@ user to the `docker` group:
 sudo usermod -aG docker jenkins
 
 # Restart Jenkins
+sudo systemctl restart jenkins
+```
+
+## Changing Portnumber to 9000
+
+Jenkins is managed by systemd, so changing its port requires creating a 
+systemd drop-in override that sets JENKINS_PORT=9000 (rather than editing 
+`/etc/default/jenkins`, which systemd ignores).
+
+Set the New Port via a Systemd Override:
+
+```bash
+# Open the systemd override editor for the Jenkins service:
+$ sudo systemctl edit jenkins
+
+# Add the following lines at the very top of the file:
+[Service]
+Environment="JENKINS_PORT=9000"
+
+# Save and exit the editor (Ctrl+O, Enter, then Ctrl+X if using nano).
+
+# Verify: Confirm the override is loaded into the unit configuration:
+$ sudo systemctl show -p Environment jenkins
+Environment=JENKINS_HOME=/var/lib/jenkins JENKINS_WEBROOT=/var/cache/jenkins/war JAVA_OPTS=-Djava.awt.headless=true JENKINS_PORT=9000
+
+# Reload systemd and restart Jenkins so it binds to port 9000
+sudo systemctl daemon-reload
 sudo systemctl restart jenkins
 ```
 

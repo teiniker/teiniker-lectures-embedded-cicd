@@ -9,27 +9,27 @@ deployment process.
         - Demo: [docker-nginx](docker-container/docker-nginx/)
         - Demo: [docker-busybox](docker-container/docker-busybox/)
         - Demo: [docker-mosquitto](docker-container/docker-mosquitto/)
-    
     - Building Docker Images
         - [Introduction](docker-container/docker-build/README.md)
         - Demo: [docker-python](docker-container/docker-python/)
         - Demo: [docker-flask](docker-container/docker-flask/)
         - Demo: [docker-cxx](docker-container/docker-cxx/)
         - Demo: [docker-cxx-multi-stage](docker-container/docker-cxx-multi-stage/)
-
     - Docker Bind Mounts  
         - Demo: [docker-flask-mount](docker-container/docker-flask-mount/)       
-
     - Docker Volumes 
         - [Introduction ](docker-container/docker-volumes/)
 
 
 * **Docker Compose**
     - [Introduction](docker-compose/introduction/README.md)
+    - [Volumes](docker-compose/compose-volumes/)
+    - [Network](docker-compose/componse-network/)
+    - Examples + Exercises:
+        - Demo: [compose-mariadb](docker-compose/compose-mariadb)
+        - Demo: [compose-message-service](docker-compose/compose-message-service/)
+        - Exercise: [](docker-compose/compose-mosquitto-exercise/) ([Model Solution](docker-compose/compose-mosquitto/))
 
-    - Creating and Starting Services
-        - Demo: [MariaDB + mysql Client](docker-compose/compose-mariadb)
-        - Demo: [Flask + Redis](docker-compose/compose-flask/)
 
 * **Multi-Architecture Images**
     - [Introduction](docker-multi-architecture/docker-buildx/README.md)
