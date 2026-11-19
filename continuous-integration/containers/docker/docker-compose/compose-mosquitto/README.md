@@ -31,9 +31,11 @@ log_dest stdout
     interfaces. Without a `listener`, Mosquitto 2.0 only accepts
     connections from `localhost`, which is the loopback interface
     **inside** the container.
+
 * `allow_anonymous true`: Clients can connect without a username and
     password. This is fine for a local test setup, but not for
     production.
+
 * `log_dest stdout`: Log messages are written to the standard output, so
     we can read them with `docker compose logs`.
 
@@ -76,32 +78,8 @@ services:
   - **Port mapping:** Publishes the MQTT port 1883 on the host, like
     `docker run -p 1883:1883`.
 
-### From Docker Commands to Docker Compose
-
-The following table shows how the commands of the `docker-mosquitto`
-example are mapped to `docker-compose.yml`:
-
-| docker-mosquitto                       | docker-compose-mosquitto        |
-|----------------------------------------|---------------------------------|
-| `docker build ... .`                   | `build: .`                      |
-| `docker build -t my-mosquitto ...`     | `image: my-mosquitto`           |
-| `docker run --name mqtt-broker ...`    | `container_name: mqtt-broker`   |
-| `docker run -p 1883:1883 ...`          | `ports: - "1883:1883"`          |
-| `docker run -d ...`                    | `docker compose up -d`          |
-| `docker container stop` and `rm`       | `docker compose down`           |
-
-So instead of remembering the options of two commands, we write them
-down once in a file which can be versioned together with the code.
-
 
 ## Run the MQTT Broker
-
-On our Linux VM the **Docker Engine** (dockerd) is not started
-automatically to conserve resources. Start it with systemd:
-
-```bash
-$ sudo systemctl start docker
-```
 
 From the project directory, we build the image and start the broker in
 the background:
@@ -115,6 +93,7 @@ mqtt-broker   my-mosquitto   "/docker-entrypoint.…"   mqtt-broker   5 seconds 
 ```
 
 * `-d` (`--detach`): Runs the container in the background.
+
 * `--build`: Builds the image before the container is started. Without
     it, Docker Compose builds the image only if it doesn't exist yet.
 
@@ -138,16 +117,6 @@ The numbers at the beginning of each line are Unix timestamps.
 
 
 ## Using the MQTT Broker from the Command Line
-
-First we have to install the Mosquitto clients on our host:
-
-```bash
-$ sudo apt update
-$ sudo apt install -y mosquitto-clients
-```
-
-This installs `mosquitto_sub` (subscriber) and `mosquitto_pub`
-(publisher).
 
 ### Subscriber
 
@@ -207,4 +176,4 @@ $ docker image rm my-mosquitto eclipse-mosquitto:2.0
 * [DockerHub: eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto)
 * [Docker Compose: build](https://docs.docker.com/reference/compose-file/build/)
 
-_Nicoletta Kähling, Egon Teiniker, 2025-2026, GPL v3.0_
+_Egon Teiniker, 2025-2026, GPL v3.0_
