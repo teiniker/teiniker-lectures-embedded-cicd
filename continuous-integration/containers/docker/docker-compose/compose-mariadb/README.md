@@ -1,16 +1,19 @@
-# Example: MariaDB + mysql Client 
+# Example: MariaDB
 
-In this example we connect a MariaDB database server to a `mysql` client so 
-we can easily work with the database.
+In this example we run a MariaDB database server in a container and
+access it with a `mysql` client which is installed **locally** on the
+host.
 
-The `mysql` client represents various applications that require access to
-the database.
+The local `mysql` client represents various applications that require
+access to the database. We use Docker Compose only to configure the
+database container in a reproducible way, instead of typing a long
+`docker run` command.
 
 ## Docker Compose File
 
-This `docker-compose.yml` file defines two services: `mariadb` and
-`mysql-client`. It also creates a persistent volume so the database data
-isn’t lost when the container is removed.
+This `docker-compose.yml` file defines a single service: `mariadb`.
+It also creates a persistent volume so the database data isn't lost when
+the container is removed.
 
 ```yaml
 services:
@@ -18,30 +21,25 @@ services:
     image: mariadb:13.0.2
     container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: root66
-      MYSQL_DATABASE: testdb
-      MYSQL_USER: student
-      MYSQL_PASSWORD: student
+      MARIADB_ROOT_PASSWORD: root66
+      MARIADB_DATABASE: testdb
+      MARIADB_USER: student
+      MARIADB_PASSWORD: student
     ports:
       - "3306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
-
-  mysql-client:
-    image: mysql:26.10
-    container_name: mysql-client
-    depends_on:
-      - mariadb
-    command: sh -c "sleep 10 && mysql -h mariadb -u student -pstudent testdb"
-    # keeps the container running so you can exec into it if you want
-    tty: true
-    stdin_open: true
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
   mariadb_data:
 ```
 
-* **Service: `mariadb`** 
+* **Service: `mariadb`**
   - **Image:** Runs the official MariaDB image. We use a fixed version tag
     instead of `latest`, so every build uses the same server version.
   - **Container name:** The container is named `mariadb`, so we can refer
@@ -51,100 +49,111 @@ volumes:
     - Root password = **root66**
     - Creates a database named **testdb**
     - Creates a user named **student** with password **student**
-  - **Port mapping:** Exposes the database on port 3306 of the host.
-  - **Volume:** 
+
+    The image also accepts the older names `MYSQL_ROOT_PASSWORD`,
+    `MYSQL_DATABASE`, ..., but `MARIADB_*` are the documented ones.
+  
+  - **Port mapping:** Publishes the database on port 3306 of the host.
+    This is required, because our `mysql` client runs **on the host** and
+    not inside the Docker network. If another database server already
+    uses port 3306 on the host, `docker compose up` fails with
+    "address already in use". In this case we use another host port, for
+    example `"3307:3306"`, and connect with `-P 3307`.
+  
+  - **Volume:**
     - Stores database files outside the container.
     - Ensures data persists even if the container is removed.
-
-* **Service: `mysql-client`**
-  - **Image:** Uses the official MySQL image, which contains the `mysql`
-    command line client.
-  - **Dependency:** `depends_on` ensures the database container starts
-    before the client does. Note that it only waits for the container to
-    start, not for the database server to be ready.
-  - **Startup command:** 
-    - Waits 10 seconds to allow MariaDB to fully start.
-    - Then runs a MySQL client command:
-      - `-h mariadb`: connects by service name over the Docker network
-      - `-u student -pstudent`: logs in with the created user
-      - `testdb`: opens the database
-  - **Keeps the container open:**  
-    - `tty` and `stdin_open` prevent the client from exiting right after
-      it starts.
-    - This allows us to exec into the container and manually run commands:
-    
-      ```bash
-      $ docker exec -it mysql-client mysql -h mariadb -u student -pstudent testdb
-      ```
+  
+  - **Health check:** The image contains the script `healthcheck.sh`.
+    With `--connect --innodb_initialized`, it succeeds only when the
+    server accepts connections and the storage engine is ready. Docker
+    runs this check every 5 seconds and shows the container as
+    **healthy** in `docker compose ps`.
 
 * **Volume definition**
   - Declares the named volume used by MariaDB.
   - Data stored here survives container deletion.
 
 
-## Run the Services
+## Install the mysql Client
 
-From the project directory, start the services and open an interactive
-MySQL session:
+On Debian we install the command line client with:
 
 ```bash
-# Start services in the background
-$ docker compose up -d
+$ sudo apt install mariadb-client
 
-# Verify services are running
+$ mysql --version
+mysql from 11.8.6-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper
+```
+
+The package contains the `mariadb` client and `mysql` as an alias for it.
+The MySQL client (package `mysql-client`) works with MariaDB as well.
+
+
+## Run the Database Server
+
+From the project directory, we start the database server in the
+background:
+
+```bash
+$ docker compose up -d --wait
+ Container mariadb Healthy
+
 $ docker compose ps
-
-# Open an interactive MySQL shell in the mysql-client container
-$ docker exec -it mysql-client mysql -h mariadb -u student -pstudent testdb
-mysql> 
+NAME      IMAGE            COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+mariadb   mariadb:13.0.2   "docker-entrypoint.s…"   mariadb   12 seconds ago   Up 11 seconds (healthy)   0.0.0.0:3306->3306/tcp
 ```
 
-The `docker exec` command **starts an additional process inside an already
-running container**. Here it starts the `mysql` client program inside the
-`mysql-client` container:
+* `-d` (`--detach`): Runs the container in the background and returns to
+    the shell.
 
-* `docker exec`: Runs a command in a running container (the container is
-  not created or restarted).
+* `--wait`: Waits until the container is **healthy**, which means the
+    health check succeeded. So when the command returns, the database is
+    ready and the client can connect immediately.
 
-* `-it`: Combination of two options which we need for an interactive shell:
-  - `-i` (interactive): Keeps `stdin` open, so we can type SQL commands.
-  - `-t` (tty): Allocates a pseudo terminal, so we get a prompt, line
-    editing and formatted output.
+On the first start (with an empty volume), the server initializes the
+database: it starts a temporary server, creates `testdb` and the user
+`student`, and restarts. Without the health check, a client which only
+waits a fixed time (for example `sleep 10`) might connect during this
+restart and fail with:
 
-* `mysql-client`: The name of the container in which the command runs
-  (set by `container_name` in `docker-compose.yml`).
+```
+ERROR 2003 (HY000): Can't connect to MySQL server on ...
+```
 
-* `mysql -h mariadb -u student -pstudent testdb`: The command executed in
-  the container, which starts the MySQL command line client:
-  - `-h mariadb`: Connects to the host `mariadb`. Docker Compose puts both
-    services into a **common network** and its DNS resolves the service
-    name `mariadb` to the IP address of the database container. Therefore,
-    we don't need the port mapping `3306:3306` for this connection; it is
-    only needed for clients running on the host.
-  - `-u student`: Logs in as user `student`.
-  - `-pstudent`: Uses the password `student`. Note that there is **no space**
-    between `-p` and the password. With `-p` alone, the client asks for the
-    password, which is safer because the password does not appear in the
-    shell history or the process list.
-  - `testdb`: Selects `testdb` as the default database (like `USE testdb;`).
 
-Why do we need `docker exec` at all, when the container already starts a
-`mysql` client in its `command`? That client runs as the container's main
-process and is not connected to our terminal. With `docker exec` we start
-a second client which is connected to our terminal.
-
-Instead of the container name, we can also use the **service name** with
-the `docker compose exec` command (the `-it` options are the default here):
+## Connect with the mysql Client
 
 ```bash
-$ docker compose exec mysql-client mysql -h mariadb -u student -pstudent testdb
+$ mysql -h 127.0.0.1 -P 3306 -u student -p testdb
+Enter password: student
+MariaDB [testdb]>
 ```
 
+* `-h 127.0.0.1`: Connects to the host `127.0.0.1` via TCP. The port
+    mapping forwards the connection to the container.
+    Note that we **can't use `-h localhost`** here: for `localhost`, the
+    client uses a local Unix socket instead of TCP, which doesn't exist
+    on the host, because the server runs inside the container:
+
+    ```
+    ERROR 2002 (HY000): Can't connect to local server through socket '/run/mysqld/mysqld.sock' (2)
+    ```
+* `-P 3306`: Uses port 3306 (the host port of the port mapping). Since
+    3306 is the default port, this option can be omitted.
+
+* `-u student`: Logs in as user `student`.
+
+* `-p`: Asks for the password. We could also write `-pstudent` (**no
+    space** between `-p` and the password), but then the password appears
+    in the shell history and the process list.
+
+* `testdb`: Selects `testdb` as the default database (like `USE testdb;`).
 
 Now we can work with the `testdb` database:
 
 ```sql
-mysql> CREATE TABLE user
+MariaDB [testdb]> CREATE TABLE user
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	firstname VARCHAR(255) NOT NULL,
@@ -153,11 +162,11 @@ mysql> CREATE TABLE user
 	password VARCHAR(255) NOT NULL
 ) ENGINE = INNODB;
 
-mysql> INSERT INTO user (firstname, lastname, username, password) VALUES ('Homer', 'Simpson', 'homer', '2aaab795b3836904f82efc6ca2285d927aed75206214e1da383418eb90c9052f');
-mysql> INSERT INTO user (firstname, lastname, username, password) VALUES ('Bart', 'Simpson', 'bart', '9551dadbf76a27457946e70d1aebebe2132f8d3bce6378d216c11853524dd3a6');
-mysql> INSERT INTO user (firstname, lastname, username, password) VALUES ('Lisa', 'Simpson', 'lisa', 'd84fe7e07bedb227cffff10009151d96fc944f6a1bd37cff60e8e4626a1eb1c3');
+MariaDB [testdb]> INSERT INTO user (firstname, lastname, username, password) VALUES ('Homer', 'Simpson', 'homer', '2aaab795b3836904f82efc6ca2285d927aed75206214e1da383418eb90c9052f');
+MariaDB [testdb]> INSERT INTO user (firstname, lastname, username, password) VALUES ('Bart', 'Simpson', 'bart', '9551dadbf76a27457946e70d1aebebe2132f8d3bce6378d216c11853524dd3a6');
+MariaDB [testdb]> INSERT INTO user (firstname, lastname, username, password) VALUES ('Lisa', 'Simpson', 'lisa', 'd84fe7e07bedb227cffff10009151d96fc944f6a1bd37cff60e8e4626a1eb1c3');
 
-mysql> SELECT * FROM user;
+MariaDB [testdb]> SELECT * FROM user;
 +----+-----------+----------+----------+------------------------------------------------------------------+
 | id | firstname | lastname | username | password                                                         |
 +----+-----------+----------+----------+------------------------------------------------------------------+
@@ -167,39 +176,45 @@ mysql> SELECT * FROM user;
 +----+-----------+----------+----------+------------------------------------------------------------------+
 3 rows in set (0.00 sec)
 
-mysql> exit
+MariaDB [testdb]> exit
 ```
 
 The `password` column stores hash values instead of plain text passwords.
 
-If we use the `mysql` client again, we can still access the data:
+For a single query, we don't need an interactive session. The `-e`
+option executes the given SQL statement and exits:
 
 ```bash
-$ docker exec -it mysql-client mysql -h mariadb -u student -pstudent testdb
-
-mysql> SELECT * FROM user;
+$ mysql -h 127.0.0.1 -u student -pstudent testdb -e "SELECT id, username FROM user"
++----+----------+
+| id | username |
++----+----------+
+|  1 | homer    |
+|  2 | bart     |
+|  3 | lisa     |
++----+----------+
 ```
 
-Even when we **remove all containers and recreate them** using Docker
+
+## Persistent Data
+
+Even when we **remove the container and recreate it** using Docker
 Compose, the database data is still there, because it is stored in the
 `mariadb_data` volume:
 
 ```bash
 $ docker compose down
 
-$ docker compose up -d
+$ docker compose up -d --wait
 
-$ docker exec -it mysql-client mysql -h mariadb -u student -pstudent testdb
-mysql> SELECT * FROM user;
+$ mysql -h 127.0.0.1 -u student -p testdb
+MariaDB [testdb]> SELECT * FROM user;
 ```
-
-If the client reports that it can't connect, the database server is still
-starting. Wait a few seconds and try again.
 
 
 ## Clean Up the Scene
 
-To clean up the containers created by Docker Compose, run the following
+To clean up the container created by Docker Compose, run the following
 command:
 
 ```bash
@@ -211,13 +226,12 @@ CONTAINER ID   IMAGE            COMMAND   CREATED      STATUS                  P
 
 The `docker compose down` command stops the services defined in
 `docker-compose.yml` and removes their containers and the network. It
-**does not remove the images and the volume**:
+**does not remove the image and the volume**:
 
 ```bash
 $ docker image ls
 REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
 mariadb      13.0.2    ...
-mysql        26.10     ...
 
 $ docker volume ls
 DRIVER    VOLUME NAME
@@ -237,7 +251,7 @@ $ docker compose down -v
 
 ## References
 * [Docker Compose Quickstart](https://docs.docker.com/compose/gettingstarted/)
+* [Docker Compose: Control startup order](https://docs.docker.com/compose/how-tos/startup-order/)
 * [DockerHub: mariadb](https://hub.docker.com/_/mariadb)
-* [DockerHub: mysql](https://hub.docker.com/_/mysql)
 
 *Egon Teiniker, 2025-2026, GPL v3.0*

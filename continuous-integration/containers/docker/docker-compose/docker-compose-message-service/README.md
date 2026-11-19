@@ -216,10 +216,11 @@ volumes:
 
 * **Service: `message-service`**
   - **Build:** The image is built from `message-service/Dockerfile`.
-  - **Dependency:** In the `compose-mariadb` example, `depends_on` only
-    waited for the database container to **start**, so the client needed
-    a `sleep 10`. Here we use `condition: service_healthy`: the Message
-    Service is started only after the health check of `mariadb` succeeds.
+  - **Dependency:** A plain `depends_on: [mariadb]` only waits for the
+    database container to **start**, not for the server to be ready.
+    With `condition: service_healthy`, the Message Service is started
+    only after the health check of `mariadb` succeeds (see the
+    `compose-mariadb` example).
   - **Environment variables:** The connection parameters for `MessageDao`.
     `DB_HOST: mariadb` is the **service name**, which the Docker DNS
     resolves to the IP address of the database container.
