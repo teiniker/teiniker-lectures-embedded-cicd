@@ -1,0 +1,18 @@
+Extercise: Docker Compose - Mosquitto 
+-------------------------------------------------------------------------------
+
+Given the Docker file to create a Mosquitto image with our configurations.
+
+A) docker-compose.yml
+Write a docker-compose.yml file, which defines a service called "mqtt-broker",
+which build the Docker image with the name "my-mosquitto".
+Create a container with the name "mqtt-broker".
+Export the port number 1883.
+
+B) Test Mosquitto Container 
+Run the following command line instructions:
+
+$ docker compose up -d --build
+$ mosquitto_sub -h 127.0.0.1 -t sensors/distance -d
+$ mosquitto_pub -h 127.0.0.1 -t sensors/distance -m "10cm" -d
+$ docker compose down
