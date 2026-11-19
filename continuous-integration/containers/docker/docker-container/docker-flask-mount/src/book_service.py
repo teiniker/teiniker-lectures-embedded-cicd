@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 table = [
     {'id':1, 'author':'Eric Matthes','title':'Python Crash Course', 'isbn':'978-1718502703'},
     {'id':2, 'author':'Brett Slatkin','title':'Effective Python', 'isbn':'978-0134853987'},
-    {'id':3, 'author':'Luciano Ramalho','title':'Fluent Python', 'isbn':'978-1492056355'}
+    {'id':66, 'author':'Luciano Ramalho','title':'Fluent Python', 'isbn':'978-1492056355'}
 ]
 
 app = Flask(__name__)
