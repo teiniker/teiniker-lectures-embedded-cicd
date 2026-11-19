@@ -1,0 +1,7 @@
+services:
+  mqtt-broker:
+    build: .
+    image: my-mosquitto
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
