@@ -7,7 +7,7 @@ This repository contains examples and documentation for using Continuous Integra
 * [Introduction](introduction/README.md)
 
 * [Continuous Integration](continuous-integration/)
-    - Pre-Compit Stage
+    - Pre-Commit Stage
         - [Development Practices](continuous-integration/development-practices/README.md)
         - [Embedded Architectures](continuous-integration/embedded-architectures/)
     - Commit Stage
@@ -16,7 +16,9 @@ This repository contains examples and documentation for using Continuous Integra
         - [CI Infrastructure](continuous-integration/ci-infrastructure/)
 
 * [Continuous Delivery](continuous-delivery/)
-
+    - Acceptance Stage
+    - Production Stage
+    
 
 ## Use of Coding Agents
 This repository was developed using coding agents to assist with design 
