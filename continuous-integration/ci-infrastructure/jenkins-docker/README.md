@@ -26,7 +26,7 @@ into a Docker image.
   - `CASC_JENKINS_CONFIG`: Points Jenkins to your JCasC config
 
 * Ports:
-  - `8080`: Jenkins Web UI
+  - `9000`: Jenkins Web UI
   - `50000`: JNLP agent port
 
 
@@ -72,7 +72,7 @@ jenkins:
 
 unclassified:
   location:
-    url: "http://localhost:8080/"
+    url: "http://localhost:9000/"
 ```
 
 * Security Realm: 
@@ -109,7 +109,7 @@ $ docker-compose build
 **Access the Jenkins Web GUI**: 
 
 ```
-URL: http://localhost:8080/
+URL: http://localhost:9000/
 ```
 
 
