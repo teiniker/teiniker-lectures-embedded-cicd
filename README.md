@@ -7,6 +7,13 @@ This repository contains examples and documentation for using Continuous Integra
 * [Introduction](introduction/README.md)
 
 * [Continuous Integration](continuous-integration/)
+    - Pre-Compit Stage
+        - [Development Practices](continuous-integration/development-practices/README.md)
+        - [Embedded Architectures](continuous-integration/embedded-architectures/)
+    - Commit Stage
+        - [Build Process](continuous-integration/build-process/cxx/)
+        - [Containers](continuous-integration/containers/docker/)
+        - [CI Infrastructure](continuous-integration/ci-infrastructure/)
 
 * [Continuous Delivery](continuous-delivery/)
 
