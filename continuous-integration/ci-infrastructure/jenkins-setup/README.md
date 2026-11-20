@@ -10,7 +10,7 @@ Install Jenkins directly on the Debian virtual machine, similar to how the
 Docker Engine was installed.
 
 ```bash
-# Install OpenJDK 21 System-Wide 
+# Install OpenJDK System-Wide 
 $ sudo apt install openjdk-25-jre fontconfig
 
 # Create the keyrings directory and download the Jenkins GPG key:
