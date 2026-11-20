@@ -4,8 +4,8 @@ Docker solves the "it works on my machine" problem by packaging applications
 and their dependencies into containers. This makes it easy to run the same 
 application on different environments, such as development, testing, and production.
 
-But containerization by itself only solves part of the problem. Containers 
-share the host kernel, which means that the code that's running inside the 
+But containerization by itself only solves part of the problem. **Containers 
+share the host kernel**, which means that the code that's running inside the 
 container must be compatible with the host's architecture. 
 This is why we can't run a `linux/amd64` container on an `arm64` host 
 (without using emulation), or a Windows container on a Linux host.
@@ -90,11 +90,6 @@ $ docker run --privileged --rm tonistiigi/binfmt --install arm64
 * `--install arm64`: Installs the emulator for ARM64 only.
     - We could also do: `--install all` to install interpreters for most 
     architectures (`arm`, `arm64`, `s390x`, `ppc64le`, `riscv`, etc.).
-
-Now, we can run ARM64 binaries directly:
-```bash
-$ ./some-arm64-binary
-```
 
 We can test ARM64 container images locally:
 
