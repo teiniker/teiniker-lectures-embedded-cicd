@@ -103,11 +103,14 @@ class MessageDao:
 * **Connection parameters:** The database host, port, user, password and
     database name are read from **environment variables**. So the same
     image can be used with different databases, without changing the code.
+
 * **Placeholders:** PyMySQL uses `%s` instead of `?` as placeholder in
     SQL statements. The values are still passed separately, so they are
     escaped by the driver (no SQL injection).
+
 * **`autocommit`:** Every statement is committed immediately, like the
     `with sqlite3.connect(...)` block in the SQLite version.
+
 * **`CLIENT.FOUND_ROWS`:** By default, MariaDB returns the number of
     **changed** rows for an `UPDATE`. If the new values are equal to the
     old ones, this would be 0 and the service would respond with
@@ -197,17 +200,21 @@ volumes:
 
 * **Service: `mariadb`**
   - **Image:** The official MariaDB image with a fixed version tag.
+
   - **Environment variables:** Create the root password, the database
     **testdb** and the user **student** (password **student**) when the
     server initializes for the first time.
+
   - **No port mapping:** The database is only used by the Message Service,
     which reaches it over the Docker network. So port 3306 is **not**
     published on the host.
+
   - **Volumes:**
     - `mariadb_data`: A named volume which stores the database files, so
       the data survives when the container is removed.
     - `./sql`: The SQL scripts for the first start, mounted read only
       (`:ro`).
+
   - **Health check:** The image contains the script `healthcheck.sh`.
     With `--connect --innodb_initialized`, it succeeds only when the
     server accepts connections and the storage engine is ready. Docker
@@ -216,14 +223,17 @@ volumes:
 
 * **Service: `message-service`**
   - **Build:** The image is built from `message-service/Dockerfile`.
+
   - **Dependency:** A plain `depends_on: [mariadb]` only waits for the
     database container to **start**, not for the server to be ready.
     With `condition: service_healthy`, the Message Service is started
     only after the health check of `mariadb` succeeds (see the
     `compose-mariadb` example).
+
   - **Environment variables:** The connection parameters for `MessageDao`.
     `DB_HOST: mariadb` is the **service name**, which the Docker DNS
     resolves to the IP address of the database container.
+
   - **Port mapping:** Publishes the service on port 8080 of the host.
 
 
@@ -256,6 +266,7 @@ The `docker compose up` command uses two options:
     exist yet. Later starts reuse the existing image, even if we changed
     the Python files, `requirements.txt` or the `Dockerfile`. The
     container would still run the **old code**.
+    
   - With `--build`, our changes end up in the image. The layer cache is
     still used: if only the `.py` files changed, the `pip install` layer
     is reused and the rebuild takes only a few seconds.

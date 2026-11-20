@@ -15,6 +15,7 @@ deployment process.
         - Demo: [docker-flask](docker-container/docker-flask/)
         - Demo: [docker-cxx](docker-container/docker-cxx/)
         - Demo: [docker-cxx-multi-stage](docker-container/docker-cxx-multi-stage/)
+    - [Exec](docker-container/docker-exec/README.md)
     - [Port Mapping](docker-container/docker-port-mapping/README.md) 
     - [Environment Variables](docker-container/docker-environment/README.md)
     - Bind Mounts  
