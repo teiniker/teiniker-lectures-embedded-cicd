@@ -18,7 +18,7 @@ deployment process.
     - [Exec](docker-container/docker-exec/README.md)
     - [Port Mapping](docker-container/docker-port-mapping/README.md) 
     - [Environment Variables](docker-container/docker-environment/README.md)
-    - Bind Mounts  
+    - [Bind Mounts](docker-container/docker-mount/README.md)  
         - Demo: [docker-flask-mount](docker-container/docker-flask-mount/)       
     - [Volumes](docker-container/docker-volumes/)
 
