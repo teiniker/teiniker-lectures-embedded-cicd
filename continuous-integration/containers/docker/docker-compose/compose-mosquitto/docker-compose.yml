@@ -1,6 +1,6 @@
 services:
   mqtt-broker:
-    build: .
+    build: ./
     image: my-mosquitto
     container_name: mqtt-broker
     ports:

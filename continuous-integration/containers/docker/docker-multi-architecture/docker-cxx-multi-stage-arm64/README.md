@@ -42,15 +42,7 @@ CMD ["./hello"]
 
 We can build a multi-platform image from the `Dockerfile`:
 
-```bash
-# Creates a new Buildx builder instance (if not already done)
-$ docker buildx create --name multiarch --use
-
-# Install QEMU emulation support on our machine (if not already done)
-$ docker run --privileged --rm tonistiigi/binfmt --install arm64
-```
-
-Now, let's build a multi-platform Docker image and run a container 
+Let's build a multi-platform Docker image and run a container 
 using the QEMU emulator on the host system:
 
 ```bash
@@ -82,7 +74,7 @@ Hello world using CMake!
 We save the image in a tarball and deploy it to a Raspberry Pi:
 
 ```bash
-$ docker save -o hello-cmake.tar hello-cmake
+$ docker save -o hello-cmake.tar hello-cmake:raspi5
 
 # Copy image file to Raspi5
 $ scp ./hello-cmake.tar student@<raspi-ip-address>:/home/student/Downloads
