@@ -42,8 +42,10 @@ volumes:
 * **Service: `mariadb`**
   - **Image:** Runs the official MariaDB image. We use a fixed version tag
     instead of `latest`, so every build uses the same server version.
+
   - **Container name:** The container is named `mariadb`, so we can refer
     to it by name in Docker commands.
+  
   - **Environment variables:** Set up the database when the server
     initializes for the first time (with an empty volume):
     - Root password = **root66**
@@ -73,21 +75,6 @@ volumes:
 * **Volume definition**
   - Declares the named volume used by MariaDB.
   - Data stored here survives container deletion.
-
-
-## Install the mysql Client
-
-On Debian we install the command line client with:
-
-```bash
-$ sudo apt install mariadb-client
-
-$ mysql --version
-mysql from 11.8.6-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper
-```
-
-The package contains the `mariadb` client and `mysql` as an alias for it.
-The MySQL client (package `mysql-client`) works with MariaDB as well.
 
 
 ## Run the Database Server
