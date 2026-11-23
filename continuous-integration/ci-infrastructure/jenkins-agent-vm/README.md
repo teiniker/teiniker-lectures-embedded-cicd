@@ -12,7 +12,7 @@ $ sudo systemctl status jenkins
 Access the Jenkins Web GUI:
 
 ```bash
-URL: http://localhost:8080/
+URL: http://localhost:9000/
 ```
 
 
@@ -71,10 +71,7 @@ We use the `jenkins-pipeline-cxx` with `Jenkinsfile-agent-vm`:
         - Branches to build: `*/main` 
       - Script Path: **Jenkinsfile-agent-vm**
 
-
-
-
-_Nicoletta Kähling, Egon Teiniker, 2025, GPL v3.0_    
+_Nicoletta Kähling, Egon Teiniker, 2025-2026, GPL v3.0_    
 
 
 
