@@ -5,7 +5,7 @@ This setup provides an automated, preconfigured Jenkins environment using:
 * Jenkins LTS inside a Docker container
 * Jenkins Configuration as Code (JCasC) for automated configuration
 * Preinstalled Jenkins plugins (workflow-aggregator, git, warnings-ng)
-* Installed system tools for Python, C, and C++ development in a Dockerfile
+* Installed **build tools for Python, C, and C++** development in a Dockerfile
 * Persistent Jenkins home directory
 * Automatic admin account creation
 * Setup wizard disabled
@@ -98,7 +98,6 @@ container:
 $ docker-compose up -d 
 ```
 
-
 If we make changes to the Dockerfile (e.g., install additional development tools), 
 then we need to **rebuild the image**:
 
@@ -144,4 +143,4 @@ Save these settings.
 * [Jenkins: Managing Plugins](https://www.jenkins.io/doc/book/managing/plugins/#installing-plugins)
 
 
-_Nicoletta Kähling, Egon Teiniker, 2025, GPL v3.0_
+_Nicoletta Kähling, Egon Teiniker, 2025-2026, GPL v3.0_
