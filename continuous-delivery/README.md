@@ -1,13 +1,12 @@
 # Continuous Delivery 
 
-**Continuous Delivery (CD)** builds upon Continuous Integration by ensuring that every change 
-is automatically tested and kept in a deployable state, enabling rapid and reliable releases 
-to production at any time.
+**Continuous Delivery (CD)** builds upon Continuous Integration by ensuring 
+that every change is automatically tested and kept in a deployable state, 
+enabling rapid and reliable releases to production at any time.
 
+* [Introduction](introduction/README.md)
 
-![CD Process](figures/CD-Process.png)
-
-* [Acceptance Stage](acceptance-stage/README.md)
+* Acceptance Stage
     - [Executable Specification](executable-specification/README.md)
     - [Penetration Testing](../embedded-architectures/penetration-testing/)
 
