@@ -1,4 +1,4 @@
-# Example: CI/CD for REST Service
+# Example: CI/CD for REST Services
 
 In this example, we see the combination of a CI and a CD pipeline.
 
@@ -38,8 +38,9 @@ We use the `jenkins-pipeline-flask` with `Jenkinsfile-ci`:
 
 ### Install Copy Artifact Plugin
 
-The Jenkins Copy Artifact plugin (`copyArtifacts`) is a commonly used plugin that allows 
-one job or pipeline to retrieve build artifacts produced by another job or by earlier stages/builds.
+The Jenkins **Copy Artifact plugin** (`copyArtifacts()`) is a commonly used plugin that allows 
+one job or pipeline to retrieve build artifacts produced by another job or by earlier 
+stages/builds.
 
 ### Configure Jenkins Job (CD Pipeline)
 
@@ -57,4 +58,4 @@ one job or pipeline to retrieve build artifacts produced by another job or by ea
       - Script Path: **Jenkinsfile-cd**
 
 
-_Nicoletta Kähling, Egon Teiniker, 2025, GPL v3.0_  
+_Nicoletta Kähling, Egon Teiniker, 2025-2026, GPL v3.0_  
