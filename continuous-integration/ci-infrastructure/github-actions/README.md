@@ -190,24 +190,6 @@ jobs:
 If a command fails (exit code not 0), the step fails, the following
 steps are skipped, and the whole run is marked as **failed**.
 
-### Why Not `container:`?
-
-GitHub Actions can also run a whole job in a container:
-
-```yaml
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    container: gcc:15
-```
-
-Then all steps, including the actions, run inside this container. This
-doesn't work with our image: it is based on **Alpine Linux** (musl C
-library), and JavaScript actions like `actions/checkout` and
-`actions/upload-artifact` can't be executed in Alpine containers.
-Besides, `container:` expects an existing image from a registry, not a
-`Dockerfile` in the repository. Therefore, the workflow builds the image
-itself and starts a container only for the build and test commands.
 
 ### Running the Workflow
 
@@ -256,6 +238,7 @@ The main difference is **who operates the CI infrastructure**:
     Jenkins server and its plugins. The jobs are created in the web UI
     (only the pipeline itself is in the repository). The builds run on
     machines we control, and the code never leaves our network.
+
 * **GitHub Actions:** GitHub operates everything. We only write the
     workflow file, which is part of the repository, so the **complete CI
     configuration is versioned** with the code. There is no server to
@@ -288,9 +271,11 @@ events like pull requests, issues or releases.
     the tools installed on the node. Fast and simple, but every project
     depends on what the administrator installed, and leftovers from
     previous builds remain in the workspace.
+
 * **Jenkins with Docker:** The tools come from the `Dockerfile` in the
     repository. The environment is reproducible, and the local Docker
     cache makes repeated builds fast.
+
 * **GitHub Actions:** Every job starts on a **new, clean VM**. Nothing
     survives between runs, unless we store it explicitly (artifacts,
     cache). This makes builds very reproducible, but also means that
@@ -300,6 +285,7 @@ events like pull requests, issues or releases.
 
 GitHub-hosted runners are machines in a data center. They **can't
 access** our lab network, our Raspberry Pi or any connected hardware.
+
 For embedded systems this means:
 * Building and running unit tests in a container or for `x86_64`/`arm64`
     works well on hosted runners.
@@ -313,8 +299,10 @@ For embedded systems this means:
 * GitHub-hosted runners are free for **public** repositories. For
     private repositories, a monthly quota of runner minutes is included,
     depending on the GitHub plan.
+
 * A job can run for at most 6 hours on a hosted runner, and artifacts
     are deleted after a retention period (90 days by default).
+
 * Our local Jenkins has no such limits, but we pay with our own
     hardware and the time to maintain it.
 
