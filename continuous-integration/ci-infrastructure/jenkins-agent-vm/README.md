@@ -21,7 +21,7 @@ URL: http://localhost:9000/
 **Add a new Jenkins agent** (node):
 
 * On the Jenkins web UI:	
-	- Go to `Manage Jenkins / Nodes`
+	- Go to `(Gear) Manage Jenkins / Nodes`
 		- Click `[New Node]`
 			- Node name: linux-vm
 			- Choose “Permanent Agent” 
