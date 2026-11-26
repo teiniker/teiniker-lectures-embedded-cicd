@@ -7,7 +7,7 @@ enabling rapid and reliable releases to production at any time.
 * [Introduction](introduction/README.md)
 
 * Acceptance Stage
-    - [Acceptance Tests]([executable-specification/README.md](https://github.com/teiniker/teiniker-lectures-embedded-softwarequality/tree/main/testing/acceptance-tests))
+    - [Acceptance Tests]([executable-specification/README.md](https://github.com/teiniker/teiniker-lectures-embedded-softwarequality/tree/main/testing/acceptance-tests)
     - [Security Tests](security-tests/)
 
 * [Release Into Production](release-into-production/README.md)
