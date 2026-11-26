@@ -79,9 +79,7 @@ We use the `jenkins-pipeline-flask` with `Jenkinsfile-ci`:
 The name of the job is important: the CD pipeline refers to it.
 
 With **Poll SCM**, Jenkins checks the repository every two minutes and
-only starts a build if there is a **new commit**. In contrast,
-**Build periodically** starts a build at the given times, even if nothing
-has changed.
+only starts a build if there is a **new commit**. 
 
 ### Stages of the CI Pipeline
 
