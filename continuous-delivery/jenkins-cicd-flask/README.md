@@ -22,14 +22,14 @@ two Jenkins pipelines:
          triggered by a commit             triggered by a successful CI build
 ```
 
-The example can be found in the following GitHub repository:
+The target project can be found in the following GitHub repository:
 
 ```
 https://github.com/teiniker/jenkins-pipeline-flask
 ```
 
-The acceptance tests are specified as user stories with acceptance
-criteria in `UserStories.md`.
+The acceptance tests are specified from user stories with acceptance
+criteria, see: `UserStories.md`.
 
 
 ## Setup Jenkins
