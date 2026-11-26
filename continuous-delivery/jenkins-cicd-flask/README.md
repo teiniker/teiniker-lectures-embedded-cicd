@@ -1,7 +1,6 @@
 # Example: CI/CD for REST Services
 
-In this example, we implement the first part of a **Deployment Pipeline**
-(see [Introduction to Continuous Delivery](../introduction/README.md)) with
+In this example, we implement the **CI/CD Pipeline** with
 two Jenkins pipelines:
 
 * **CI Pipeline (Commit Stage)**: The Python REST service is tested with
