@@ -71,7 +71,7 @@ $ make
 $ sudo make install
 
 code .bashrc
-export CT_NG_HOME=/op/ct-ng 
+export CT_NG_HOME=/opt/ct-ng 
 To the PATH environment variable add: /opt/ct-ng/bin 
 
 $ ct-ng --version
