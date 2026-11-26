@@ -47,7 +47,7 @@ We need the following settings for a new Jenkins job:
 	- Pipeline
     - Description (optional)
     - Build Triggers 
-	    - Poll SCM: `H/1 * * * *`
+	    - Poll SCM: `H/2 * * * *`
     - Pipeline / Definition: 
       - Pipeline: Pipeline Script from SCM: 
         - SCM: Git 

@@ -62,8 +62,8 @@ With SSH connectivity verified, we can proceed to **configure the Jenkins agent*
 		- Number of executors: 1
 		- Remote root directory: `/home/student`
 		- Labels: 
-		- Usage: `Use this node as much as possible`
-		- Launch method: ` Launch agents via SSH`
+		- Usage: `Only build jobs with label expressions matching this node`
+		- Launch method: `Launch agents via SSH`
 			- Host: <ip address>
 			- Credentials: <username> / <password>
 				- Add Credentials
@@ -87,7 +87,7 @@ We use the `jenkins-pipeline-cxx` with `Jenkinsfile-agent-raspi`:
 	- Pipeline
     - Description (optional)
     - Build Triggers 
-	    - Poll SCM: `H/1 * * * *`
+	    - Poll SCM: `H/2 * * * *`
     - Pipeline / Definition: 
       - Pipeline: Pipeline Script from SCM: 
         - SCM: Git 
