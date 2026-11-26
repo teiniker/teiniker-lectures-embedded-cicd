@@ -46,8 +46,8 @@ URL: http://localhost:9000/
 	
         ```bash
         $ cd Downloads 
-        $ curl -sO http://localhost:8080/jnlpJars/agent.jar
-        $ java -jar agent.jar -url http://localhost:8080/ -secret <YOURSECRET> -name "linux-vm" -webSocket -workDir "/home/student"
+        $ curl -sO http://localhost:9000/jnlpJars/agent.jar
+        $ java -jar agent.jar -url http://localhost:9000/ -secret <YOURSECRET> -name "linux-vm" -webSocket -workDir "/home/student"
         ```
     
     The Linux VM agent can now use pre-installed tools (e.g., crosstool-ng) for builds.
