@@ -1,0 +1,16 @@
+{
+    "name": "C++ Cross Compiler (Raspberry Pi 5)",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    },
+    "postCreateCommand": "cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=/opt/x-tools/toolchain-rpi5.cmake"
+}
