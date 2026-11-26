@@ -374,11 +374,6 @@ The **fingerprint** of the wheel file shows that both pipelines used the
 same file: `Flask CI Pipeline #31` (built and archived) and
 `Flask CD Pipeline #31` (tested).
 
-Note that both pipelines use `agent any`. Here, the CI pipeline ran on the
-built-in node (x86_64) and the CD pipeline on the Raspberry Pi agent
-(aarch64). This works because the wheel contains only Python code
-(`py3-none-any`: any Python 3, no ABI, any platform).
-
 After this first run, Jenkins has registered the `upstream` trigger, and
 every successful CI build starts the CD pipeline automatically. The log
 of the CD pipeline then starts with
