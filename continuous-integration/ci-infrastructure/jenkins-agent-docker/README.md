@@ -1,5 +1,12 @@
 # Example: Jenkins and Docker Agent
 
+The project also contains a `Dockerfile`. Jenkins builds an image from it
+and runs the build inside a **Docker container**. So the build
+environment is defined in the project, and not on the VM.
+
+![](figures/docker_agent.png)
+
+
 ## Setup Jenkins
 
 Start the native Jenkins service:

@@ -216,7 +216,6 @@ own operations.
 can be used for some non-trivial scenarios where flow control is needed.
 
 
-
 ## References
 
 * [YouTube: How to Setup Docker Containers As Build Agents for Jenkins](https://youtu.be/ymI02j-hqpU?si=rHKmVRh3_S4euWDG)

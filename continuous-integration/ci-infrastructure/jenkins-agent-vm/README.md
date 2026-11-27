@@ -1,5 +1,11 @@
 # Example: Jenkins and Linux VM Agent
 
+The build runs directly on the Linux VM, next to the Jenkins server.
+The build uses the tools (compiler, CMake, ...) installed on the VM.
+
+![](figures/linux_vm_agent.png)
+
+
 ## Setup Jenkins
 
 Start the native Jenkins service:
