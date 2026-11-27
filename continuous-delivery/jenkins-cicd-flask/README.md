@@ -1,7 +1,6 @@
 # Example: CI/CD for REST Services
 
-In this example, we implement the first part of a **Deployment Pipeline**
-(see [Introduction to Continuous Delivery](../introduction/README.md)) with
+In this example, we implement the **CI/CD Pipeline** with
 two Jenkins pipelines:
 
 * **CI Pipeline (Commit Stage)**: The Python REST service is tested with
@@ -23,14 +22,14 @@ two Jenkins pipelines:
          triggered by a commit             triggered by a successful CI build
 ```
 
-The example can be found in the following GitHub repository:
+The target project can be found in the following GitHub repository:
 
 ```
 https://github.com/teiniker/jenkins-pipeline-flask
 ```
 
-The acceptance tests are specified as user stories with acceptance
-criteria in `UserStories.md`.
+The acceptance tests are specified from user stories with acceptance
+criteria, see: `UserStories.md`.
 
 
 ## Setup Jenkins
@@ -80,9 +79,7 @@ We use the `jenkins-pipeline-flask` with `Jenkinsfile-ci`:
 The name of the job is important: the CD pipeline refers to it.
 
 With **Poll SCM**, Jenkins checks the repository every two minutes and
-only starts a build if there is a **new commit**. In contrast,
-**Build periodically** starts a build at the given times, even if nothing
-has changed.
+only starts a build if there is a **new commit**. 
 
 ### Stages of the CI Pipeline
 
@@ -376,11 +373,6 @@ Finished: SUCCESS
 The **fingerprint** of the wheel file shows that both pipelines used the
 same file: `Flask CI Pipeline #31` (built and archived) and
 `Flask CD Pipeline #31` (tested).
-
-Note that both pipelines use `agent any`. Here, the CI pipeline ran on the
-built-in node (x86_64) and the CD pipeline on the Raspberry Pi agent
-(aarch64). This works because the wheel contains only Python code
-(`py3-none-any`: any Python 3, no ABI, any platform).
 
 After this first run, Jenkins has registered the `upstream` trigger, and
 every successful CI build starts the CD pipeline automatically. The log
