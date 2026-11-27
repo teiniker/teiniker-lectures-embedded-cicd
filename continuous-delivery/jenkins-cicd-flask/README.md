@@ -11,16 +11,7 @@ two Jenkins pipelines:
     from the CI pipeline and installed, the Flask server is started, and
     the **acceptance tests** are executed against the running service.
 
-```
- Flask CI Pipeline (Commit Stage)        Flask CD Pipeline (Acceptance Stage)
-+--------------------------------+       +----------------------------------+
-| setup                          |       | download wheel  (copyArtifacts)  |
-| unit test                      |       | install wheel                    |
-| package    -> book_service.whl | ----> | start service                    |
-| archive the wheel              |       | acceptance tests                 |
-+--------------------------------+       +----------------------------------+
-         triggered by a commit             triggered by a successful CI build
-```
+![Flask CI/CD Pipeline](figures/cicd-pipeline.png)
 
 The target project can be found in the following GitHub repository:
 
