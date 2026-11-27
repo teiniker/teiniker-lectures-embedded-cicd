@@ -10,6 +10,7 @@ directory:
 
 * `Dockerfile` (or a reference to an existing image): describes the
     **tools** which are available in the container.
+
 * `devcontainer.json`: describes **how** the container is created and
     configured, for example which editor extensions are installed or which
     commands run after the container has been created.
@@ -25,11 +26,14 @@ Advantages of Dev Containers:
 
 * **Reproducible environment**: All developers use the same compiler
     version, the same CMake version and the same libraries.
+
 * **Fast onboarding**: A new team member only needs Docker and an editor.
     The first start of the container sets up everything else.
+
 * **No conflicts on the host**: Different projects can use different
     toolchains (e.g. different GCC versions or cross compilers) without
     affecting each other or the host system.
+
 * **Same environment in CI**: The same image can be used in the CI pipeline,
     so "it works on my machine" also means "it works on the build server".
 

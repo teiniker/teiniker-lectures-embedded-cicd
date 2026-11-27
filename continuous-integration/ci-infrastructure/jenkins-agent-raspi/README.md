@@ -1,5 +1,12 @@
 # Example: Jenkins and Raspberry Pi 5 Agent
 
+The Jenkins server connects to a Raspberry Pi via **SSH** and starts the
+`agent.jar` there. The build runs on the **target hardware**, which is
+connected to a sensor stub.
+
+![](figures/raspi_agent.png)
+
+
 ## Setup Jenkins
 
 Start the native Jenkins service:
