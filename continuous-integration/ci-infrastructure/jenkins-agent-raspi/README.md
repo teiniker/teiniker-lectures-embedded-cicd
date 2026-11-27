@@ -19,11 +19,7 @@ URL: http://localhost:9000/
 ## Setup Java on Raspi 5
 
 When you use SSH launch, Jenkins connects to the Raspberry Pi, copies over
-the agent program `remoting.jar`, and then runs it with Java:
-
-```bash
-$ java -jar remoting.jar
-```
+the agent program `remoting.jar`, and then runs it with Java
 
 So even though the connection starts with SSH, the actual agent process is 
 still a Java application. Without Java, Jenkins cannot start the agent.
@@ -70,7 +66,7 @@ With SSH connectivity verified, we can proceed to **configure the Jenkins agent*
 					- Domain: Global credentials 
 					- Kind: Username with password 
 					- Scope: Global 
-			- Host Key Verification Strategy: Manually trusted key Verification Strategy
+			- Host Key Verification Strategy: Non verifing Verification Strategy
 				- Check: `Require manual verification of initial connection`
 		- Availability: `Keep this agent online as much as possible` 
 		- `[Save]`

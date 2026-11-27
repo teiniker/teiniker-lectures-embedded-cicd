@@ -95,6 +95,7 @@ NAME="Alpine Linux"
 $ g++ --version
 g++ (Alpine 15.2.0) 15.2.0
 
+$ cmake -S . -B build
 $ cmake --build build
 $ ./build/hello
 Hello world using CMake!

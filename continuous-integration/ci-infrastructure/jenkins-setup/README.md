@@ -11,6 +11,7 @@ Docker Engine was installed.
 
 ```bash
 # Install OpenJDK System-Wide 
+$ sudo apt update
 $ sudo apt install openjdk-25-jre fontconfig
 
 # Create the keyrings directory and download the Jenkins GPG key:
